@@ -5,13 +5,21 @@
     outline: 0;
     box-sizing: 0;
 }
-body{
+img{
+    margin-left: 0;
+    width: 5%;
+    height: 5%;
+}
+.container{
+ background-color: black;
+}
+/* body{
     font:400 14px 'Roboto', sans-serif;
     background: #f0f0f5;
     -webit-font-smoothing:antialiased;
     
-}
-    .logon-container{
+} */
+    /* .logon-container{
     
         width: 100%;
         height: 100%;
@@ -94,4 +102,4 @@ body{
   .dashboard-container{
     display: flex;
     flex-direction: row;
-  }
+  } */
