@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const sqlite3 = require("sqlite3").verbose();
 const db = new sqlite3.Database("database.db");
+
+//testandooo
 db.run(`CREATE TABLE IF NOT EXISTS 
          usuario (
             id INTEGER PRIMARY KEY AUTOINCREMENT, 
