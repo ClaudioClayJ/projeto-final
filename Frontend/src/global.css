@@ -132,6 +132,12 @@ h3:hover {
     background-color: #c2185b; /* Escurece a cor de fundo no hover */
 }
 
+.centro
+{
+    margin-top: 16%;
+    background-color: #c2185b;
+}
+
 /* Responsividade para telas menores */
 @media (max-width: 768px) {
     .row {
