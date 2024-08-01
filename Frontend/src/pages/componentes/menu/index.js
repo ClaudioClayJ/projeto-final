@@ -6,11 +6,12 @@ export default function Menu() {
   return (
     <div className="container">
       <div className="row">
-        <div className="col">
+      <div className="col">
           <img src={logo} alt="Logo" />
         </div>
-        <div className="col">
-          Nome Academia
+        
+        <div className="col center">
+          <h1>Nome Academia </h1>
         </div>
         <div className="col">
           <FaFacebookSquare size={30} color="#4267B2" />
