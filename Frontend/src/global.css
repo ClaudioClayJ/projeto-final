@@ -10,6 +10,7 @@
 img {
     width: 100px; /* Ajuste conforme necessário */
     height: auto; /* Mantém a proporção da imagem */
+    border-radius: 5%;
 }
 
 .container {
@@ -20,12 +21,14 @@ img {
 .row {
     display: flex;
     align-items: center; /* Centraliza verticalmente os itens */
-    justify-content: space-between; /* Distribui espaço entre os itens */
+    flex-wrap: wrap; /* Permite que os itens se movam para a linha seguinte em telas menores */
 }
 
 .col {
     display: flex;
     align-items: center; /* Centraliza verticalmente o conteúdo */
+    justify-content: center; /* Centraliza horizontalmente o conteúdo */
+    margin: 5px; /* Adiciona um pouco de margem entre as colunas */
 }
 
 .col.center {
@@ -38,14 +41,71 @@ img {
 }
 
 .col:last-child {
-    justify-content: flex-end; /* Alinha o ícone ao final da coluna, se necessário */
+    justify-content: flex-end; /* Alinha os ícones ao final da coluna */
 }
 
-img {
-    margin-right: 10px; /* Adiciona um espaço à direita da imagem */
-}
-h1{
+h1 {
     color: white;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center; /* Centraliza o título */
+}
+
+h3 {
+    margin: 0; /* Remove margem padrão */
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center; /* Centraliza o texto dos itens de menu */
+    display: flex; /* Permite alinhamento flexível */
+    align-items: center; /* Alinha o ícone e o texto verticalmente */
+    gap: 10px; /* Espaço entre o ícone e o texto */
+}
+
+/* Estilos específicos para a barra de menu */
+.col_menu {
+    flex: 1; /* Permite que cada item de menu ocupe espaço igual */
+    display: flex;
+    align-items: center; /* Alinha o conteúdo verticalmente */
+    justify-content: center; /* Alinha o conteúdo horizontalmente */
+    margin: 5px; /* Adiciona uma margem entre os itens de menu */
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+    .row {
+        flex-direction: column; /* Empilha as colunas verticalmente em telas pequenas */
+    }
+
+    .col_menu {
+        margin: 5px 0; /* Ajusta a margem entre os itens de menu */
+    }
+
+    h1 {
+        font-size: 1.5rem; /* Ajusta o tamanho da fonte do título */
+    }
+
+    h3 {
+        font-size: 1rem; /* Ajusta o tamanho da fonte dos itens de menu */
+    }
+
+    img {
+        width: 80px; /* Ajusta o tamanho da imagem para telas menores */
+    }
+}
+
+/* Responsividade para telas muito pequenas (mobile) */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.2rem; /* Ajusta o tamanho da fonte do título para telas muito pequenas */
+    }
+
+    h3 {
+        font-size: 0.9rem; /* Ajusta o tamanho da fonte dos itens de menu */
+    }
+
+    .col_menu {
+        flex-direction: column; /* Empilha ícones e texto verticalmente em telas muito pequenas */
+        text-align: center; /* Centraliza o texto para melhor apresentação em telas pequenas */
+    }
 }
 
 
