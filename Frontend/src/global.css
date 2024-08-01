@@ -7,6 +7,22 @@
     box-sizing: border-box; /* Corrigido de '0' para 'border-box' */
 }
 
+/* Estilo para manter o cabeçalho fixo no topo da página */
+.fixed-header {
+    position: fixed; /* Faz com que o elemento fique fixo na tela */
+    top: 0; /* Alinha o elemento no topo da página */
+    left: 0; /* Alinha o elemento na borda esquerda */
+    width: 100%; /* Faz o elemento ocupar toda a largura da tela */
+    z-index: 1000; /* Garante que o elemento esteja acima de outros elementos */
+    background-color: #0F0F0F; /* Cor de fundo para que o cabeçalho seja visível sobre o conteúdo */
+    padding: 10px 0; /* Adiciona padding para espaçamento interno */
+}
+
+.content {
+    padding-top: 70px; /* Adiciona espaçamento suficiente para que o conteúdo não fique escondido sob o cabeçalho fixo */
+}
+
+
 img {
     width: 100px; /* Ajuste conforme necessário */
     height: auto; /* Mantém a proporção da imagem */
@@ -88,7 +104,7 @@ h3:hover {
 .search-form {
     display: flex;
     align-items: center; /* Alinha o input e o botão verticalmente */
-    max-width: 600px; /* Limita a largura máxima da caixa de busca */
+    max-width: 300px; /* Limita a largura máxima da caixa de busca */
     width: 100%; /* Faz a caixa de busca ocupar a largura disponível */
 }
 
@@ -102,7 +118,7 @@ h3:hover {
 }
 
 .search-button {
-    padding: 10px 20px;
+    padding: 10px 15px;
     border: none;
     border-radius: 4px;
     background-color: #e02041;

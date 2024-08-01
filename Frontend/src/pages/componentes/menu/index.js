@@ -16,7 +16,7 @@ export default function Menu() {
   };
 
   return (
-    <div className="container">
+    <div className="container fixed-header">
       <div className="row">
         <div className="col">
           <img src={logo} alt="Academia" />
@@ -33,40 +33,40 @@ export default function Menu() {
         </div>
       </div>
 
-<div className='row'>
-  {/* Barra de busca posicionada logo abaixo dos ícones */}
-  <div className="row search-container">
-        <form onSubmit={handleSearchSubmit} className="search-form">
-          <input 
-            type="text" 
-            value={searchTerm} 
-            onChange={handleSearchChange} 
-            placeholder="Buscar..." 
-            className="search-input"
-          />
-          <button type="submit" className="search-button">Buscar</button>
-        </form>
+      <div className='row'>
+        {/* Barra de busca posicionada logo abaixo dos ícones */}
+        <div className="row search-container">
+          <form onSubmit={handleSearchSubmit} className="search-form">
+            <input 
+              type="text" 
+              value={searchTerm} 
+              onChange={handleSearchChange} 
+              placeholder="Buscar..." 
+              className="search-input"
+            />
+            <button type="submit" className="search-button">Buscar</button>
+          </form>
+        </div>
       </div>
-</div>
 
       <div className="row menu-items">
         <div className='col_menu'>
-            <h3>Produtos</h3>
+          <h3>Produtos</h3>
         </div>
         <div className='col_menu'>
-            <h3>Ofertas</h3>
+          <h3>Ofertas</h3>
         </div>
         <div className='col_menu'>
-            <h3>Localização</h3>
+          <h3>Localização</h3>
         </div>
         <div className='col_menu'>
-            <h3>Matricule-se</h3>
+          <h3>Matricule-se</h3>
         </div>
         <div className='col_menu'>
-            <h3>Treinos</h3>
+          <h3>Treinos</h3>
         </div>
         <div className='col_menu'>
-            <h3>Entrar <FaRegUser /></h3>
+          <h3>Entrar <FaRegUser /></h3>
         </div>
       </div>
     </div>

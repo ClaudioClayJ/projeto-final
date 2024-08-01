@@ -11,10 +11,6 @@ export default function Dashboard(){
             <div className="menu">
                     <Menu/>
             </div>
-
-            <div className="main">
-                    <Head/>
-            </div>
         </div>
     )
 }
