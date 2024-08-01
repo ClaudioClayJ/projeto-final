@@ -10,7 +10,6 @@
 img {
     width: 100px; /* Ajuste conforme necessário */
     height: auto; /* Mantém a proporção da imagem */
-    border-radius: 5%;
 }
 
 .container {
@@ -22,6 +21,7 @@ img {
     display: flex;
     align-items: center; /* Centraliza verticalmente os itens */
     flex-wrap: wrap; /* Permite que os itens se movam para a linha seguinte em telas menores */
+    position: relative; /* Necessário para posicionar a barra de busca abaixo dos ícones */
 }
 
 .col {
@@ -52,12 +52,20 @@ h1 {
 
 h3 {
     margin: 0; /* Remove margem padrão */
+    margin-top: 10%;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
     text-align: center; /* Centraliza o texto dos itens de menu */
     display: flex; /* Permite alinhamento flexível */
     align-items: center; /* Alinha o ícone e o texto verticalmente */
     gap: 10px; /* Espaço entre o ícone e o texto */
+    transition: color 0.3s, background-color 0.3s; /* Transição suave para efeitos de hover */
+}
+
+h3:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Alteração da cor de fundo no hover */
+    color: #e02041; /* Alteração da cor do texto no hover */
+    cursor: pointer; /* Muda o cursor para uma mãozinha */
 }
 
 /* Estilos específicos para a barra de menu */
@@ -67,6 +75,45 @@ h3 {
     align-items: center; /* Alinha o conteúdo verticalmente */
     justify-content: center; /* Alinha o conteúdo horizontalmente */
     margin: 5px; /* Adiciona uma margem entre os itens de menu */
+}
+
+/* Estilos para a caixa de busca */
+.search-container {
+    margin-top: 20px; /* Espaço acima da caixa de busca */
+    display: flex;
+    justify-content: flex-end; /* Alinha a caixa de busca à direita */
+    width: 100%; /* Garante que o contêiner ocupe toda a largura disponível */
+}
+
+.search-form {
+    display: flex;
+    align-items: center; /* Alinha o input e o botão verticalmente */
+    max-width: 600px; /* Limita a largura máxima da caixa de busca */
+    width: 100%; /* Faz a caixa de busca ocupar a largura disponível */
+}
+
+.search-input {
+    flex: 1; /* Faz o input ocupar o máximo de espaço disponível */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    margin-right: 10px; /* Espaço entre o input e o botão */
+}
+
+.search-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #e02041;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-button:hover {
+    background-color: #c2185b; /* Escurece a cor de fundo no hover */
 }
 
 /* Responsividade para telas menores */
@@ -90,6 +137,16 @@ h3 {
     img {
         width: 80px; /* Ajusta o tamanho da imagem para telas menores */
     }
+
+    .search-form {
+        flex-direction: column; /* Empilha o input e o botão verticalmente em telas pequenas */
+        max-width: 100%; /* Garante que a caixa de busca não exceda a largura da tela */
+    }
+
+    .search-button {
+        margin-top: 10px; /* Adiciona um espaço acima do botão em telas pequenas */
+        width: 40%; /* Faz o botão ocupar a largura total */
+    }
 }
 
 /* Responsividade para telas muito pequenas (mobile) */
@@ -102,19 +159,21 @@ h3 {
         font-size: 0.9rem; /* Ajusta o tamanho da fonte dos itens de menu */
     }
 
-    .col_menu {
-        flex-direction: column; /* Empilha ícones e texto verticalmente em telas muito pequenas */
-        text-align: center; /* Centraliza o texto para melhor apresentação em telas pequenas */
+    .search-input {
+        font-size: 0.9rem; /* Ajusta o tamanho da fonte do input */
+        max-width: 100%;
+    }
+
+    .search-button {
+        font-size: 0.9rem; /* Ajusta o tamanho da fonte do botão */
+        max-width: 40%;
     }
 }
 
 
-/* body{
-    font:400 14px 'Roboto', sans-serif;
-    background: #f0f0f5;
-    -webit-font-smoothing:antialiased;
-    
-} */
+
+
+
     /* .logon-container{
     
         width: 100%;
