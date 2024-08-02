@@ -13,13 +13,16 @@
     top: 0; /* Alinha o elemento no topo da página */
     left: 0; /* Alinha o elemento na borda esquerda */
     width: 100%; /* Faz o elemento ocupar toda a largura da tela */
-    z-index: 1000; /* Garante que o elemento esteja acima de outros elementos */
+    /* z-index: 1000; Garante que o elemento esteja acima de outros elementos */
     background-color: #0F0F0F; /* Cor de fundo para que o cabeçalho seja visível sobre o conteúdo */
     padding: 10px 0; /* Adiciona padding para espaçamento interno */
 }
 
-.content {
-    padding-top: 70px; /* Adiciona espaçamento suficiente para que o conteúdo não fique escondido sob o cabeçalho fixo */
+.content{
+    padding-top: 250px; /* Adiciona espaçamento suficiente para que o conteúdo não fique escondido sob o cabeçalho fixo */
+    background-color: #c2185b;
+    padding: auto;
+    width: auto;
 }
 
 
@@ -44,7 +47,9 @@ img {
     display: flex;
     align-items: center; /* Centraliza verticalmente o conteúdo */
     justify-content: center; /* Centraliza horizontalmente o conteúdo */
-    margin: 5px; /* Adiciona um pouco de margem entre as colunas */
+    margin: 0px; /* Adiciona um pouco de margem entre as colunas */
+    margin-left: 10px;
+    /* border: solid coral; */
 }
 
 .col.center {
@@ -104,8 +109,9 @@ h3:hover {
 .search-form {
     display: flex;
     align-items: center; /* Alinha o input e o botão verticalmente */
-    max-width: 300px; /* Limita a largura máxima da caixa de busca */
+    max-width: 400px; /* Limita a largura máxima da caixa de busca */
     width: 100%; /* Faz a caixa de busca ocupar a largura disponível */
+    margin-bottom: 6%;
 }
 
 .search-input {
@@ -130,12 +136,6 @@ h3:hover {
 
 .search-button:hover {
     background-color: #c2185b; /* Escurece a cor de fundo no hover */
-}
-
-.centro
-{
-    margin-top: 16%;
-    background-color: #c2185b;
 }
 
 /* Responsividade para telas menores */
@@ -190,14 +190,106 @@ h3:hover {
         font-size: 0.9rem; /* Ajusta o tamanho da fonte do botão */
         max-width: 40%;
     }
+
+}
+
+.logon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: #f0f0f0;
+  padding: 20px;
+}
+
+.logon-title {
+  margin-bottom: 20px;
+  font-size: 2.5em;
+  color: #333;
+  font-family: 'Arial', sans-serif;
+}
+
+.logon-form {
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.logon-input-group {
+  margin-bottom: 20px;
+}
+
+.logon-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #555;
+}
+
+.logon-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1em;
+}
+
+.logon-button-group {
+  display: flex;
+  gap: 10px;
+}
+
+.logon-button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1em;
+  color: #fff;
+}
+
+.logon-button-submit {
+  background-color: #4CAF50; /* Verde */
+}
+
+.logon-button-exit {
+  background-color: #f44336; /* Vermelho */
+}
+
+.logon-button-register {
+  background-color: #2196F3; /* Azul */
+}
+/* Por padrão, a barra de navegação está fixa em telas grandes */
+.fixed-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #0F0F0F;
+    padding: 10px 0;
+    transition: top 0.3s; /* Transição suave para o efeito de rolagem */
+}
+
+/* Em telas menores, a barra de navegação será ocultada quando rolar para baixo */
+.hidden-header {
+    top: -100px; /* Ajuste o valor conforme necessário para ocultar a barra completamente */
+}
+
+/* Responsividade para telas pequenas */
+@media (max-width: 768px) {
+    .fixed-header {
+        position: absolute; /* Remove a fixação da barra de navegação em telas pequenas */
+    }
 }
 
 
 
 
-
     /* .logon-container{
-    
         width: 100%;
         height: 100%;
     }
@@ -275,7 +367,6 @@ h3:hover {
       border-radius: 5px;
       margin: 5px;
       padding: 15px;
-      testando o comentario
   }
   .dashboard-container{
     display: flex;
