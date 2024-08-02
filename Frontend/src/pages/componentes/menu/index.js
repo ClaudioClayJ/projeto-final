@@ -26,14 +26,7 @@ export default function Menu() {
           <h1>Nome Academia</h1>
         </div>
 
-        <div className="col icons">
-          <FaFacebookSquare size={30} color="white" />
-          <FaInstagram size={30} color="white" />
-          <FaWhatsapp size={30} color="white" />
-        </div>
-      </div>
-
-      <div className='row'>
+        <div className='col'>
         {/* Barra de busca posicionada logo abaixo dos ícones */}
         <div className="row search-container">
           <form onSubmit={handleSearchSubmit} className="search-form">
@@ -46,6 +39,13 @@ export default function Menu() {
             />
             <button type="submit" className="search-button">Buscar</button>
           </form>
+        </div>
+      </div>
+
+        <div className="col icons">
+          <FaFacebookSquare size={30} color="white" />
+          <FaInstagram size={30} color="white" />
+          <FaWhatsapp size={30} color="white" />
         </div>
       </div>
 
