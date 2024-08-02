@@ -21,6 +21,8 @@
 .content{
     padding-top: 250px; /* Adiciona espaçamento suficiente para que o conteúdo não fique escondido sob o cabeçalho fixo */
     background-color: #c2185b;
+    padding: auto;
+    width: auto;
 }
 
 
@@ -261,11 +263,33 @@ h3:hover {
 .logon-button-register {
   background-color: #2196F3; /* Azul */
 }
+/* Por padrão, a barra de navegação está fixa em telas grandes */
+.fixed-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #0F0F0F;
+    padding: 10px 0;
+    transition: top 0.3s; /* Transição suave para o efeito de rolagem */
+}
+
+/* Em telas menores, a barra de navegação será ocultada quando rolar para baixo */
+.hidden-header {
+    top: -100px; /* Ajuste o valor conforme necessário para ocultar a barra completamente */
+}
+
+/* Responsividade para telas pequenas */
+@media (max-width: 768px) {
+    .fixed-header {
+        position: absolute; /* Remove a fixação da barra de navegação em telas pequenas */
+    }
+}
+
 
 
 
     /* .logon-container{
-        teste de git
         width: 100%;
         height: 100%;
     }
