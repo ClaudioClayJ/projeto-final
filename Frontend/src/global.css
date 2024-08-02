@@ -47,7 +47,7 @@ img {
     justify-content: center; /* Centraliza horizontalmente o conteúdo */
     margin: 0px; /* Adiciona um pouco de margem entre as colunas */
     margin-left: 10px;
-    border: solid coral;
+    /* border: solid coral; */
 }
 
 .col.center {
