@@ -188,9 +188,79 @@ h3:hover {
         font-size: 0.9rem; /* Ajusta o tamanho da fonte do botão */
         max-width: 40%;
     }
+
 }
 
+.logon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: #f0f0f0;
+  padding: 20px;
+}
 
+.logon-title {
+  margin-bottom: 20px;
+  font-size: 2.5em;
+  color: #333;
+  font-family: 'Arial', sans-serif;
+}
+
+.logon-form {
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.logon-input-group {
+  margin-bottom: 20px;
+}
+
+.logon-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #555;
+}
+
+.logon-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1em;
+}
+
+.logon-button-group {
+  display: flex;
+  gap: 10px;
+}
+
+.logon-button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1em;
+  color: #fff;
+}
+
+.logon-button-submit {
+  background-color: #4CAF50; /* Verde */
+}
+
+.logon-button-exit {
+  background-color: #f44336; /* Vermelho */
+}
+
+.logon-button-register {
+  background-color: #2196F3; /* Azul */
+}
 
 
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-// import '../../global.css'; // Verifique se o caminho está correto
-import '../logon/style.css'
+import '../../global.css'; // Importe o CSS correspondente
+
 export default function Logon() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -9,12 +9,11 @@ export default function Logon() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // Aqui você pode adicionar a lógica de autenticação, se necessário
     navigate('/dashboard'); // Redirecionar para a página do dashboard
   };
 
   const handleRegister = () => {
-    navigate('/logon'); // Redirecionar para a página de cadastro
+    navigate('/register'); // Redirecionar para a página de cadastro
   };
 
   const handleExit = () => {
@@ -22,34 +21,37 @@ export default function Logon() {
   };
 
   return (
-    <div className="login-container">
-      <h1>Academia</h1>
-      <section className="form">
+    <div className="logon">
+      <h1 className="logon-title">Academia</h1>
+      <section className="logon-form">
         <form onSubmit={handleLogin}>
-          <div className="input-group">
-            <label htmlFor="email">E-mail</label>
+          <div className="logon-input-group">
+            <label htmlFor="email" className="logon-label">E-mail</label>
             <input 
               id="email"
               type="email"
               placeholder="Digite seu e-mail"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              className="logon-input"
             />
           </div>
-          <div className="input-group">
-            <label htmlFor="password">Senha</label>
+          <div className="logon-input-group">
+            <label htmlFor="password" className="logon-label">Senha</label>
             <input 
               id="password"
               type="password"
               placeholder="Digite sua senha"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              className="logon-input"
             />
           </div>
-          <div className="button-group">
-            <button type="submit">Entrar</button>
-            <button type="button" onClick={handleExit}>Sair</button>
-            <button type="button" onClick={handleRegister}>Cadastrar</button>
+          <div className="logon-button-group">
+            <button type="submit" className="logon-button logon-button-submit">Entrar</button> 
+             <button type="button" onClick={handleRegister} className="logon-button logon-button-register">Cadastrar</button>
+            <button type="button" onClick={handleExit} className="logon-button logon-button-exit">Sair</button>
+          
           </div>
         </form>
       </section>
