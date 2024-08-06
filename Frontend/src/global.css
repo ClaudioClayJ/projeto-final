@@ -4,123 +4,143 @@
     margin: 0;
     padding: 0;
     outline: 0;
-    box-sizing: border-box; /* Corrigido de '0' para 'border-box' */
+    box-sizing: border-box;
 }
 
 /* Estilo para manter o cabeçalho fixo no topo da página */
 .fixed-header {
-    position: fixed; /* Faz com que o elemento fique fixo na tela */
-    top: 0; /* Alinha o elemento no topo da página */
-    left: 0; /* Alinha o elemento na borda esquerda */
-    width: 100%; /* Faz o elemento ocupar toda a largura da tela */
-    /* z-index: 1000; Garante que o elemento esteja acima de outros elementos */
-    background-color: #0F0F0F; /* Cor de fundo para que o cabeçalho seja visível sobre o conteúdo */
-    padding: 10px 0; /* Adiciona padding para espaçamento interno */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #0F0F0F;
+    padding: 10px;
+    transition: top 0.3s;
 }
 
-.content{
-    padding-top: 250px; /* Adiciona espaçamento suficiente para que o conteúdo não fique escondido sob o cabeçalho fixo */
-    background-color: #c2185b;
-    padding: auto;
+.content {
+    padding-top: 250px;
+    background-color: #ffffff;
     width: auto;
 }
 
-
-img {
-    width: 100px; /* Ajuste conforme necessário */
-    height: auto; /* Mantém a proporção da imagem */
+.menu-adm {
+    margin-right: 5px;
+    color: white;
 }
 
-.container {
-    background-color: #0F0F0F;
-    padding: 10px; /* Adiciona um pouco de padding para espaçamento */
+.menu-adm-items {
+    background-color: white;
+    border-radius: 5%;
+    padding: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    width: 100px;
+    height: auto;
 }
 
 .row {
     display: flex;
-    align-items: center; /* Centraliza verticalmente os itens */
-    flex-wrap: wrap; /* Permite que os itens se movam para a linha seguinte em telas menores */
-    position: relative; /* Necessário para posicionar a barra de busca abaixo dos ícones */
+    align-items: center;
+    flex-wrap: wrap;
+    position: relative;
 }
 
 .col {
     display: flex;
-    align-items: center; /* Centraliza verticalmente o conteúdo */
-    justify-content: center; /* Centraliza horizontalmente o conteúdo */
-    margin: 0px; /* Adiciona um pouco de margem entre as colunas */
-    margin-left: 10px;
-    /* border: solid coral; */
+    align-items: center;
+    justify-content: center;
+    margin: 0px 10px;
 }
 
 .col.center {
-    flex: 1; /* Permite que o centro ocupe o máximo de espaço disponível */
-    justify-content: center; /* Centraliza horizontalmente o conteúdo */
+    flex: 1;
+    justify-content: center;
 }
 
 .col:first-child {
-    justify-content: flex-start; /* Alinha o ícone à esquerda */
+    justify-content: flex-start;
 }
 
 .col:last-child {
-    justify-content: flex-end; /* Alinha os ícones ao final da coluna */
+    justify-content: flex-end;
 }
 
 h1 {
     color: white;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    text-align: center; /* Centraliza o título */
+    text-align: center;
+}
+
+h2, h3, h4 {
+    margin: 0;
+    margin-top: 10%;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: color 0.3s, background-color 0.3s;
+}
+
+h2 {
+    color: rgb(0, 0, 0);
 }
 
 h3 {
-    margin: 0; /* Remove margem padrão */
-    margin-top: 10%;
     color: white;
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: center; /* Centraliza o texto dos itens de menu */
-    display: flex; /* Permite alinhamento flexível */
-    align-items: center; /* Alinha o ícone e o texto verticalmente */
-    gap: 10px; /* Espaço entre o ícone e o texto */
-    transition: color 0.3s, background-color 0.3s; /* Transição suave para efeitos de hover */
 }
 
-h3:hover {
-    background-color: rgba(255, 255, 255, 0.1); /* Alteração da cor de fundo no hover */
-    color: #e02041; /* Alteração da cor do texto no hover */
-    cursor: pointer; /* Muda o cursor para uma mãozinha */
+h4 {
+    padding: 5px;
+    color: rgb(0, 0, 0);
 }
 
-/* Estilos específicos para a barra de menu */
+h6 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+h3:hover, h4:hover, .menu-adm:hover, .menu-adm h6:hover {
+    color: #e02041;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.search-button:hover {
+    background-color: #c2185b;
+}
+
 .col_menu {
-    flex: 1; /* Permite que cada item de menu ocupe espaço igual */
+    flex: 1;
     display: flex;
-    align-items: center; /* Alinha o conteúdo verticalmente */
-    justify-content: center; /* Alinha o conteúdo horizontalmente */
-    margin: 5px; /* Adiciona uma margem entre os itens de menu */
+    align-items: center;
+    justify-content: center;
 }
 
-/* Estilos para a caixa de busca */
 .search-container {
-    margin-top: 20px; /* Espaço acima da caixa de busca */
+    margin-top: 20px;
     display: flex;
-    justify-content: flex-end; /* Alinha a caixa de busca à direita */
-    width: 100%; /* Garante que o contêiner ocupe toda a largura disponível */
+    justify-content: flex-end;
+    width: 100%;
 }
 
 .search-form {
     display: flex;
-    align-items: center; /* Alinha o input e o botão verticalmente */
-    max-width: 400px; /* Limita a largura máxima da caixa de busca */
-    width: 100%; /* Faz a caixa de busca ocupar a largura disponível */
+    align-items: center;
+    max-width: 400px;
+    width: 100%;
     margin-bottom: 6%;
 }
 
 .search-input {
-    flex: 1; /* Faz o input ocupar o máximo de espaço disponível */
+    flex: 1;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 1rem;
-    margin-right: 10px; /* Espaço entre o input e o botão */
+    margin-right: 10px;
 }
 
 .search-button {
@@ -134,159 +154,138 @@ h3:hover {
     transition: background-color 0.3s;
 }
 
-.search-button:hover {
-    background-color: #c2185b; /* Escurece a cor de fundo no hover */
+.logon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: #f0f0f0;
+    padding: 20px;
+}
+
+.logon-title {
+    margin-bottom: 20px;
+    font-size: 2.5em;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+}
+
+.logon-form {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.logon-input-group {
+    margin-bottom: 20px;
+}
+
+.logon-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555;
+}
+
+.logon-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1em;
+}
+
+.logon-button-group {
+    display: flex;
+    gap: 10px;
+}
+
+.logon-button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    color: #fff;
+}
+
+.logon-button-submit {
+    background-color: #4CAF50;
+}
+
+.logon-button-exit {
+    background-color: #f44336;
+}
+
+.logon-button-register {
+    background-color: #2196F3;
+}
+
+.hidden-header {
+    top: -100px;
 }
 
 /* Responsividade para telas menores */
 @media (max-width: 768px) {
     .row {
-        flex-direction: column; /* Empilha as colunas verticalmente em telas pequenas */
+        flex-direction: column;
     }
 
     .col_menu {
-        margin: 5px 0; /* Ajusta a margem entre os itens de menu */
+        margin: 5px 0;
     }
 
     h1 {
-        font-size: 1.5rem; /* Ajusta o tamanho da fonte do título */
+        font-size: 1.5rem;
     }
 
     h3 {
-        font-size: 1rem; /* Ajusta o tamanho da fonte dos itens de menu */
+        font-size: 1rem;
     }
 
     img {
-        width: 80px; /* Ajusta o tamanho da imagem para telas menores */
+        width: 80px;
     }
 
     .search-form {
-        flex-direction: column; /* Empilha o input e o botão verticalmente em telas pequenas */
-        max-width: 100%; /* Garante que a caixa de busca não exceda a largura da tela */
+        flex-direction: column;
+        max-width: 100%;
     }
 
     .search-button {
-        margin-top: 10px; /* Adiciona um espaço acima do botão em telas pequenas */
-        width: 40%; /* Faz o botão ocupar a largura total */
+        margin-top: 10px;
+        width: 100%;
+    }
+
+    .fixed-header {
+        position: relative;
     }
 }
 
 /* Responsividade para telas muito pequenas (mobile) */
 @media (max-width: 480px) {
     h1 {
-        font-size: 1.2rem; /* Ajusta o tamanho da fonte do título para telas muito pequenas */
+        font-size: 1.2rem;
     }
 
     h3 {
-        font-size: 0.9rem; /* Ajusta o tamanho da fonte dos itens de menu */
+        font-size: 0.9rem;
     }
 
     .search-input {
-        font-size: 0.9rem; /* Ajusta o tamanho da fonte do input */
+        font-size: 0.9rem;
         max-width: 100%;
     }
 
     .search-button {
-        font-size: 0.9rem; /* Ajusta o tamanho da fonte do botão */
-        max-width: 40%;
-    }
-
-}
-
-.logon {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background: #f0f0f0;
-  padding: 20px;
-}
-
-.logon-title {
-  margin-bottom: 20px;
-  font-size: 2.5em;
-  color: #333;
-  font-family: 'Arial', sans-serif;
-}
-
-.logon-form {
-  background: #fff;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 400px;
-}
-
-.logon-input-group {
-  margin-bottom: 20px;
-}
-
-.logon-label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
-  color: #555;
-}
-
-.logon-input {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: 1em;
-}
-
-.logon-button-group {
-  display: flex;
-  gap: 10px;
-}
-
-.logon-button {
-  padding: 12px 20px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 1em;
-  color: #fff;
-}
-
-.logon-button-submit {
-  background-color: #4CAF50; /* Verde */
-}
-
-.logon-button-exit {
-  background-color: #f44336; /* Vermelho */
-}
-
-.logon-button-register {
-  background-color: #2196F3; /* Azul */
-}
-/* Por padrão, a barra de navegação está fixa em telas grandes */
-.fixed-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: #0F0F0F;
-    padding: 10px 0;
-    transition: top 0.3s; /* Transição suave para o efeito de rolagem */
-}
-
-/* Em telas menores, a barra de navegação será ocultada quando rolar para baixo */
-.hidden-header {
-    top: -100px; /* Ajuste o valor conforme necessário para ocultar a barra completamente */
-}
-
-/* Responsividade para telas pequenas */
-@media (max-width: 768px) {
-    .fixed-header {
-        position: absolute; /* Remove a fixação da barra de navegação em telas pequenas */
+        font-size: 0.9rem;
+        width: 100%;
     }
 }
-
-
 
 
     /* .logon-container{
