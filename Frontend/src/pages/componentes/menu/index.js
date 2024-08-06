@@ -118,7 +118,7 @@ export default function Menu() {
       <div className="row menu-items">
         <div className='col_menu'>
           <h3>
-            Produtos
+            <Link to="/Produtos">Produtos</Link>
           </h3>
         </div>
         <div className='col_menu'>
@@ -128,7 +128,7 @@ export default function Menu() {
           <h3>Localização</h3>
         </div>
         <div className='col_menu'>
-          <h3>Matricule-se</h3>
+          <h3><Link to="/Matricula">Matricule-se</Link></h3>
         </div>
         <div className='col_menu'>
           <h3>Treinos</h3>
