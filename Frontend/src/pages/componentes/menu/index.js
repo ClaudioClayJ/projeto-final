@@ -117,7 +117,9 @@ export default function Menu() {
 
       <div className="row menu-items">
         <div className='col_menu'>
-          <h3>Produtos</h3>
+          <h3>
+            Produtos
+          </h3>
         </div>
         <div className='col_menu'>
           <h3>Ofertas</h3>

@@ -229,6 +229,10 @@ h3:hover, h4:hover, .menu-adm:hover, .menu-adm h6:hover {
     top: -100px;
 }
 
+link{
+    
+}
+
 /* Responsividade para telas menores */
 @media (max-width: 768px) {
     .row {
