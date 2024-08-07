@@ -9,7 +9,7 @@ import Login from './pages/logon'
 import CadastroUsuario from './pages/cadastro_usuario/index'
 import CadastroProduto from './pages/cadastro_produto/index'
 import CadastroOfertas from './pages/cadastro_ofertas/index'
-import CadastroMatricula from './pages/alterar_matricula/index'
+import CadastroMatricula from './pages/cadastro_matricula/index'
 import CadastroTreinos from './pages/cadastro_treino/index'
 import AlterarUsuario from './pages/alterar_usuario/index'
 import AlterarProduto from './pages/alterar-produto/index'
@@ -34,21 +34,21 @@ export default function Rotas(){
         <Route path="/Treinos"  element={<Treinos />} />
         <Route path="/Matricula"  element={<Matricula />} />
         <Route path="/Login"  element={<Login />} />
-        <Route path="/Cadastro Usuario"  element={<CadastroUsuario />} />
-        <Route path="/Cadastro Produto"  element={<CadastroProduto />} />
-        <Route path="/Cadastro Ofertas"  element={<CadastroOfertas />} />
-        <Route path="/Cadastro Matricula"  element={<CadastroMatricula />} />
-        <Route path="/Cadastro Treinos"  element={<CadastroTreinos />} />
-        <Route path="/Alterar Usuario"  element={<AlterarUsuario />} />
-        <Route path="/Alterar Produto"  element={<AlterarProduto />} />
-        <Route path="/Alterar Oferta"  element={<AlterarOferta />} />
-        <Route path="/Alterar Treino"  element={<AlterarTreino />} />
-        <Route path="/Alterar Matricula"  element={<AlterarMatricula />} />
-        <Route path="/Excluir Usuario"  element={<ExcluirUsuario />} />
-        <Route path="/Excluir Produto"  element={<ExcluirProduto />} />
-        <Route path="/Excluir Oferta"  element={<ExcluirOferta />} />
-        <Route path="/Excluir Treino"  element={<ExcluirTreino />} />
-        <Route path="/Excluir Matricula"  element={<ExcluiraMatricula />} />
+        <Route path="/CadastroUsuario"  element={<CadastroUsuario />} />
+        <Route path="/CadastroProduto"  element={<CadastroProduto />} />
+        <Route path="/CadastroOfertas"  element={<CadastroOfertas />} />
+        <Route path="/CadastroMatricula"  element={<CadastroMatricula />} />
+        <Route path="/CadastroTreinos"  element={<CadastroTreinos />} />
+        <Route path="/AlterarUsuario"  element={<AlterarUsuario />} />
+        <Route path="/AlterarProduto"  element={<AlterarProduto />} />
+        <Route path="/AlterarOferta"  element={<AlterarOferta />} />
+        <Route path="/AlterarTreino"  element={<AlterarTreino />} />
+        <Route path="/AlterarMatricula"  element={<AlterarMatricula />} />
+        <Route path="/ExcluirUsuario"  element={<ExcluirUsuario />} />
+        <Route path="/ExcluirProduto"  element={<ExcluirProduto />} />
+        <Route path="/ExcluirOferta"  element={<ExcluirOferta />} />
+        <Route path="/ExcluirTreino"  element={<ExcluirTreino />} />
+        <Route path="/ExcluirMatricula"  element={<ExcluiraMatricula />} />
 
 
         </Routes>
