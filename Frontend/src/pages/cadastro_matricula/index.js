@@ -55,113 +55,123 @@ export default function Cadastro_matricula() {
     };
 
     return (
-        <div className="dashboard-container">
-            {/* <div className="menu">
+        <div className="Matri_cad-dashboard-container">
+            {/* <div className="Matri_cad-menu">
                 <Menu />
             </div> */}
-            <div className="content">
-                <div className="form-container">
-                    <h1>Cadastro de Matrícula</h1>
+            <div className="Matri_cad-content">
+                <div className="Matri_cad-form-container">
+                    <h1 className="Matri_cad-h1">Cadastro de Matrícula</h1>
                     <form onSubmit={handleSubmit}>
-                        <div className="form-group">
-                            <label>Nome Completo:</label>
+                        <div className="Matri_cad-form-group">
+                            <label className="Matri_cad-label">Nome Completo:</label>
                             <input 
                                 type="text" 
                                 name="nome" 
                                 value={formData.nome} 
                                 onChange={handleChange} 
                                 placeholder="Nome Completo" 
+                                className="Matri_cad-input"
                             />
-                            {errors.nome && <p className="error">{errors.nome}</p>}
+                            {errors.nome && <p className="Matri_cad-error">{errors.nome}</p>}
                         </div>
-                        <div className="form-group">
-                            <label>CPF:</label>
+                        <div className="Matri_cad-form-group">
+                            <label className="Matri_cad-label">CPF:</label>
                             <input 
                                 type="text" 
                                 name="cpf" 
                                 value={formData.cpf} 
                                 onChange={handleChange} 
                                 placeholder="CPF" 
+                                className="Matri_cad-input"
                             />
-                            {errors.cpf && <p className="error">{errors.cpf}</p>}
+                            {errors.cpf && <p className="Matri_cad-error">{errors.cpf}</p>}
                         </div>
-                        <div className="form-group">
-                            <label>RG:</label>
+                        <div className="Matri_cad-form-group">
+                            <label className="Matri_cad-label">RG:</label>
                             <input 
                                 type="text" 
                                 name="rg" 
                                 value={formData.rg} 
                                 onChange={handleChange} 
                                 placeholder="RG" 
+                                className="Matri_cad-input"
                             />
-                            {errors.rg && <p className="error">{errors.rg}</p>}
+                            {errors.rg && <p className="Matri_cad-error">{errors.rg}</p>}
                         </div>
-                        <div className="form-group">
-                            <label>Data de Nascimento:</label>
+                        <div className="Matri_cad-form-group">
+                            <label className="Matri_cad-label">Data de Nascimento:</label>
                             <input 
                                 type="date" 
                                 name="dataNascimento" 
                                 value={formData.dataNascimento} 
                                 onChange={handleChange} 
+                                className="Matri_cad-input"
                             />
                         </div>
-                        <div className="form-group">
-                            <label>E-mail:</label>
+                        <div className="Matri_cad-form-group">
+                            <label className="Matri_cad-label">E-mail:</label>
                             <input 
                                 type="email" 
                                 name="email" 
                                 value={formData.email} 
                                 onChange={handleChange} 
                                 placeholder="E-mail" 
+                                className="Matri_cad-input"
                             />
                         </div>
-                        <div className="form-group">
-                            <label>Telefone:</label>
+                        <div className="Matri_cad-form-group">
+                            <label className="Matri_cad-label">Telefone:</label>
                             <input 
                                 type="text" 
                                 name="telefone" 
                                 value={formData.telefone} 
                                 onChange={handleChange} 
                                 placeholder="Telefone" 
+                                className="Matri_cad-input"
                             />
-                            {errors.telefone && <p className="error">{errors.telefone}</p>}
+                            {errors.telefone && <p className="Matri_cad-error">{errors.telefone}</p>}
                         </div>
-                        <div className="form-group">
-                            <label>CEP:</label>
+                        <div className="Matri_cad-form-group">
+                            <label className="Matri_cad-label">CEP:</label>
                             <input 
                                 type="text" 
                                 name="cep" 
-                                value={formData.endereco} 
+                                value={formData.cep} 
                                 onChange={handleChange} 
                                 placeholder="CEP" 
+                                className="Matri_cad-input"
                             />
                         </div>
-                        <div className="form-group">
-                            <label>Endereço:</label>
+                        <div className="Matri_cad-form-group">
+                            <label className="Matri_cad-label">Endereço:</label>
                             <input 
                                 type="text" 
                                 name="endereco" 
                                 value={formData.endereco} 
                                 onChange={handleChange} 
                                 placeholder="Endereço" 
+                                className="Matri_cad-input"
                             />
                         </div>
-                        <div className="form-group">
-                            <label>Bairro:</label>
+                        <div className="Matri_cad-form-group">
+                            <label className="Matri_cad-label">Bairro:</label>
                             <input 
                                 type="text" 
                                 name="bairro" 
                                 value={formData.bairro} 
                                 onChange={handleChange} 
                                 placeholder="Bairro" 
+                                className="Matri_cad-input"
                             />
                         </div>
-                        <div className="form-group">
-                            <label>Gênero:</label>
+                        <div className="Matri_cad-form-group">
+                            <label className="Matri_cad-label">Gênero:</label>
                             <select 
                                 name="genero" 
                                 value={formData.genero} 
                                 onChange={handleChange} 
+                                className="Matri_cad-select"
                             >
                                 <option value="">Selecione</option>
                                 <option value="masculino">Masculino</option>
@@ -169,12 +179,12 @@ export default function Cadastro_matricula() {
                                 <option value="outro">Outro</option>
                             </select>
                         </div>
-                        <button type="submit">Cadastrar</button>
+                        <button type="submit" className="Matri_cad-button">Cadastrar</button>
                     </form>
                 </div>
-                <div className="plan-container">
-                    <h2>Plano Selecionado</h2>
-                    <div className="plan-info">
+                <div className="Matri_cad-plan-container">
+                    <h2 className="Matri_cad-h2">Plano Selecionado</h2>
+                    <div className="Matri_cad-plan-info">
                         <p><strong>Nome:</strong> {selectedPlan.nome}</p>
                         <p><strong>Valor:</strong> {selectedPlan.valor}</p>
                         <p><strong>Descrição:</strong> {selectedPlan.descricao}</p>

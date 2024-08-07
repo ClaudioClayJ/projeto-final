@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 // import '../../global.css'; 
 import '../../pages/matricula/matricula.css'
 import Menu from '../componentes/menu'; // Certifique-se de que o caminho para o Menu está correto
@@ -23,19 +24,19 @@ export default function Matricula() {
             <h3>Plano Básico</h3>
             <p>Benefícios: Acesso a todas as máquinas, 1 aula gratuita por mês.</p>
             <p>Preço: R$99,00</p>
-            <button className="matricula-button" onClick={handleEnrollment}>Matricule-se</button>
+            <Link to="/CadastroMatricula"><button className="matricula-button" onClick={handleEnrollment}>Matricule-se</button></Link>
           </div>
           <div className="matricula-plan">
             <h3>Plano Intermediário</h3>
             <p>Benefícios: Acesso completo, 3 aulas gratuitas por mês, acesso a piscinas.</p>
             <p>Preço: R$199,00</p>
-            <button className="matricula-button" onClick={handleEnrollment}>Matricule-se</button>
+            <Link to="/CadastroMatricula"><button className="matricula-button" onClick={handleEnrollment}>Matricule-se</button></Link>
           </div>
           <div className="matricula-plan">
             <h3>Plano Premium</h3>
             <p>Benefícios: Acesso total, aulas ilimitadas, acesso a spa e massagens.</p>
             <p>Preço: R$299,00</p>
-            <button className="matricula-button" onClick={handleEnrollment}>Matricule-se</button>
+            <Link to="/CadastroMatricula"><button className="matricula-button" onClick={handleEnrollment}>Matricule-se</button></Link>
           </div>
         </div>
         <div className="matricula-description">
