@@ -122,19 +122,27 @@ export default function Menu() {
           </h3>
         </div>
         <div className='col_menu'>
-          <h3>Ofertas</h3>
+          <h3>
+            <Link to="/Ofertas">Ofertas</Link>
+            </h3>
         </div>
         <div className='col_menu'>
-          <h3>Localização</h3>
+          <h3>
+            <Link to="/Localizacao">Localização</Link>
+            </h3>
         </div>
         <div className='col_menu'>
           <h3><Link to="/Matricula">Matricule-se</Link></h3>
         </div>
         <div className='col_menu'>
-          <h3>Treinos</h3>
+          <h3>
+            <Link to="/Treinos">Treinos</Link>
+            </h3>
         </div>
         <div className='col_menu'>
-          <h3>Entrar <FaRegUser /></h3>
+          <h3>
+            <Link to="/Logon">Entrar <FaRegUser /></Link>
+            </h3>
         </div>
       </div>
     </div>
