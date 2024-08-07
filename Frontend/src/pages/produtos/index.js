@@ -11,7 +11,7 @@ return(
                 <Menu/>
         </div>
         <div className="content">
-            <h2>Produtos</h2>
+          
            </div>
         </div>
         
