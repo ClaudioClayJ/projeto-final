@@ -141,7 +141,7 @@ export default function Menu() {
         </div>
         <div className='col_menu'>
           <h3>
-            <Link to="/Logon">Entrar <FaRegUser /></Link>
+            <Link to="/Login">Entrar <FaRegUser /></Link>
             </h3>
         </div>
       </div>
