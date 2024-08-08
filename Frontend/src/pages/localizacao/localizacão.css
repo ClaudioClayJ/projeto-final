@@ -1,0 +1,59 @@
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .menu {
+    /* Estilos específicos para o menu, se necessário */
+  }
+  
+  .content {
+    display: flex;
+    justify-content: space-between;
+    padding: 40px 20px; /* Aumenta o padding ao redor do conteúdo */
+    margin-top: 60px; /* Aumenta o espaço acima das colunas */
+  }
+  
+  .map-section,
+  .info-section {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px; /* Adiciona espaço acima das seções */
+  }
+  
+  .map-section {
+    flex: 2;
+    margin-right: 20px;
+  }
+  
+  .map-title,
+  .info-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .map-iframe {
+    border: 0;
+  }
+  
+  .info-section {
+    flex: 1;
+  }
+  
+  .info-detail {
+    margin-bottom: 10px;
+  }
+  
+  @media (max-width: 768px) {
+    .content {
+      flex-direction: column;
+    }
+  
+    .map-section,
+    .info-section {
+      margin-right: 0;
+      margin-bottom: 20px;
+    }
+  }
+  
