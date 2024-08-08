@@ -8,7 +8,7 @@ export default function Produtos() {
       <div className="menu">
         <Menu />
       </div>
-      <div className="content">
+      <div className="map-content">
         <div className="map-section">
           <h2 className="map-title">Localização</h2>
           <iframe 

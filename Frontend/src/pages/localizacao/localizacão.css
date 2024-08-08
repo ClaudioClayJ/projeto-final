@@ -7,7 +7,7 @@
     /* Estilos específicos para o menu, se necessário */
   }
   
-  .content {
+  .map-content {
     display: flex;
     justify-content: space-between;
     padding: 40px 20px; /* Aumenta o padding ao redor do conteúdo */
