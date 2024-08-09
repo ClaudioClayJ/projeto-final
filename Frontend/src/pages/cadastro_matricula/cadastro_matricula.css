@@ -1,0 +1,79 @@
+.Matri_cad-dashboard-container {
+    display: flex;
+    height: 100vh; /* Full viewport height */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    background-color: #f0f0f0; /* Light background color for contrast */
+    padding-top: 15%;
+}
+
+.Matri_cad-menu {
+    width: 20%;
+    background-color: #282c34;
+    color: white;
+    padding: 1rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+}
+
+.Matri_cad-content {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    background-color: #ffffff; /* White background for the content area */
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for better visual separation */
+}
+
+.Matri_cad-form-container {
+    width: 48%;
+}
+
+.Matri_cad-plan-container {
+    width: 48%;
+}
+
+.Matri_cad-h1, .Matri_cad-h2 {
+    color: #61dafb;
+}
+
+.Matri_cad-form-group {
+    margin-bottom: 1rem;
+}
+
+.Matri_cad-label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.Matri_cad-input, .Matri_cad-select {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.Matri_cad-button {
+    background-color: #61dafb;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.Matri_cad-button:hover {
+    background-color: #21a1f1;
+}
+
+.Matri_cad-error {
+    color: red;
+}
+
+.Matri_cad-plan-info p {
+    margin: 0.5rem 0;
+}
