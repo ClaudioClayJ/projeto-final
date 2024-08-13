@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import "../cadastro_ofertas/cd_oferta.css"
 export default function CadastroOferta() {
     const [nome, setNome] = useState('');
-    const [categoria, setCategoriaOferta] = useState('');
+    const [oferta, setCategoriaOferta] = useState('');
 
     const handleCadastro = (e) => {
         e.preventDefault();
-        console.log('Dados do Oferta:', { nome, categoria });
+        console.log('Dados do Oferta:', { nome, oferta });
     };
 
     return (
@@ -25,10 +25,10 @@ export default function CadastroOferta() {
                     />
                 </div>
                 <div className="cd_oferta-input-group">
-                    <label className="cd_oferta-label" htmlFor="categoria">categoria:</label>
+                    <label className="cd_oferta-label" htmlFor="oferta">oferta:</label>
                     <input
-                        type="categoria"
-                        id="categoria"
+                        type="oferta"
+                        id="oferta"
                         className="cd_oferta-input"
                         value={categoria}
                         onChange={(e) => setCategoriaOferta(e.target.value)}
