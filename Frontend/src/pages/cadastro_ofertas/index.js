@@ -30,7 +30,7 @@ export default function CadastroOferta() {
                         type="oferta"
                         id="oferta"
                         className="cd_oferta-input"
-                        value={categoria}
+                        value={oferta}
                         onChange={(e) => setCategoriaOferta(e.target.value)}
                         required
                     />
