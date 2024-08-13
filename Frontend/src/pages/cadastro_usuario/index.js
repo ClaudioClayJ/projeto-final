@@ -1,13 +1,29 @@
 import React, { useState } from 'react';
-import "../cadastro_usuario/cd_usuario.css"
+import { db, collection, addDoc } from '../../firebase'; // Ajuste o caminho conforme necessário
+import "../cadastro_usuario/cd_usuario.css";
+
 export default function CadastroUsuario() {
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
-    const handleCadastro = (e) => {
+    const handleCadastro = async (e) => {
         e.preventDefault();
-        console.log('Dados do usuário:', { nome, email, senha });
+
+        try {
+            // Adiciona os dados do usuário ao Firestore
+            await addDoc(collection(db, 'usuarios'), {
+                nome,
+                email,
+                senha
+            });
+
+            console.log('Dados do usuário:', { nome, email, senha });
+            alert('Cadastro realizado com sucesso!');
+        } catch (error) {
+            console.error('Erro ao cadastrar usuário:', error);
+            alert('Erro ao cadastrar. Tente novamente.');
+        }
     };
 
     return (
