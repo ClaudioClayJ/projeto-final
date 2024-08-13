@@ -1,0 +1,53 @@
+.cd_produto-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: #f0f0f0;
+    padding: 20px;
+}
+
+.cd_produto-title {
+    margin-bottom: 20px;
+    font-size: 2.5em;
+    color: #333;
+}
+
+.cd_produto-form {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.cd_produto-input-group {
+    margin-bottom: 20px;
+}
+
+.cd_produto-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555;
+}
+
+.cd_produto-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1em;
+}
+
+.cd_produto-button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    background-color: #4CAF50;
+    color: #fff;
+    font-size: 1em;
+    cursor: pointer;
+}
