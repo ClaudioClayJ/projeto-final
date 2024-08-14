@@ -1,4 +1,5 @@
 .cd_usuario-container {
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;

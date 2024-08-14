@@ -11,6 +11,8 @@ import CadastroProduto from './pages/cadastro_produto/index'
 import CadastroOfertas from './pages/cadastro_ofertas/index'
 import CadastroMatricula from './pages/cadastro_matricula/index'
 import CadastroTreinos from './pages/cadastro_treino/index'
+import CadastroEntrada from './pages/cadastro_entrada/index'
+import CadastroSaida from './pages/cadastro_saida/index'
 import AlterarUsuario from './pages/alterar_usuario/index'
 import AlterarProduto from './pages/alterar-produto/index'
 import AlterarOferta from './pages/alterar_ofertas/index'
@@ -39,6 +41,8 @@ export default function Rotas(){
         <Route path="/CadastroOfertas"  element={<CadastroOfertas />} />
         <Route path="/CadastroMatricula"  element={<CadastroMatricula />} />
         <Route path="/CadastroTreinos"  element={<CadastroTreinos />} />
+        <Route path="/CadastroEntrada"  element={<CadastroEntrada />} />
+        <Route path="/CadastroSaida"  element={<CadastroSaida />} />
         <Route path="/AlterarUsuario"  element={<AlterarUsuario />} />
         <Route path="/AlterarProduto"  element={<AlterarProduto />} />
         <Route path="/AlterarOferta"  element={<AlterarOferta />} />
