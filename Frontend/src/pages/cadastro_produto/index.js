@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import "../cadastro_produto/cd_produto.css"
 export default function CadastroProduto() {
     const [nome, setNome] = useState('');
@@ -38,6 +39,9 @@ export default function CadastroProduto() {
                 <button type="submit" className="cd_produto-button">
                     Cadastrar
                 </button>
+                <Link to="/" className="cd_produto-button-voltar">
+                    Voltar
+                </Link>
             </form>
         </div>
     );

@@ -51,3 +51,20 @@
     font-size: 1em;
     cursor: pointer;
 }
+.cd_produto-button-voltar {
+    margin-left: 5%;
+    margin-top: 10px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    background-color: #f44336;
+    color: #fff;
+    font-size: 1em;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none; /* Remove o sublinhado do link */
+    display: inline-block;
+    width: 30%;
+    box-sizing: border-box;
+}
+

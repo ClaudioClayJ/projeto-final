@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { db, collection, addDoc } from '../../firebase'; // Ajuste o caminho conforme necessário
 import "../cadastro_usuario/cd_usuario.css";
 
@@ -66,6 +67,9 @@ export default function CadastroUsuario() {
                 <button type="submit" className="cd_usuario-button">
                     Cadastrar
                 </button>
+                <Link to="/" className="cd_usuario-button-voltar">
+                    Voltar
+                </Link>
             </form>
         </div>
     );

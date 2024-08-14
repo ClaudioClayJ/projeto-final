@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import "../cadastro_ofertas/cd_oferta.css"
 export default function CadastroOferta() {
     const [nome, setNome] = useState('');
@@ -38,6 +39,9 @@ export default function CadastroOferta() {
                 <button type="submit" className="cd_oferta-button">
                     Cadastrar
                 </button>
+                <Link to="/" className="cd_oferta-button-voltar">
+                    Voltar
+                </Link>
             </form>
         </div>
     );
