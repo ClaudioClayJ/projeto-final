@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import '../../pages/cadastro_matricula/cadastro_matricula.css'
+import { db, collection, addDoc } from '../../firebaseConfig';
+
+
+import '../../pages/cadastro_matricula/cadastro_matricula.css';
 import Menu from "../componentes/menu";
 
 const planos = [
@@ -36,7 +39,7 @@ export default function Cadastro_matricula() {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const newErrors = {};
 
@@ -48,9 +51,23 @@ export default function Cadastro_matricula() {
         setErrors(newErrors);
 
         if (Object.keys(newErrors).length === 0) {
-            // Simulate submission
-            console.log("Form submitted:", formData);
-            navigate('/success'); // Replace with the actual success route
+            try {
+                // Reference to the Firestore collection
+                const docRef = collection(db, "matriculas");
+
+                // Add form data to Firestore
+                await addDoc(docRef, { 
+                    ...formData,
+                    plano: selectedPlan.nome,
+                    valorPlano: selectedPlan.valor,
+                    descricaoPlano: selectedPlan.descricao,
+                });
+
+                // Navigate to the success page
+                navigate('/success'); // Replace with the actual success route
+            } catch (e) {
+                console.error("Error adding document: ", e);
+            }
         }
     };
 
