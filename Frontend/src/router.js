@@ -18,11 +18,7 @@ import AlterarProduto from './pages/alterar-produto/index'
 import AlterarOferta from './pages/alterar_ofertas/index'
 import AlterarTreino from './pages/alterar_treino/index'
 import AlterarMatricula from './pages/alterar_matricula/index'
-import ExcluirUsuario from './pages/excluir_usuario/index'
-import ExcluirProduto from './pages/excluir_produto/index'
-import ExcluirOferta from './pages/excluir_ofertas/index'
-import ExcluirTreino from './pages/excluir_treino/index'
-import ExcluiraMatricula from './pages/excluir_matricula/index'
+
 
 
 export default function Rotas(){
@@ -48,11 +44,7 @@ export default function Rotas(){
         <Route path="/AlterarOferta"  element={<AlterarOferta />} />
         <Route path="/AlterarTreino"  element={<AlterarTreino />} />
         <Route path="/AlterarMatricula"  element={<AlterarMatricula />} />
-        <Route path="/ExcluirUsuario"  element={<ExcluirUsuario />} />
-        <Route path="/ExcluirProduto"  element={<ExcluirProduto />} />
-        <Route path="/ExcluirOferta"  element={<ExcluirOferta />} />
-        <Route path="/ExcluirTreino"  element={<ExcluirTreino />} />
-        <Route path="/ExcluirMatricula"  element={<ExcluiraMatricula />} />
+        
 
 
         </Routes>

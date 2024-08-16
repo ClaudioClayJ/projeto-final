@@ -66,6 +66,12 @@ export default function CadastroEntrada() {
                 <Link to="/" className="cd_entrada-button-voltar">
                     Voltar
                 </Link>
+                <Link to="/" className="cd_entrada-button-alterar">
+                    alterar
+                </Link>
+                <Link to="/" className="cd_entrada-button-excluir">
+                    Excluir
+                </Link>
             </form>
         </div>
     );

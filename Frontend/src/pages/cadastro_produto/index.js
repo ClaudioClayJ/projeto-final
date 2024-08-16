@@ -42,6 +42,12 @@ export default function CadastroProduto() {
                 <Link to="/" className="cd_produto-button-voltar">
                     Voltar
                 </Link>
+                <Link to="/" className="cd_produto-button-alterar">
+                    Alterar
+                </Link>
+                <Link to="/" className="cd_produto-button-excluir">
+                    Excluir
+                </Link>
             </form>
         </div>
     );
