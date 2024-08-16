@@ -91,7 +91,7 @@ export default function CadastroSaida() {
                 <Link to="/" className="cd_saida-button-alterar">
                     Alterar
                 </Link>
-                <Link to="/" className="cd_saida-button-alterar">
+                <Link to="/" className="cd_saida-button-excluir">
                     Excluir
                 </Link>
             </form>
