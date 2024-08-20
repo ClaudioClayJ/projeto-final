@@ -18,6 +18,8 @@ import AlterarProduto from './pages/alterar-produto/index'
 import AlterarOferta from './pages/alterar_ofertas/index'
 import AlterarTreino from './pages/alterar_treino/index'
 import AlterarMatricula from './pages/alterar_matricula/index'
+import AlterarEntrada from './pages/alterar_entrada/index'
+import AlterarSaida from './pages/alterar_saida/index'
 
 
 
@@ -44,6 +46,8 @@ export default function Rotas(){
         <Route path="/AlterarOferta"  element={<AlterarOferta />} />
         <Route path="/AlterarTreino"  element={<AlterarTreino />} />
         <Route path="/AlterarMatricula"  element={<AlterarMatricula />} />
+        <Route path="/AlterarEntrada"  element={<AlterarEntrada />} />
+        <Route path="/AlterarSaida"  element={<AlterarSaida />} />
         
 
 

@@ -1,0 +1,105 @@
+.alt_produto-container {
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: #f0f0f0;
+    padding: 20px;
+}
+
+.alt_produto-title {
+    margin-bottom: 20px;
+    font-size: 2.5em;
+    color: #333;
+}
+
+.alt_produto-form {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.alt_produto-input-group {
+    margin-bottom: 20px;
+}
+
+.alt_produto-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555;
+}
+
+.alt_produto-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1em;
+}
+
+.alt_produto-button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    background-color: #4CAF50;
+    color: #fff;
+    font-size: 1em;
+    cursor: pointer;
+}
+.alt_produto-button-voltar {
+    margin-left: 5%;
+    margin-top: 10px;
+    padding: 12px 20px;
+    border: none;
+    border: solid 2px;
+    border-radius: 6px;
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 1em;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none; /* Remove o sublinhado do link */
+    display: inline-block;
+    width: 30%;
+    box-sizing: border-box;
+}
+.alt_produto-button-alterar{
+    margin-left: 5%;
+    margin-top: 10px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    background-color: #0004ff;
+    color: #fff;
+    font-size: 1em;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none; /* Remove o sublinhado do link */
+    display: inline-block;
+    width: 30%;
+    box-sizing: border-box;
+}
+.alt_produto-button-excluir{
+    margin-left: 5%;
+    margin-top: 10px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    background-color: #ff0000;
+    color: #fff;
+    font-size: 1em;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none; /* Remove o sublinhado do link */
+    display: inline-block;
+    width: 30%;
+    box-sizing: border-box;
+}
+
+
