@@ -1,57 +1,47 @@
-import React, { useState, useEffect } from "react";
-import '../../global.css'; 
+import React, { useState } from "react";
 import Menu from "../componentes/menu";
+import '../../pages/treinos/treinos.css'
 
-export default function Produtos() {
-    const [dias, setDias] = useState([]);
-    const [error, setError] = useState(null);
+const treinos = {
+  treinoA: ["Supino Reto 4x8", "Remada Curvada 3x10", "Agachamento 4x8", "Desenvolvimento Militar 3x12", "Crucifixo Inclinado 3x12"],
+  treinoB: ["Puxada Frontal 4x12", "Desenvolvimento 3x10", "Leg Press 4x12", "Cadeira Extensora 3x15", "Panturrilha 4x15"],
+  treinoC: ["Barra Fixa 3x8", "Crucifixo 3x12", "Stiff 3x10", "Rosca Alternada 3x12", "Tríceps na Polia 3x15"],
+  treinoD: ["Desenvolvimento Arnold 3x10", "Rosca Direta 3x12", "Extensão de Tríceps 3x12", "Abdominal 3x20", "Puxada na Polia 3x12"],
+  treinoE: ["Puxada na Barra 3x12", "Peck Deck 3x10", "Cadeira Abdutora 3x15", "Prancha 3x1min", "Elevação de Pernas 3x15"]
+};
 
-    useEffect(() => {
-        // Substitua pela URL real da sua API
-        fetch('https://api.exemplo.com/treinos')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Erro na rede: ' + response.statusText);
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('Dados recebidos:', data);
-                setDias(data.dias); // Ajuste conforme a estrutura real dos dados
-            })
-            .catch(error => {
-                console.error('Erro ao buscar os dados:', error);
-                setError(error.message);
-            });
-    }, []);
+export default function Treino() {
+  const [treinoSelecionado, setTreinoSelecionado] = useState(null);
 
-    return (
-        <div className="dia-dashboard-container">
-            <div className="dia-menu">
-                <Menu />
-            </div>
-            <div className="dia-content">
-                <h2>Treinos</h2>
-                {error && <p className="dia-error-message">Erro ao carregar os treinos: {error}</p>}
-                {dias.length > 0 ? (
-                    dias.map((dia, index) => (
-                        <div key={index} className="dia-dia-treino-card">
-                            <h3 className="dia-dia-titulo">{dia.dia}</h3>
-                            <ul className="dia-exercicios-list">
-                                {dia.exercicios.map((exercicio, i) => (
-                                    <li key={i} className="dia-exercicio-item">
-                                        <h4 className="dia-exercicio-nome">{exercicio.nome}</h4>
-                                        <p className="dia-exercicio-descricao">{exercicio.descricao}</p>
-                                        <p className="dia-exercicio-duracao">Duração: {exercicio.duracao}</p>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    ))
-                ) : (
-                    <p>Carregando treinos...</p>
-                )}
-            </div>
-        </div>
-    );
+  const handleClick = (treino) => {
+    setTreinoSelecionado(treino);
+  };
+
+  return (
+    <div className="dashboard-container treino-container">
+      <div className="menu treino-menu">
+        <Menu />
+      </div>
+      <div className="treino-buttons">
+        {Object.keys(treinos).map((treino) => (
+          <button 
+            key={treino} 
+            className={`treino-button ${treinoSelecionado === treino ? 'selected' : ''}`}
+            onClick={() => handleClick(treino)}
+          >
+            {treino.replace(/([A-Z])/g, ' $1').toUpperCase()}
+          </button>
+        ))}
+      </div>
+      <div className="treino-list">
+        {treinoSelecionado && (
+          <ul>
+            {treinos[treinoSelecionado].map((exercicio, index) => (
+              <li key={index} className="treino-item">{exercicio}</li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </div>
+  );
 }

@@ -1,95 +1,64 @@
-.dia-dashboard-container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    padding: 20px;
-    background-color: #f4f4f4;
-    justify-content: center; /* Centraliza o conteúdo verticalmente */
-}
-
-.dia-menu {
-    margin-bottom: 20px;
-}
-
-.dia-content {
+.dashboard-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.dia-content h2 {
-    font-size: 2rem;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-.dia-error-message {
-    color: red;
-    font-size: 1rem;
-    margin-bottom: 20px;
-}
-
-.dia-dia-treino-card {
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    margin-bottom: 20px;
+  }
+  
+  .treino-container {
     width: 100%;
-    max-width: 600px;
-}
-
-.dia-dia-titulo {
-    font-size: 1.5rem;
-    color: #333;
-    margin-bottom: 10px;
-}
-
-.dia-exercicios-list {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .treino-menu {
+    margin-bottom: 50px; /* Espaçamento abaixo do menu */
+  }
+  
+  .treino-buttons {
+    display: flex;
+    justify-content: center; /* Centraliza os botões horizontalmente */
+    width: 100%;
+    margin-top: 100px; /* Espaço superior para empurrar os botões para baixo */
+    margin-bottom: 20px; /* Espaçamento inferior para a lista de treinos */
+  }
+  
+  .treino-button {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  .treino-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .treino-button.selected {
+    background-color: #0056b3; /* Cor do botão selecionado */
+  }
+  
+  .treino-list {
     list-style-type: none;
     padding: 0;
-    margin: 0;
-}
-
-.dia-exercicio-item {
-    border-bottom: 1px solid #ddd;
-    padding: 10px 0;
-}
-
-.dia-exercicio-item:last-child {
-    border-bottom: none;
-}
-
-.dia-exercicio-nome {
-    font-size: 1.2rem;
-    color: #444;
-    margin: 0 0 5px;
-}
-
-.dia-exercicio-descricao {
-    font-size: 1rem;
-    color: #666;
-    margin: 0 0 5px;
-}
-
-.dia-exercicio-duracao {
-    font-size: 0.9rem;
-    color: #888;
-    margin: 0;
-}
-
-/* Responsividade */
-@media (max-width: 600px) {
-    .dia-dia-treino-card {
-        width: 100%;
-        padding: 15px;
-    }
-
-    .dia-content {
-        padding: 10px;
-    }
-
-    .dia-content h2 {
-        font-size: 1.5rem;
-    }
-}
+    width: 100%;
+    max-width: 600px; /* Ajusta a largura máxima da lista de treinos */
+    margin: 0 auto; /* Centraliza a lista horizontalmente */
+  }
+  
+  .treino-item {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+  }
+  
