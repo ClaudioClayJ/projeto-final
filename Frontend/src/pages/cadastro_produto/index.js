@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import "../cadastro_produto/cd_produto.css"
+import { db, collection, addDoc } from '../../firebaseConfig';
 export default function CadastroProduto() {
     const [nome, setNome] = useState('');
     const [categoria, setCategoriaProduto] = useState('');

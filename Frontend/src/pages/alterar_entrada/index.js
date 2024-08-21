@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { db, collection, addDoc } from '../../firebaseConfig';
 import "../alterar_entrada/alterar_entrada.css"
 export default function AlterarEntrada() {
     const [id_produto, setId_Produto] = useState('');
