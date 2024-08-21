@@ -1,20 +1,35 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { db, collection, addDoc } from '../../firebaseConfig';
-
-
 import '../../pages/cadastro_matricula/cadastro_matricula.css';
 import Menu from "../componentes/menu";
 
+// Dados dos planos
 const planos = [
     { nome: "Plano Básico", valor: "R$50", descricao: "Plano básico com acesso limitado a recursos." },
     { nome: "Plano Intermediário", valor: "R$100", descricao: "Plano intermediário com acesso a mais recursos." },
     { nome: "Plano Premium", valor: "R$150", descricao: "Plano premium com acesso completo a todos os recursos." },
 ];
 
+// Função para selecionar um plano aleatório
 function getRandomPlan() {
     return planos[Math.floor(Math.random() * planos.length)];
 }
+
+// Função para buscar endereço a partir do CEP usando a API ViaCEP
+const buscarEndereco = async (cep) => {
+    try {
+        const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+        const data = await response.json();
+        if (data.erro) {
+            throw new Error('CEP não encontrado');
+        }
+        return data;
+    } catch (error) {
+        console.error("Erro ao buscar endereço: ", error);
+        return null;
+    }
+};
 
 export default function Cadastro_matricula() {
     const [formData, setFormData] = useState({
@@ -39,6 +54,24 @@ export default function Cadastro_matricula() {
         setFormData({ ...formData, [name]: value });
     };
 
+    const handleCepChange = async (e) => {
+        const { value } = e.target;
+        setFormData({ ...formData, cep: value });
+
+        if (value.length === 8) { // Quando o CEP tem 8 dígitos
+            const endereco = await buscarEndereco(value);
+            if (endereco) {
+                setFormData({
+                    ...formData,
+                    endereco: endereco.logradouro || '',
+                    bairro: endereco.bairro || '',
+                    cidade: endereco.localidade || '',
+                    estado: endereco.uf || ''
+                });
+            }
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const newErrors = {};
@@ -52,10 +85,7 @@ export default function Cadastro_matricula() {
 
         if (Object.keys(newErrors).length === 0) {
             try {
-                // Reference to the Firestore collection
                 const docRef = collection(db, "matriculas");
-
-                // Add form data to Firestore
                 await addDoc(docRef, { 
                     ...formData,
                     plano: selectedPlan.nome,
@@ -63,10 +93,10 @@ export default function Cadastro_matricula() {
                     descricaoPlano: selectedPlan.descricao,
                 });
 
-                // Navigate to the success page
-                navigate('/success'); // Replace with the actual success route
+                navigate('/success'); // Substitua pelo caminho real de sucesso
             } catch (e) {
-                console.error("Error adding document: ", e);
+                console.error("Erro ao adicionar documento: ", e);
+                // Opcionalmente, defina um estado de erro para mostrar uma mensagem ao usuário
             }
         }
     };
@@ -155,7 +185,7 @@ export default function Cadastro_matricula() {
                                 type="text" 
                                 name="cep" 
                                 value={formData.cep} 
-                                onChange={handleChange} 
+                                onChange={handleCepChange} 
                                 placeholder="CEP" 
                                 className="Matri_cad-input"
                             />
