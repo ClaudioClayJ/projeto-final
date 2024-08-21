@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { db, collection, addDoc } from '../../firebaseConfig';
 import "../cadastro_entrada/cd_entrada.css"
 export default function CadastroEntrada() {
     const [id_produto, setId_Produto] = useState('');

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { db, collection, addDoc } from '../../firebaseConfig';
 import "../alterar_saida/alterar_saida.css"
 
 export default function AlterarSaida() {

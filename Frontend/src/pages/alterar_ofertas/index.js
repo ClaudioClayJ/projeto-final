@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { db, collection, addDoc } from '../../firebaseConfig';
 import "../alterar_ofertas/alterar_oferta.css"
 export default function AlterarOferta() {
     const [nome, setNome] = useState('');
