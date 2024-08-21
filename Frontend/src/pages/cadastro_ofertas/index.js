@@ -61,7 +61,7 @@ export default function CadastroOferta() {
                 <Link to="/" className="cd_oferta-button-voltar">
                     Voltar
                 </Link>
-                <Link to="/AlterarOferta" className="cd_oferta-button-alterar">
+                <Link to="/AlterarOferta/:id" className="cd_oferta-button-alterar">
                     Alterar
                 </Link>
                 <Link to="/" className="cd_oferta-button-excluir">

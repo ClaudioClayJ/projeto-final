@@ -89,7 +89,7 @@ export default function CadastroEntrada() {
                 <Link to="/" className="cd_entrada-button-voltar">
                     Voltar
                 </Link>
-                <Link to="/AlterarEntrada" className="cd_entrada-button-alterar">
+                <Link to="/AlterarEntrada/:id" className="cd_entrada-button-alterar">
                     Alterar
                 </Link>
                 <Link to="/" className="cd_entrada-button-excluir">
