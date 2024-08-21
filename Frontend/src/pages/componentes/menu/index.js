@@ -82,9 +82,15 @@ export default function Menu() {
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.1 }}
                 >
-                  <h4><FaRegUser />Usuarios</h4>
-                  <h4><MdSell />Produtos</h4>
-                  <h4><FaBoxArchive />Estoque</h4>
+                  <Link to="/CadastroUsuario">
+                    <h4><FaRegUser />Usuarios</h4>
+                  </Link>
+                  <Link to="/CadastroProduto">
+                    <h4><MdSell />Produtos</h4>
+                  </Link>
+                  <Link to="/Estoque">
+                    <h4><FaBoxArchive />Estoque</h4>
+                  </Link>
                 </motion.div>
               )}
             </AnimatePresence>

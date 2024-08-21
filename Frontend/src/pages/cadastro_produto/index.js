@@ -61,7 +61,7 @@ export default function CadastroProduto() {
                 <Link to="/" className="cd_produto-button-voltar">
                     Voltar
                 </Link>
-                <Link to="/" className="cd_produto-button-alterar">
+                <Link to="/AlterarProduto" className="cd_produto-button-alterar">
                     Alterar
                 </Link>
                 <Link to="/" className="cd_produto-button-excluir">

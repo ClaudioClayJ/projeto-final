@@ -75,7 +75,7 @@ export default function CadastroUsuario() {
                 <Link to="/" className="cd_usuario-button-voltar">
                     Voltar
                 </Link>
-                <Link to="/" className="cd_usuario-button-alterar">
+                <Link to="/AlterarUsuario" className="cd_usuario-button-alterar">
                     Alterar
                 </Link>
             </form>

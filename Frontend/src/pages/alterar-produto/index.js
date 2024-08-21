@@ -1,14 +1,54 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { db, collection, addDoc } from '../../firebaseConfig';
-import "../alterar-produto/alterar_produto.css"
-export default function CadastroProduto() {
+import React, { useState, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom'; 
+import { db, doc, getDoc, updateDoc } from '../../firebaseConfig';
+import "../alterar-produto/alterar_produto.css";
+
+export default function AlterarProduto() {
     const [nome, setNome] = useState('');
     const [categoria, setCategoriaProduto] = useState('');
+    const { id } = useParams(); // Obtém o ID do produto da URL
 
-    const handleAlterar = (e) => {
+    // Função para buscar o produto pelo ID
+    useEffect(() => {
+        const fetchProduto = async () => {
+            if (id) {
+                try {
+                    const produtoDoc = doc(db, 'produtos', id);
+                    const produtoSnapshot = await getDoc(produtoDoc);
+
+                    if (produtoSnapshot.exists()) {
+                        const produtoData = produtoSnapshot.data();
+                        setNome(produtoData.nome);
+                        setCategoriaProduto(produtoData.categoria);
+                    } else {
+                        console.error('Produto não encontrado!');
+                    }
+                } catch (error) {
+                    console.error('Erro ao buscar o produto:', error);
+                }
+            }
+        };
+
+        fetchProduto();
+    }, [id]); // Recarrega quando o ID do produto muda
+
+    const handleAlterar = async (e) => {
         e.preventDefault();
-        console.log('Dados do produto:', { nome, categoria });
+
+        try {
+            // Atualiza o produto no Firestore
+            const produtoDoc = doc(db, 'produtos', id);
+            await updateDoc(produtoDoc, {
+                nome,
+                categoria
+            });
+
+            console.log('Dados do produto:', { nome, categoria });
+            alert('Produto alterado com sucesso!');
+        } catch (error) {
+            console.error('Erro ao alterar o produto:', error);
+            alert('Erro ao alterar. Tente novamente.');
+        }
     };
 
     return (
@@ -27,9 +67,9 @@ export default function CadastroProduto() {
                     />
                 </div>
                 <div className="alt_produto-input-group">
-                    <label className="alt_produto-label" htmlFor="categoria">categoria:</label>
+                    <label className="alt_produto-label" htmlFor="categoria">Categoria:</label>
                     <input
-                        type="categoria"
+                        type="text"
                         id="categoria"
                         className="alt_produto-input"
                         value={categoria}
@@ -37,13 +77,13 @@ export default function CadastroProduto() {
                         required
                     />
                 </div>
-                <Link to="/" className="alt_produto-button-alterar">
+                <button type="submit" className="alt_produto-button-alterar">
                     Alterar
-                </Link>
+                </button>
                 <Link to="/" className="alt_produto-button-voltar">
                     Voltar
                 </Link>
-                <Link to="/" className="alt_produto-button-excluir">
+                <Link to={`/ExcluirProduto/${id}`} className="alt_produto-button-excluir">
                     Excluir
                 </Link>
             </form>

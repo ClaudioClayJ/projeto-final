@@ -1,26 +1,43 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { db, collection, addDoc } from '../../firebase'; // Ajuste o caminho conforme necessário
+import React, { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { db, doc, getDoc, updateDoc } from '../../firebaseConfig';
 import "../alterar_usuario/alterar_usuario.css";
 
 export default function AlterarUsuario() {
+    const { id } = useParams();
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const docRef = doc(db, 'usuarios', id);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    setNome(data.nome);
+                    setEmail(data.email);
+                    setSenha(data.senha);
+                } else {
+                    console.log('Documento não encontrado!');
+                }
+            } catch (error) {
+                console.error('Erro ao buscar o documento:', error);
+            }
+        };
+
+        fetchData();
+    }, [id]);
 
     const handleAlterar = async (e) => {
         e.preventDefault();
 
         try {
-            // Adiciona os dados do usuário ao Firestore
-            await addDoc(collection(db, 'usuarios'), {
-                nome,
-                email,
-                senha
-            });
-
-            console.log('Dados do usuário:', { nome, email, senha });
-            alert('Alterado com sucesso!');
+            const docRef = doc(db, 'usuarios', id);
+            await updateDoc(docRef, { nome, email, senha });
+            alert('Usuário alterado com sucesso!');
         } catch (error) {
             console.error('Erro ao alterar o usuário:', error);
             alert('Erro ao alterar. Tente novamente.');
@@ -64,11 +81,14 @@ export default function AlterarUsuario() {
                         required
                     />
                 </div>
-                <Link to="/" className="alt_usuario-button-alterar">
+                <button type="submit" className="alt_usuario-button-alterar">
                     Alterar
-                </Link>
+                </button>
                 <Link to="/" className="alt_usuario-button-voltar">
                     Voltar
+                </Link>
+                <Link to={`/ExcluirUsuario/${id}`} className="alt_usuario-button-excluir">
+                    Excluir
                 </Link>
             </form>
         </div>
