@@ -1,6 +1,7 @@
+// src/components/CadastroUsuario/index.js
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { db, collection, addDoc } from '../../firebase'; // Ajuste o caminho conforme necessário
+import { db, collection, addDoc } from '../../firebaseConfig'; // Ajuste o caminho conforme necessário
 import "../cadastro_usuario/cd_usuario.css";
 
 export default function CadastroUsuario() {
@@ -21,6 +22,10 @@ export default function CadastroUsuario() {
 
             console.log('Dados do usuário:', { nome, email, senha });
             alert('Cadastro realizado com sucesso!');
+            // Limpar campos após o cadastro
+            setNome('');
+            setEmail('');
+            setSenha('');
         } catch (error) {
             console.error('Erro ao cadastrar usuário:', error);
             alert('Erro ao cadastrar. Tente novamente.');

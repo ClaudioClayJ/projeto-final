@@ -1,14 +1,32 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import "../cadastro_produto/cd_produto.css"
-import { db, collection, addDoc } from '../../firebaseConfig';
+import "../cadastro_produto/cd_produto.css";
+import { db, collection, addDoc } from '../../firebaseConfig'; // Certifique-se de que o caminho está correto
+
 export default function CadastroProduto() {
     const [nome, setNome] = useState('');
     const [categoria, setCategoriaProduto] = useState('');
 
-    const handleCadastro = (e) => {
+    const handleCadastro = async (e) => {
         e.preventDefault();
-        console.log('Dados do produto:', { nome, categoria });
+
+        try {
+            // Adiciona os dados do produto ao Firestore
+            await addDoc(collection(db, 'produtos'), {
+                nome,
+                categoria
+            });
+
+            console.log('Dados do produto:', { nome, categoria });
+            alert('Cadastro realizado com sucesso!');
+            
+            // Limpar campos após o cadastro
+            setNome('');
+            setCategoriaProduto('');
+        } catch (error) {
+            console.error('Erro ao cadastrar produto:', error);
+            alert('Erro ao cadastrar. Tente novamente.');
+        }
     };
 
     return (
@@ -27,9 +45,9 @@ export default function CadastroProduto() {
                     />
                 </div>
                 <div className="cd_produto-input-group">
-                    <label className="cd_produto-label" htmlFor="categoria">categoria:</label>
+                    <label className="cd_produto-label" htmlFor="categoria">Categoria:</label>
                     <input
-                        type="categoria"
+                        type="text"
                         id="categoria"
                         className="cd_produto-input"
                         value={categoria}

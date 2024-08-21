@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { db, collection, addDoc } from '../../firebaseConfig';
-import "../cadastro_saida/cd_saida.css"
+import { db, collection, addDoc } from '../../firebaseConfig'; // Certifique-se de que o caminho está correto
+import "../cadastro_saida/cd_saida.css";
 
 export default function CadastroSaida() {
     const [id_produto, setId_Produto] = useState('');
@@ -20,17 +20,40 @@ export default function CadastroSaida() {
         calculoTotal();
     }, [quantidade, valor_unitario]); // Recalcula quando quantidade ou valor unitário mudam
 
-    const handleCadastro = (e) => {
+    const handleCadastro = async (e) => {
         e.preventDefault();
-        console.log('Dados da saida:', { id_produto, quantidade, valor_unitario, data_saida, total });
+
+        try {
+            // Adiciona os dados da saída ao Firestore
+            await addDoc(collection(db, 'saidas'), {
+                id_produto,
+                quantidade,
+                valor_unitario,
+                total,
+                data_saida
+            });
+
+            console.log('Dados da saída:', { id_produto, quantidade, valor_unitario, data_saida, total });
+            alert('Cadastro realizado com sucesso!');
+            
+            // Limpar campos após o cadastro
+            setId_Produto('');
+            setQuantidade('');
+            setValor_Unitario('');
+            setData_Saida('');
+            setTotal('');
+        } catch (error) {
+            console.error('Erro ao cadastrar saída:', error);
+            alert('Erro ao cadastrar. Tente novamente.');
+        }
     };
 
     return (
         <div className="cd_saida-container">
-            <h2 className="cd_saida-title">Cadastro de Saida</h2>
+            <h2 className="cd_saida-title">Cadastro de Saída</h2>
             <form className="cd_saida-form" onSubmit={handleCadastro}>
                 <div className="cd_saida-input-group">
-                    <label className="cd_saida-label" htmlFor="Id_produto">Nome:</label>
+                    <label className="cd_saida-label" htmlFor="Id_produto">ID do Produto:</label>
                     <input
                         type="text"
                         id="Id_produto"
@@ -43,7 +66,7 @@ export default function CadastroSaida() {
                 <div className="cd_saida-input-group">
                     <label className="cd_saida-label" htmlFor="quantidade">Quantidade:</label>
                     <input
-                        type="text"
+                        type="number"  
                         id="quantidade"
                         className="cd_saida-input"
                         value={quantidade}
@@ -54,7 +77,7 @@ export default function CadastroSaida() {
                 <div className="cd_saida-input-group">
                     <label className="cd_saida-label" htmlFor="valor_unitario">Valor Unitário:</label>
                     <input
-                        type="text"
+                        type="number"  
                         id="valor_unitario"
                         className="cd_saida-input"
                         value={valor_unitario}
@@ -73,7 +96,7 @@ export default function CadastroSaida() {
                     />
                 </div>
                 <div className="cd_saida-input-group">
-                    <label className="cd_saida-label" htmlFor="data_saida">Data da Saida:</label>
+                    <label className="cd_saida-label" htmlFor="data_saida">Data da Saída:</label>
                     <input
                         type="date"
                         id="data_saida"
