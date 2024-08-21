@@ -1,19 +1,29 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import '../../global.css'; // Importe o CSS correspondente
 
 export default function Logon() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(null); // Adicione um estado para erros
   const navigate = useNavigate();
+  const auth = getAuth(); // Inicialize o Auth
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    navigate('/dashboard'); // Redirecionar para a página do dashboard
+    setError(null); // Limpar erros antes de tentar autenticar
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      navigate('/'); // Redirecionar para a página inicial após login bem-sucedido
+    } catch (error) {
+      setError("E-mail ou senha incorretos."); // Mostrar mensagem de erro
+    }
   };
 
   const handleRegister = () => {
-    navigate('/register'); // Redirecionar para a página de cadastro
+    navigate('/CadastroUsuario'); // Redirecionar para a página de cadastro
   };
 
   const handleExit = () => {
@@ -34,6 +44,7 @@ export default function Logon() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="logon-input"
+              required
             />
           </div>
           <div className="logon-input-group">
@@ -45,13 +56,14 @@ export default function Logon() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="logon-input"
+              required
             />
           </div>
+          {error && <p className="logon-error">{error}</p>} {/* Exibir mensagens de erro */}
           <div className="logon-button-group">
             <button type="submit" className="logon-button logon-button-submit">Entrar</button> 
-             <button type="button" onClick={handleRegister} className="logon-button logon-button-register">Cadastrar</button>
+            <button type="button" onClick={handleRegister} className="logon-button logon-button-register">Cadastrar</button>
             <button type="button" onClick={handleExit} className="logon-button logon-button-exit">Sair</button>
-          
           </div>
         </form>
       </section>
