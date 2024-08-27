@@ -85,7 +85,7 @@ export default function AlterarOferta() {
                 <button type="submit" className="alt_oferta-button-alterar">
                     Alterar
                 </button>
-                <Link to="/" className="alt_oferta-button-voltar">
+                <Link to="/ListaOfertas" className="alt_oferta-button-voltar">
                     Voltar
                 </Link>
                 <Link to={`/ExcluirOferta/${id}`} className="alt_oferta-button-excluir">

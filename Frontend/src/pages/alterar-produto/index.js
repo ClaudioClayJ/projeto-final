@@ -80,7 +80,7 @@ export default function AlterarProduto() {
                 <button type="submit" className="alt_produto-button-alterar">
                     Alterar
                 </button>
-                <Link to="/" className="alt_produto-button-voltar">
+                <Link to="/ListaProdutos" className="alt_produto-button-voltar">
                     Voltar
                 </Link>
                 <Link to={`/ExcluirProduto/${id}`} className="alt_produto-button-excluir">
