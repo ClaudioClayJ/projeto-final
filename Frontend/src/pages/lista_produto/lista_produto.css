@@ -1,0 +1,45 @@
+/* src/components/ListaProduto/lista_produto.css */
+
+.lista_produto-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.lista_produto-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.lista_produto-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.lista_produto-item {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+    position: relative;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+
+
+
+.lista_produto-actions {
+    display: flex;
+    gap: 15px;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}
+
+.lista_produto-actions a {
+    text-decoration: none;
+    color: inherit;
+}
+
+

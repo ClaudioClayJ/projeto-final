@@ -1,0 +1,28 @@
+/* src/components/ListaUsuario/lista_usuario.css */
+.lista_usuario-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.lista_usuario-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.lista_usuario-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.lista_usuario-item {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.lista_usuario-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}

@@ -82,10 +82,10 @@ export default function Menu() {
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.1 }}
                 >
-                  <Link to="/CadastroUsuario">
+                  <Link to="/ListaUsuarios">
                     <h4><FaRegUser />Usuarios</h4>
                   </Link>
-                  <Link to="/CadastroProduto">
+                  <Link to="/ListaProdutos">
                     <h4><MdSell />Produtos</h4>
                   </Link>
                   <Link to="/Estoque">

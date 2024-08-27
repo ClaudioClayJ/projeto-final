@@ -1,4 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+// Páginas e Componentes
 import Dashboard from './pages/dashboard';
 import Produtos from './pages/produtos/index';
 import Ofertas from './pages/ofertas/index';
@@ -20,20 +22,18 @@ import AlterarTreino from './pages/alterar_treino/index';
 import AlterarMatricula from './pages/alterar_matricula/index';
 import AlterarEntrada from './pages/alterar_entrada/index';
 import AlterarSaida from './pages/alterar_saida/index';
+import ListaUsuarios from './pages/lista_usuario/index';
+import ListaProdutos from './pages/lista_produto/index';
+import ListaOfertas from './pages/lista_ofertas/index';
+import ListaTreinos from './pages/lista_treinos/index';
+import ListaMatriculas from './pages/lista_matriculas/index';
 
-// // Componentes de Exclusão
-// import ExcluirUsuario from './pages/excluir_usuario/index';
-// import ExcluirProduto from './pages/excluir_produto/index';
-// import ExcluirOferta from './pages/excluir_oferta/index';
-// import ExcluirTreino from './pages/excluir_treino/index';
-// import ExcluirMatricula from './pages/excluir_matricula/index';
-// import ExcluirEntrada from './pages/excluir_entrada/index';
-// import ExcluirSaida from './pages/excluir_saida/index';
-
+// Componente de Rotas
 export default function Rotas() {
     return (
         <BrowserRouter>
             <Routes>
+                {/* Rotas Principais */}
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/Produtos" element={<Produtos />} />
                 <Route path="/Ofertas" element={<Ofertas />} />
@@ -60,14 +60,21 @@ export default function Rotas() {
                 <Route path="/AlterarEntrada/:id" element={<AlterarEntrada />} />
                 <Route path="/AlterarSaida/:id" element={<AlterarSaida />} />
 
-                {/* Rotas de Exclusão com ID
-                <Route path="/ExcluirUsuario/:id" element={<ExcluirUsuario />} />
+                {/* Rotas de Exclusão (comentadas, removê-las se não necessárias) */}
+                {/* <Route path="/ExcluirUsuario/:id" element={<ExcluirUsuario />} />
                 <Route path="/ExcluirProduto/:id" element={<ExcluirProduto />} />
                 <Route path="/ExcluirOferta/:id" element={<ExcluirOferta />} />
                 <Route path="/ExcluirTreino/:id" element={<ExcluirTreino />} />
                 <Route path="/ExcluirMatricula/:id" element={<ExcluirMatricula />} />
                 <Route path="/ExcluirEntrada/:id" element={<ExcluirEntrada />} />
                 <Route path="/ExcluirSaida/:id" element={<ExcluirSaida />} /> */}
+
+                {/* Rotas de Listagem */}
+                <Route path="/ListaUsuarios" element={<ListaUsuarios />} />
+                <Route path="/ListaProdutos" element={<ListaProdutos />} />
+                <Route path="/ListaOfertas" element={<ListaOfertas />} />
+                <Route path="/ListaTreinos" element={<ListaTreinos />} />
+                <Route path="/ListaMatriculas" element={<ListaMatriculas />} />
             </Routes>
         </BrowserRouter>
     );
