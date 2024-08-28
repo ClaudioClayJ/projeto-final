@@ -112,12 +112,6 @@ export default function CadastroSaida() {
                 <Link to="/" className="cd_saida-button-voltar">
                     Voltar
                 </Link>
-                <Link to="/AlterarSaida/:id" className="cd_saida-button-alterar">
-                    Alterar
-                </Link>
-                <Link to="/" className="cd_saida-button-excluir">
-                    Excluir
-                </Link>
             </form>
         </div>
     );

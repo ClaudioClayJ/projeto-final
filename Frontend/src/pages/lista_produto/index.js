@@ -63,9 +63,17 @@ export default function ListaProduto() {
     return (
         <div className="lista_produto-container">
             <div className="menu">
-                    <Menu/>
+                <Menu/>
             </div>
             <h2 className="lista_produto-title">Lista de Produtos</h2>
+            
+            {/* Botão de Cadastro */}
+            <div className="lista_produto-add-button">
+                <Link to="/CadastroProduto">
+                    <button className="cadastro-button">Cadastrar Novo Produto</button>
+                </Link>
+            </div>
+            
             <ul className="lista_produto-list">
                 {produtos.length > 0 ? (
                     produtos.map(produto => (

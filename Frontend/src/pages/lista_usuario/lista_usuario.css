@@ -26,3 +26,23 @@
     gap: 10px;
     margin-top: 10px;
 }
+/* src/components/lista_usuario/lista_usuario.css */
+.lista_usuario-add-button {
+    margin: 20px 0;
+    text-align:start;
+}
+
+.cadastro-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #008600;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cadastro-button:hover {
+    background-color: #4CAF50;
+}
+

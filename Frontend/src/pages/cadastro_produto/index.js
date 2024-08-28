@@ -58,14 +58,8 @@ export default function CadastroProduto() {
                 <button type="submit" className="cd_produto-button">
                     Cadastrar
                 </button>
-                <Link to="/" className="cd_produto-button-voltar">
+                <Link to="/ListaProdutos" className="cd_produto-button-voltar">
                     Voltar
-                </Link>
-                <Link to="/AlterarProduto/:id" className="cd_produto-button-alterar">
-                    Alterar
-                </Link>
-                <Link to="/" className="cd_produto-button-excluir">
-                    Excluir
                 </Link>
             </form>
         </div>

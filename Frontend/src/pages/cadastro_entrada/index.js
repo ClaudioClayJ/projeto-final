@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { db, collection, addDoc } from '../../firebaseConfig'; // Certifique-se de que o caminho está correto
+import { db, collection, addDoc, getDocs } from '../../firebaseConfig'; // Certifique-se de que o caminho está correto
 import "../cadastro_entrada/cd_entrada.css";
 
 export default function CadastroEntrada() {
@@ -8,12 +8,30 @@ export default function CadastroEntrada() {
     const [quantidade, setQuantidade] = useState('');
     const [valor_unitario, setValor_Unitario] = useState('');
     const [data_entrada, setData_Entrada] = useState('');
+    const [produtos, setProdutos] = useState([]); // Estado para armazenar produtos
+    const [loading, setLoading] = useState(true); // Estado para carregamento
+
+    useEffect(() => {
+        const fetchProdutos = async () => {
+            try {
+                const produtosCollection = collection(db, 'produtos');
+                const produtosSnapshot = await getDocs(produtosCollection);
+                const produtosList = produtosSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                setProdutos(produtosList);
+            } catch (error) {
+                console.error('Erro ao buscar produtos:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProdutos();
+    }, []);
 
     const handleCadastro = async (e) => {
         e.preventDefault();
 
         try {
-            // Adiciona os dados da entrada ao Firestore
             await addDoc(collection(db, 'entradas'), {
                 id_produto,
                 quantidade,
@@ -41,14 +59,24 @@ export default function CadastroEntrada() {
             <form className="cd_entrada-form" onSubmit={handleCadastro}>
                 <div className="cd_entrada-input-group">
                     <label className="cd_entrada-label" htmlFor="id_produto">ID do Produto:</label>
-                    <input
-                        type="text"
-                        id="id_produto"
-                        className="cd_entrada-input"
-                        value={id_produto}
-                        onChange={(e) => setId_Produto(e.target.value)}
-                        required
-                    />
+                    {loading ? (
+                        <p>Carregando produtos...</p>
+                    ) : (
+                        <select
+                            id="id_produto"
+                            className="cd_entrada-input"
+                            value={id_produto}
+                            onChange={(e) => setId_Produto(e.target.value)}
+                            required
+                        >
+                            <option value="" disabled>Selecione um produto</option>
+                            {produtos.map(produto => (
+                                <option key={produto.id} value={produto.id}>
+                                    {produto.nome}
+                                </option>
+                            ))}
+                        </select>
+                    )}
                 </div>
                 <div className="cd_entrada-input-group">
                     <label className="cd_entrada-label" htmlFor="quantidade">Quantidade:</label>
@@ -88,12 +116,6 @@ export default function CadastroEntrada() {
                 </button>
                 <Link to="/" className="cd_entrada-button-voltar">
                     Voltar
-                </Link>
-                <Link to="/AlterarEntrada/:id" className="cd_entrada-button-alterar">
-                    Alterar
-                </Link>
-                <Link to="/" className="cd_entrada-button-excluir">
-                    Excluir
                 </Link>
             </form>
         </div>

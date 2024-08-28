@@ -63,9 +63,17 @@ export default function ListaOferta() {
     return (
         <div className="lista_oferta-container">
             <div className="menu">
-                    <Menu/>
+                <Menu/>
             </div>
             <h2 className="lista_oferta-title">Lista de Ofertas</h2>
+            
+            {/* Botão de Cadastro */}
+            <div className="lista_oferta-add-button">
+                <Link to="/CadastroOfertas">
+                    <button className="cadastro-button">Cadastrar Nova Oferta</button>
+                </Link>
+            </div>
+            
             <ul className="lista_oferta-list">
                 {ofertas.length > 0 ? (
                     ofertas.map(oferta => (

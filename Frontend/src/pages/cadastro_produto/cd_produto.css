@@ -59,8 +59,8 @@
     border: none;
     border: solid 2px;
     border-radius: 6px;
-    background-color: #ffffff;
-    color: #000000;
+    background-color: #007bff;
+    color: #ffffff;
     font-size: 1em;
     cursor: pointer;
     text-align: center;
@@ -69,7 +69,7 @@
     width: 30%;
     box-sizing: border-box;
 }
-.cd_produto-button-alterar{
+/* .cd_produto-button-alterar{
     margin-left: 5%;
     margin-top: 10px;
     padding: 12px 20px;
@@ -80,7 +80,7 @@
     font-size: 1em;
     cursor: pointer;
     text-align: center;
-    text-decoration: none; /* Remove o sublinhado do link */
+    text-decoration: none; 
     display: inline-block;
     width: 30%;
     box-sizing: border-box;
@@ -96,10 +96,10 @@
     font-size: 1em;
     cursor: pointer;
     text-align: center;
-    text-decoration: none; /* Remove o sublinhado do link */
+    text-decoration: none; 
     display: inline-block;
     width: 30%;
     box-sizing: border-box;
-}
+} */
 
 

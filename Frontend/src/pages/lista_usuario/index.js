@@ -63,9 +63,17 @@ export default function ListaUsuario() {
     return (
         <div className="lista_usuario-container">
             <div className="menu">
-                    <Menu/>
+                <Menu/>
             </div>
             <h2 className="lista_usuario-title">Lista de Usuários</h2>
+            
+            {/* Botão de Cadastro */}
+            <div className="lista_usuario-add-button">
+                <Link to="/CadastroUsuario">
+                    <button className="cadastro-button">Cadastrar Novo Usuário</button>
+                </Link>
+            </div>
+            
             <ul className="lista_usuario-list">
                 {usuarios.length > 0 ? (
                     usuarios.map(usuario => (

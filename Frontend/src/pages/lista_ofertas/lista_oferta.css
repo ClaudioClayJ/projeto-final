@@ -35,3 +35,22 @@
     top: 15px;
 }
 
+.lista_oferta-add-button {
+    margin: 20px 0;
+    text-align:start;
+}
+
+.cadastro-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #008600;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cadastro-button:hover {
+    background-color: #4CAF50;
+}
+
