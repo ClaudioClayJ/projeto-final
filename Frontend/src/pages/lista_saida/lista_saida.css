@@ -1,0 +1,58 @@
+/* src/pages/lista_saida/lista_saida.css */
+.lista-saidas-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.lista-saidas-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.lista-saidas-add-button {
+    margin: 20px 0;
+    text-align: start;
+}
+
+.cadastro-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #008600;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cadastro-button:hover {
+    background-color: #4CAF50;
+}
+
+.lista-saidas-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.lista-saidas-item {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+    position: relative;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.lista-saidas-actions {
+    display: flex;
+    gap: 15px;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}
+
+.lista-saidas-actions a {
+    text-decoration: none;
+    color: inherit;
+}

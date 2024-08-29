@@ -6,8 +6,9 @@ import Produtos from './pages/produtos/index';
 import Ofertas from './pages/ofertas/index';
 import Localizacao from './pages/localizacao/index';
 import Treinos from './pages/treinos/index';
-import Matricula from './pages/matricula';
-import Login from './pages/logon';
+import Matricula from './pages/matricula/index';
+import Estoque from './pages/estoque/index';
+import Login from './pages/logon/index';
 import CadastroUsuario from './pages/cadastro_usuario/index';
 import CadastroProduto from './pages/cadastro_produto/index';
 import CadastroOfertas from './pages/cadastro_ofertas/index';
@@ -27,6 +28,8 @@ import ListaProdutos from './pages/lista_produto/index';
 import ListaOfertas from './pages/lista_ofertas/index';
 import ListaTreinos from './pages/lista_treinos/index';
 import ListaMatriculas from './pages/lista_matriculas/index';
+import ListaEntradas from './pages/lista_entrada/index';
+import ListaSaidas from './pages/lista_saida/index';
 
 // Componente de Rotas
 export default function Rotas() {
@@ -41,6 +44,7 @@ export default function Rotas() {
                 <Route path="/Treinos" element={<Treinos />} />
                 <Route path="/Matricula" element={<Matricula />} />
                 <Route path="/Login" element={<Login />} />
+                <Route path="/EStoque" element={<Estoque />} />
 
                 {/* Rotas de Cadastro */}
                 <Route path="/CadastroUsuario" element={<CadastroUsuario />} />
@@ -75,6 +79,8 @@ export default function Rotas() {
                 <Route path="/ListaOfertas" element={<ListaOfertas />} />
                 <Route path="/ListaTreinos" element={<ListaTreinos />} />
                 <Route path="/ListaMatriculas" element={<ListaMatriculas />} />
+                <Route path="/ListaEntradas" element={<ListaEntradas />} />
+                <Route path="/ListaSaidas" element={<ListaSaidas />} />
             </Routes>
         </BrowserRouter>
     );

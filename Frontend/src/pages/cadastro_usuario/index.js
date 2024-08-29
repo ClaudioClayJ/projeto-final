@@ -34,6 +34,7 @@ export default function CadastroUsuario() {
 
     return (
         <div className="cd_usuario-container">
+            
             <h2 className="cd_usuario-title">Cadastro de Usuário</h2>
             <form className="cd_usuario-form" onSubmit={handleCadastro}>
                 <div className="cd_usuario-input-group">

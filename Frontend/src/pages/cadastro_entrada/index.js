@@ -1,3 +1,4 @@
+// src/pages/cadastro_entrada/index.js
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { db, collection, addDoc, getDocs } from '../../firebaseConfig'; // Certifique-se de que o caminho está correto
@@ -8,8 +9,8 @@ export default function CadastroEntrada() {
     const [quantidade, setQuantidade] = useState('');
     const [valor_unitario, setValor_Unitario] = useState('');
     const [data_entrada, setData_Entrada] = useState('');
-    const [produtos, setProdutos] = useState([]); // Estado para armazenar produtos
-    const [loading, setLoading] = useState(true); // Estado para carregamento
+    const [produtos, setProdutos] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchProdutos = async () => {
@@ -32,6 +33,7 @@ export default function CadastroEntrada() {
         e.preventDefault();
 
         try {
+            // Adicionar a entrada
             await addDoc(collection(db, 'entradas'), {
                 id_produto,
                 quantidade,
@@ -58,7 +60,7 @@ export default function CadastroEntrada() {
             <h2 className="cd_entrada-title">Cadastro de Entrada</h2>
             <form className="cd_entrada-form" onSubmit={handleCadastro}>
                 <div className="cd_entrada-input-group">
-                    <label className="cd_entrada-label" htmlFor="id_produto">ID do Produto:</label>
+                    <label className="cd_entrada-label" htmlFor="id_produto">Produto:</label>
                     {loading ? (
                         <p>Carregando produtos...</p>
                     ) : (
@@ -114,7 +116,7 @@ export default function CadastroEntrada() {
                 <button type="submit" className="cd_entrada-button">
                     Cadastrar
                 </button>
-                <Link to="/" className="cd_entrada-button-voltar">
+                <Link to="/ListaEntradas" className="cd_entrada-button-voltar">
                     Voltar
                 </Link>
             </form>

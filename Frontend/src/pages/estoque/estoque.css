@@ -1,0 +1,41 @@
+/* src/pages/estoque/estoque.css */
+.estoque-container {
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: #f0f0f0;
+}
+
+.estoque-title {
+    margin-bottom: 20px;
+    font-size: 2em;
+    color: #333;
+}
+
+.estoque-summary {
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    color: #333;
+}
+
+.estoque-list {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    max-width: 800px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.estoque-item {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.estoque-item:last-child {
+    border-bottom: none;
+}
