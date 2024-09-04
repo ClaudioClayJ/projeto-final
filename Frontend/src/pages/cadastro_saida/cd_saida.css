@@ -1,5 +1,4 @@
 .cd_saida-container {
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -7,6 +6,8 @@
     height: 100vh;
     background: #f0f0f0;
     padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #c0c0c0;
 }
 
 .cd_saida-title {
