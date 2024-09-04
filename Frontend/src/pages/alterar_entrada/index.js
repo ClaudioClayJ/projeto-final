@@ -114,7 +114,7 @@ export default function AlterarEntrada() {
                 <button type="submit" className="alt_entrada-button-alterar">
                     Alterar
                 </button>
-                <Link to="/" className="alt_entrada-button-voltar">
+                <Link to="/ListaEntradas" className="alt_entrada-button-voltar">
                     Voltar
                 </Link>
                 <Link to={`/ExcluirEntrada/${id}`} className="alt_entrada-button-excluir">

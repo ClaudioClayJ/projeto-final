@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../../assets/img/logo.png';
 import { FaFacebookSquare, FaInstagram, FaWhatsapp, FaRegUser } from 'react-icons/fa';
+import { AiOutlineArrowUp, AiOutlineArrowDown } from "react-icons/ai";
 import { IoMenu } from "react-icons/io5";
 import { FaBoxArchive } from "react-icons/fa6";
 import { MdSell } from "react-icons/md";
@@ -88,8 +89,14 @@ export default function Menu() {
                   <Link to="/ListaProdutos">
                     <h4><MdSell />Produtos</h4>
                   </Link>
+                  <Link to="/ListaEntradas">
+                    <h4><AiOutlineArrowUp />Entrada</h4>
+                  </Link>
                   <Link to="/Estoque">
                     <h4><FaBoxArchive />Estoque</h4>
+                  </Link>
+                  <Link to="/ListaSaidas">
+                    <h4><AiOutlineArrowDown />Saida</h4>
                   </Link>
                 </motion.div>
               )}

@@ -2,17 +2,17 @@
 .lista-saidas-container {
     padding: 20px;
     font-family: Arial, sans-serif;
+    background-color: #c0c0c0;
 }
 
 .lista-saidas-title {
     font-size: 24px;
     margin-bottom: 20px;
-    color: #333;
 }
 
 .lista-saidas-add-button {
     margin: 20px 0;
-    text-align: start;
+    text-align:start;
 }
 
 .cadastro-button {
@@ -32,16 +32,17 @@
 .lista-saidas-list {
     list-style-type: none;
     padding: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .lista-saidas-item {
-    background: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 15px;
+    border: 2px solid #bdbdbd;
+    border-radius: 5px;
+    padding: 10px;
     margin-bottom: 10px;
+    background-color: azure;
     position: relative;
-    transition: background-color 0.3s, box-shadow 0.3s;
+    transition: background-color 0.1s, box-shadow 0.1s;
 }
 
 .lista-saidas-actions {
@@ -55,4 +56,13 @@
 .lista-saidas-actions a {
     text-decoration: none;
     color: inherit;
+}
+.lista-saidas-item:hover {
+    border: 2px solid #ffffff;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: rgb(218, 218, 218);
+    cursor: pointer;
+    transition: background-color 0.1s, box-shadow 0.1s;
 }

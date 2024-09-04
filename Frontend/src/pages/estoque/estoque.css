@@ -1,18 +1,13 @@
 /* src/pages/estoque/estoque.css */
 .estoque-container {
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     padding: 20px;
-    background: #f0f0f0;
+    font-family: Arial, sans-serif;
+    background-color: #c0c0c0;
 }
 
 .estoque-title {
+    font-size: 24px;
     margin-bottom: 20px;
-    font-size: 2em;
-    color: #333;
 }
 
 .estoque-summary {
@@ -22,20 +17,30 @@
 }
 
 .estoque-list {
-    list-style: none;
+    list-style-type: none;
     padding: 0;
-    width: 100%;
-    max-width: 800px;
-    background: #fff;
-    border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .estoque-item {
-    padding: 15px;
-    border-bottom: 1px solid #ddd;
+    border: 2px solid #bdbdbd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: azure;
+    position: relative;
+    transition: background-color 0.1s, box-shadow 0.1s;
 }
 
 .estoque-item:last-child {
     border-bottom: none;
+}
+.estoque-item:hover {
+    border: 2px solid #ffffff;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: rgb(218, 218, 218);
+    cursor: pointer;
+    transition: background-color 0.1s, box-shadow 0.1s;
 }

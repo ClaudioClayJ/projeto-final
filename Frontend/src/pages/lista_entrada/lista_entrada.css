@@ -1,20 +1,19 @@
 /* src/pages/lista_entrada/lista_entrada.css */
 
 .lista-entradas-container {
-    font-family: Arial, sans-serif;
     padding: 20px;
-    background: #f0f0f0;
+    font-family: Arial, sans-serif;
+    background-color: #c0c0c0;
 }
 
 .lista-entradas-title {
     font-size: 24px;
     margin-bottom: 20px;
-    color: #333;
 }
 
 .lista-entradas-add-button {
-    margin-bottom: 20px;
-    text-align: start; /* Ajuste de alinhamento para o botão */
+    margin: 20px 0;
+    text-align:start;
 }
 
 .cadastro-button {
@@ -32,25 +31,20 @@
 }
 
 .lista-entradas-list {
-    list-style: none;
+    list-style-type: none;
     padding: 0;
-    width: 100%;
-    max-width: 800px;
-    background: #fff;
-    border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+} 
 
 .lista-entradas-item {
-    padding: 15px;
-    border-bottom: 1px solid #ddd;
+    border: 2px solid #bdbdbd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: azure;
     position: relative;
-    transition: background-color 0.3s, box-shadow 0.3s;
-}
-
-.lista-entradas-item:last-child {
-    border-bottom: none;
-}
+    transition: background-color 0.1s, box-shadow 0.1s;
+}  
 
 .lista-entradas-actions {
     display: flex;
@@ -60,8 +54,16 @@
     top: 15px;
 }
 
-.lista-entradas-actions a,
-.lista-entradas-actions svg {
-    margin-right: 10px;
-    cursor: pointer;
+.lista-entradas-actions a {
+    text-decoration: none;
+    color: inherit;
 }
+.lista-entradas-item:hover {
+    border: 2px solid #ffffff;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: rgb(218, 218, 218);
+    cursor: pointer;
+    transition: background-color 0.1s, box-shadow 0.1s;
+} 

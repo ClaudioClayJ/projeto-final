@@ -1,30 +1,47 @@
-/* src/components/ListaUsuario/lista_usuario.css */
+/* src/components/Listausuario/lista_usuario.css */
+
 .lista_usuario-container {
     padding: 20px;
     font-family: Arial, sans-serif;
+    background-color: #c0c0c0;
 }
 
 .lista_usuario-title {
     font-size: 24px;
     margin-bottom: 20px;
+    
 }
 
 .lista_usuario-list {
     list-style-type: none;
     padding: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .lista_usuario-item {
-    border: 1px solid #ddd;
+    border: 2px solid #bdbdbd;
     border-radius: 5px;
     padding: 10px;
     margin-bottom: 10px;
+    background-color: azure;
+    position: relative;
+    transition: background-color 0.1s, box-shadow 0.1s;
 }
+
+
+
 
 .lista_usuario-actions {
     display: flex;
-    gap: 10px;
-    margin-top: 10px;
+    gap: 15px;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}
+
+.lista_usuario-actions a {
+    text-decoration: none;
+    color: inherit;
 }
 /* src/components/lista_usuario/lista_usuario.css */
 .lista_usuario-add-button {
@@ -44,5 +61,14 @@
 
 .cadastro-button:hover {
     background-color: #4CAF50;
+}
+.lista_usuario-item:hover {
+    border: 2px solid #ffffff;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: rgb(218, 218, 218);
+    cursor: pointer;
+    transition: background-color 0.1s, box-shadow 0.1s;
 }
 

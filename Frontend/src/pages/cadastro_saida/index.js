@@ -1,7 +1,6 @@
-// src/pages/cadastro_saida/index.js
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { db, collection, addDoc, doc, updateDoc, getDoc, getDocs, query, where, getCountFromServer } from '../../firebaseConfig'; // Certifique-se de que os métodos estão importados
+import { db, collection, addDoc, doc, updateDoc, getDoc, getDocs, query, where } from '../../firebaseConfig';
 import "../cadastro_saida/cd_saida.css";
 
 export default function CadastroSaida() {
@@ -13,24 +12,20 @@ export default function CadastroSaida() {
     const [produtos, setProdutos] = useState([]);
     const [quantidadeDisponivel, setQuantidadeDisponivel] = useState('');
 
-    // Função para calcular o total
     useEffect(() => {
         const calculoTotal = () => {
-            // Garantir que quantidade e valorUnitario são números
             const quantidadeNum = parseFloat(quantidade);
             const valorUnitarioNum = parseFloat(valorUnitario);
             if (!isNaN(quantidadeNum) && !isNaN(valorUnitarioNum)) {
                 const totalCalculado = quantidadeNum * valorUnitarioNum;
-                setTotal(totalCalculado.toFixed(2)); // Convertendo para duas casas decimais
+                setTotal(totalCalculado.toFixed(2));
             } else {
                 setTotal('');
             }
         };
-
         calculoTotal();
-    }, [quantidade, valorUnitario]); // Recalcula quando quantidade ou valor unitário mudam
+    }, [quantidade, valorUnitario]);
 
-    // Buscar produtos disponíveis no Firestore
     useEffect(() => {
         const fetchProdutos = async () => {
             try {
@@ -55,7 +50,6 @@ export default function CadastroSaida() {
                     const entradasQuery = query(entradasCollection, where('id_produto', '==', idProduto));
                     const entradasSnapshot = await getDocs(entradasQuery);
                     
-                    // Soma a quantidade de todas as entradas para o produto
                     const quantidadeEntradas = entradasSnapshot.docs.reduce((acc, doc) => {
                         const data = doc.data();
                         return acc + (data.quantidade || 0);
@@ -65,13 +59,11 @@ export default function CadastroSaida() {
                     const saidasQuery = query(saidasCollection, where('id_produto', '==', idProduto));
                     const saidasSnapshot = await getDocs(saidasQuery);
 
-                    // Soma a quantidade de todas as saídas para o produto
                     const quantidadeSaidas = saidasSnapshot.docs.reduce((acc, doc) => {
                         const data = doc.data();
                         return acc + (data.quantidade || 0);
                     }, 0);
 
-                    // Calcula a quantidade disponível
                     const quantidadeDisponivel = quantidadeEntradas - quantidadeSaidas;
                     setQuantidadeDisponivel(quantidadeDisponivel >= 0 ? quantidadeDisponivel : 0);
                 } catch (error) {
@@ -88,8 +80,13 @@ export default function CadastroSaida() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        if (parseFloat(quantidade) > quantidadeDisponivel) {
+            alert('Quantidade de saída não pode ser maior que a quantidade disponível.');
+            return;
+        }
+
         try {
-            // Adicionar nova saída
             const saidaRef = collection(db, 'saidas');
             await addDoc(saidaRef, {
                 id_produto: idProduto,
@@ -99,7 +96,6 @@ export default function CadastroSaida() {
                 data_saida: dataSaida,
             });
 
-            // Atualizar o estoque
             const produtoRef = doc(db, 'produtos', idProduto);
             const produtoDoc = await getDoc(produtoRef);
             if (produtoDoc.exists()) {
@@ -109,7 +105,6 @@ export default function CadastroSaida() {
             }
 
             alert('Saída registrada com sucesso!');
-            // Limpar campos após o cadastro
             setIdProduto('');
             setQuantidade('');
             setValorUnitario('');
@@ -138,7 +133,7 @@ export default function CadastroSaida() {
                         <option value="">Selecione um produto</option>
                         {produtos.map(produto => (
                             <option key={produto.id} value={produto.id}>
-                                {produto.nome} {/* Exiba o nome do produto */}
+                                {produto.nome}
                             </option>
                         ))}
                     </select>

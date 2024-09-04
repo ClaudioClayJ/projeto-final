@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaTrash } from "react-icons/fa";
 import { MdModeEditOutline } from "react-icons/md";
-import { db, collection, getDocs, deleteDoc, doc } from '../../firebaseConfig';
+import { db, collection, getDocs, deleteDoc, doc, getDoc } from '../../firebaseConfig';
 import "./lista_saida.css";
 import Menu from "../componentes/menu";  
 
@@ -17,7 +17,21 @@ export default function ListaSaida() {
             try {
                 const saidasCollection = collection(db, 'saidas');
                 const saidasSnapshot = await getDocs(saidasCollection);
-                const saidasList = saidasSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                const saidasList = await Promise.all(saidasSnapshot.docs.map(async (saidaDoc) => {
+                    const saidaData = saidaDoc.data();
+
+                    let nomeProduto = 'Produto não encontrado';
+                    try {
+                        const produtoDoc = await getDoc(doc(db, 'produtos', saidaData.id_produto));
+                        if (produtoDoc.exists()) {
+                            nomeProduto = produtoDoc.data().nome;
+                        }
+                    } catch (produtoError) {
+                        console.error('Erro ao buscar o produto:', produtoError);
+                    }
+
+                    return { id: saidaDoc.id, nomeProduto, ...saidaData };
+                }));
                 setSaidas(saidasList);
             } catch (error) {
                 console.error('Erro ao buscar saídas:', error);
@@ -71,8 +85,11 @@ export default function ListaSaida() {
                 {saidas.length > 0 ? (
                     saidas.map(saida => (
                         <li key={saida.id} className="lista-saidas-item">
+                            <strong>Nome do Produto:</strong> {saida.nomeProduto} <br />
                             <strong>ID do Produto:</strong> {saida.id_produto} <br />
                             <strong>Quantidade:</strong> {saida.quantidade} <br />
+                            <strong>Valor Unitário:</strong> {saida.valor_unitario} <br />
+                            <strong>Total:</strong> {saida.total} <br />
                             <strong>Data da Saída:</strong> {saida.data_saida} <br />
                             <div className="lista-saidas-actions">
                                 <Link to={`/AlterarSaida/${saida.id}`}>
