@@ -6,6 +6,7 @@ import Menu from "../componentes/menu";
 
 export default function Estoque() {
     const [entradas, setEntradas] = useState([]);
+    const [saidas, setSaidas] = useState([]);
     const [produtos, setProdutos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [totalEstoque, setTotalEstoque] = useState(0);
@@ -19,6 +20,12 @@ export default function Estoque() {
                 const entradasList = entradasSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                 setEntradas(entradasList);
 
+                // Buscar saídas
+                const saidasCollection = collection(db, 'saidas');
+                const saidasSnapshot = await getDocs(saidasCollection);
+                const saidasList = saidasSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                setSaidas(saidasList);
+
                 // Buscar produtos
                 const produtosCollection = collection(db, 'produtos');
                 const produtosSnapshot = await getDocs(produtosCollection);
@@ -27,10 +34,22 @@ export default function Estoque() {
 
                 // Calcular o total do estoque
                 const total = entradasList.reduce((acc, entrada) => {
-                    const quantidade = parseFloat(entrada.quantidade) || 0;
+                    const quantidadeEntrada = parseFloat(entrada.quantidade) || 0;
                     const valorUnitario = parseFloat(entrada.valor_unitario) || 0;
-                    return acc + (quantidade * valorUnitario);
+
+                    // Calcular as saídas correspondentes a esse produto
+                    const saidasProduto = saidasList.filter(saida => saida.id_produto === entrada.id_produto);
+                    const quantidadeSaidas = saidasProduto.reduce((accSaida, saida) => {
+                        return accSaida + (parseFloat(saida.quantidade) || 0);
+                    }, 0);
+
+                    // Subtrair saídas das entradas
+                    const quantidadeDisponivel = quantidadeEntrada - quantidadeSaidas;
+
+                    // Acumular no total o valor do estoque
+                    return acc + (quantidadeDisponivel * valorUnitario);
                 }, 0);
+
                 setTotalEstoque(total);
 
             } catch (error) {
@@ -67,10 +86,18 @@ export default function Estoque() {
             <ul className="estoque-list">
                 {entradas.length > 0 ? (
                     entradas.map(entrada => {
-                        // Calcular o total da entrada
-                        const quantidade = parseFloat(entrada.quantidade) || 0;
+                        // Calcular as saídas correspondentes
+                        const quantidadeEntrada = parseFloat(entrada.quantidade) || 0;
                         const valorUnitario = parseFloat(entrada.valor_unitario) || 0;
-                        const totalEntrada = quantidade * valorUnitario;
+
+                        const saidasProduto = saidas.filter(saida => saida.id_produto === entrada.id_produto);
+                        const quantidadeSaidas = saidasProduto.reduce((accSaida, saida) => {
+                            return accSaida + (parseFloat(saida.quantidade) || 0);
+                        }, 0);
+
+                        // Quantidade disponível no estoque
+                        const quantidadeDisponivel = quantidadeEntrada - quantidadeSaidas;
+                        const totalEntrada = quantidadeDisponivel * valorUnitario;
 
                         // Obter o nome do produto usando o ID
                         const nomeProduto = produtoMap[entrada.id_produto] || 'Desconhecido';
@@ -79,9 +106,9 @@ export default function Estoque() {
                             <li key={entrada.id} className="estoque-item">
                                 <strong>Nome do Produto:</strong> {nomeProduto} <br />
                                 <strong>ID do Produto:</strong> {entrada.id_produto} <br />
-                                <strong>Quantidade:</strong> {entrada.quantidade} <br />
-                                <strong>Valor Unitário:</strong> {entrada.valor_unitario} <br />
-                                <strong>Total da Entrada:</strong> R$ {totalEntrada.toFixed(2).replace('.', ',')} <br />
+                                <strong>Quantidade no Estoque:</strong> {quantidadeDisponivel} <br />
+                                <strong>Valor Unitário:</strong> R$ {entrada.valor_unitario} <br />
+                                <strong>Total Disponível:</strong> R$ {totalEntrada.toFixed(2).replace('.', ',')} <br />
                             </li>
                         );
                     })

@@ -89,12 +89,14 @@ export default function ListaEntradas() {
 
                         return (
                             <li key={entrada.id} className="lista-entradas-item">
-                                <strong>Produto:</strong> {produtoNome} <br />
-                                <strong>ID do Produto:</strong> {entrada.id_produto} <br />
-                                <strong>Quantidade:</strong> {entrada.quantidade} <br />
-                                <strong>Valor Unitário:</strong> {entrada.valor_unitario} <br />
-                                <strong>Data da Entrada:</strong> {entrada.data_entrada} <br />
-                                <strong>Total da Entrada:</strong> R$ {totalEntrada.toFixed(2).replace('.', ',')} <br />
+                                <div className="justificado" >
+                                    <strong>Produto:</strong> {produtoNome} <br />
+                                    <strong>ID do Produto:</strong> {entrada.id_produto} <br />
+                                    <strong>Quantidade:</strong> {entrada.quantidade} <br />
+                                    <strong>Valor Unitário:</strong> {entrada.valor_unitario} <br />
+                                    <strong>Data da Entrada:</strong> {entrada.data_entrada} <br />
+                                    <strong>Total da Entrada:</strong> R$ {totalEntrada.toFixed(2).replace('.', ',')} <br />
+                                </div>
                                 <div className="lista-entradas-actions">
                                     <Link to={`/AlterarEntrada/${entrada.id}`}>
                                         <MdModeEditOutline size={30} color='#1601F0' />
