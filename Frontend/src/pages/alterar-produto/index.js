@@ -77,15 +77,13 @@ export default function AlterarProduto() {
                         required
                     />
                 </div>
-                <button type="submit" className="alt_produto-button-alterar">
-                    Alterar
-                </button>
                 <Link to="/ListaProdutos" className="alt_produto-button-voltar">
                     Voltar
                 </Link>
-                <Link to={`/ExcluirProduto/${id}`} className="alt_produto-button-excluir">
-                    Excluir
-                </Link>
+                <button type="submit" className="alt_produto-button-alterar">
+                    Alterar
+                </button>
+               
             </form>
         </div>
     );

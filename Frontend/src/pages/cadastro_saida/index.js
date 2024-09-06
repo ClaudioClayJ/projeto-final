@@ -195,12 +195,12 @@ export default function CadastroSaida() {
                         required
                     />
                 </div>
-                <button type="submit" className="cd_saida-button">
-                    Cadastrar
-                </button>
                 <Link to="/ListaSaidas" className="cd_saida-button-voltar">
                     Voltar
                 </Link>
+                <button type="submit" className="cd_saida-button">
+                    Cadastrar
+                </button>
             </form>
         </div>
     );

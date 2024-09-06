@@ -134,15 +134,13 @@ export default function AlterarSaida() {
                     />
                 </div>
                 
-                <button type="submit" className="alt_saida-button-alterar">
-                    Alterar
-                </button>
                 <Link to="/" className="alt_saida-button-voltar">
                     Voltar
                 </Link>
-                <Link to={`/ExcluirSaida/${id}`} className="alt_saida-button-excluir">
-                    Excluir
-                </Link>
+                <button type="submit" className="alt_saida-button-alterar">
+                    Alterar
+                </button>
+               
             </form>
         </div>
     );

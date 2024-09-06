@@ -70,12 +70,12 @@ export default function CadastroUsuario() {
                         required
                     />
                 </div>
-                <button type="submit" className="cd_usuario-button">
-                    Cadastrar
-                </button>
                 <Link to="/ListaUsuarios" className="cd_usuario-button-voltar">
                     Voltar
                 </Link>
+                <button type="submit" className="cd_usuario-button">
+                    Cadastrar
+                </button>
             </form>
         </div>
     );

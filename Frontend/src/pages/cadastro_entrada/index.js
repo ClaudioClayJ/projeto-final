@@ -113,12 +113,12 @@ export default function CadastroEntrada() {
                         required
                     />
                 </div>
-                <button type="submit" className="cd_entrada-button">
-                    Cadastrar
-                </button>
                 <Link to="/ListaEntradas" className="cd_entrada-button-voltar">
                     Voltar
                 </Link>
+                <button type="submit" className="cd_entrada-button">
+                    Cadastrar
+                </button>
             </form>
         </div>
     );

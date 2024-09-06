@@ -81,15 +81,13 @@ export default function AlterarUsuario() {
                         required
                     />
                 </div>
-                <button type="submit" className="alt_usuario-button-alterar">
-                    Alterar
-                </button>
                 <Link to="/ListaUsuarios" className="alt_usuario-button-voltar">
                     Voltar
                 </Link>
-                <Link to={`/ExcluirUsuario/${id}`} className="alt_usuario-button-excluir">
-                    Excluir
-                </Link>
+                <button type="submit" className="alt_usuario-button-alterar">
+                    Alterar
+                </button>
+                
             </form>
         </div>
     );

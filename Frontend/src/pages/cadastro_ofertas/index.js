@@ -55,12 +55,12 @@ export default function CadastroOferta() {
                         required
                     />
                 </div>
-                <button type="submit" className="cd_oferta-button">
-                    Cadastrar
-                </button>
                 <Link to="/ListaOfertas" className="cd_oferta-button-voltar">
                     Voltar
                 </Link>
+                <button type="submit" className="cd_oferta-button">
+                    Cadastrar
+                </button>
             </form>
         </div>
     );

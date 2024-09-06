@@ -1,0 +1,20 @@
+/* Remove a margem padrão do body */
+body {
+    margin: 0;
+    padding: 0;
+}
+
+
+
+.content {
+    margin-top: 10px; /* Ajuste conforme a altura do menu */
+    padding-top: 0%;
+    width: 100%; /* Garante que a .content ocupe a largura total */
+}
+
+img {
+    width: 110%;
+    height: auto;
+    max-height: 500px; /* Ajuste a altura máxima conforme necessário */
+    object-fit: cover; /* Garante que a imagem cubra o contêiner sem distorção */ 
+}

@@ -55,12 +55,12 @@ export default function CadastroProduto() {
                         required
                     />
                 </div>
-                <button type="submit" className="cd_produto-button">
-                    Cadastrar
-                </button>
                 <Link to="/ListaProdutos" className="cd_produto-button-voltar">
                     Voltar
                 </Link>
+                <button type="submit" className="cd_produto-button">
+                    Cadastrar
+                </button>
             </form>
         </div>
     );
