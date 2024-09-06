@@ -113,6 +113,19 @@ h3:hover, h4:hover, .menu-adm:hover, .menu-adm h6:hover {
     background-color: #c2185b;
 }
 
+/* Estilizando os links normais fora do menu-adm */
+.row.menu-items a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+/* Estilo para mudar a cor ao passar o mouse */
+.row.menu-items a:hover {
+    color: #e02041;
+}
+
+
 .col_menu {
     flex: 1;
     display: flex;
