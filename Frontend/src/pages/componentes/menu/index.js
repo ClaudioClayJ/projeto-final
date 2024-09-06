@@ -1,9 +1,9 @@
 import { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../../../assets/img/logo.png';
+import logo from '../../../assets/img/LOGO2.png';
 import { FaFacebookSquare, FaInstagram, FaWhatsapp, FaRegUser } from 'react-icons/fa';
 import { AiOutlineArrowUp, AiOutlineArrowDown } from "react-icons/ai";
-import { IoMenu } from "react-icons/io5";
+import { IoMenu, IoHome } from "react-icons/io5";
 import { FaBoxArchive } from "react-icons/fa6";
 import { MdSell } from "react-icons/md";
 import { motion, AnimatePresence } from 'framer-motion';
@@ -102,11 +102,21 @@ export default function Menu() {
               )}
             </AnimatePresence>
           </div>
-          <img className="logo" src={logo} alt="Academia" />
+          <div className="col">
+            <div className="logo-container">
+              <img className="logo" src={logo} alt="Academia" />
+              <h7 className="escrita_logo">GYM SYSTEM</h7>
+            </div>
+          </div>
+
         </div>
         <div className="col center">
-          <h1>Nome Academia</h1>
+          <Link to="/" className="link-academia">
+            <h1>Nome Academia</h1>
+            <IoHome size={25} className="icon-home" />
+          </Link>
         </div>
+
         <div className='col'>
           <div className="row search-container">
             <form onSubmit={handleSearchSubmit} className="search-form">
