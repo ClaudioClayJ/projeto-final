@@ -29,5 +29,6 @@ export default function Dashboard() {
                 <p>Você pode ajudar a traduzir este site para um idioma estrangeiro? Por favor nos envie um e-mail...</p>
             </div>
         </div>
+        
     );
 }
