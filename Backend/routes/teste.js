@@ -83,7 +83,7 @@ app.use("/matricula/:id",(req, res, next)=>{
     const matriculado = matricula.filter(linha=>
         linha.idaluno==id)
 
-    const nomecurso=cursos[matriculado[0].idcurso];
+    const nomecurso = cursos[parseInt(matriculado[0].idcurso) - 1];
     function findByKey(key, value) {
         return (item, i) => item[key] === value
     }

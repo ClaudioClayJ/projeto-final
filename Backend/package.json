@@ -6,7 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js"
   },
-  "author": "Carlos Henrique Sousa de Macedo",
+  "author": "Claudio Clay Teixeira Barbosa Junior",
   "license": "ISC",
   "description": "",
   "dependencies": {

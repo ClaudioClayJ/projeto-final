@@ -13,7 +13,7 @@ app.use((req,res,next)=>{
 
     res.header(
         "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept,Autorization"
+        "Origin, X-Requested-With, Content-Type, Accept, Authorization"
 
     );
     if(req.method === "OPTIONS"){

@@ -56,7 +56,8 @@ router.post("/",(req,res,next)=>{
     const {id_produto, quantidade, valor_unitario, data_saida } = req.body;
    db.serialize(() => {
         const insertSaida = db.prepare(`
-        INSERT INTO entrada(id_produto, quantidade, valor_unitario, data_saida) VALUES(?,?,?,?)`);
+        INSERT INTO saida(id_produto, quantidade, valor_unitario, data_saida) VALUES(?,?,?,?)`);
+        
         insertSaida.run(id_produto, quantidade, valor_unitario, data_saida);
         insertSaida.finalize();
     });
