@@ -2,105 +2,113 @@ const express = require("express");
 const router = express.Router();
 const sqlite3 = require("sqlite3").verbose();
 const db = new sqlite3.Database("database.db");
-db.run(`CREATE TABLE IF NOT EXISTS 
-         saida (
-            id INTEGER PRIMARY KEY AUTOINCREMENT, 
-            id_produto INT, 
-            quantidade FLOAT,
-            valor_unitario FLOAT,
-            data_saida DATE)
-            `, (createTableError) => {
-    if (createTableError) {
-        return res.status(500).send({
-            error: createTableError.message
+
+// Criação da tabela (sem uso de res)
+db.run(`
+    CREATE TABLE IF NOT EXISTS saida (
+        id INTEGER PRIMARY KEY AUTOINCREMENT, 
+        id_produto INT, 
+        quantidade FLOAT,
+        valor_unitario FLOAT,
+        data_saida DATE
+    )
+`);
+
+// 🟢 GET - Listar todas as saídas
+router.get("/", (req, res) => {
+    db.all("SELECT * FROM saida", (error, rows) => {
+        if (error) {
+            return res.status(500).send({ error: error.message });
+        }
+
+        res.status(200).send({
+            mensagem: "Lista de todas as saídas:",
+            saida: rows
         });
-    }
+    });
 });
 
+// 🟢 GET - Buscar uma saída pelo ID
+router.get("/:id", (req, res) => {
+    const { id } = req.params;
 
-//consultar todos os dados
-router.get("/",(req,res,next)=>{
-    db.all('SELECT * FROM saida', (error, rows) => {
+    db.get("SELECT * FROM saida WHERE id = ?", [id], (error, row) => {
         if (error) {
-            return res.status(500).send({
-                error: error.message
-            });
+            return res.status(500).send({ error: error.message });
         }
 
-        res.status(200).send({
-            mensagem: "Aqui está a lista das Saidas",
-            saida: rows
-        });
-    });
-})
-
-//consultar apenas uma saida pelo id
-router.get("/:id",(req,res,next)=>{
-    const {id} = req.params;
-    db.get('SELECT * FROM saida where id=?',[id], (error, rows) => {
-        if (error) {
-            return res.status(500).send({
-                error: error.message
-            });
+        if (!row) {
+            return res.status(404).send({ mensagem: "Saída não encontrada." });
         }
 
-        res.status(200).send({
-            mensagem: "Aqui está o cadastro da saida",
-            saida: rows
-        });
+        res.status(200).send(row); // <-- direto o objeto
     });
-})
+});
 
-// aqui salvamos dados da saida
-router.post("/",(req,res,next)=>{
-    const {id_produto, quantidade, valor_unitario, data_saida } = req.body;
-   db.serialize(() => {
-        const insertSaida = db.prepare(`
-        INSERT INTO saida(id_produto, quantidade, valor_unitario, data_saida) VALUES(?,?,?,?)`);
-        
-        insertSaida.run(id_produto, quantidade, valor_unitario, data_saida);
-        insertSaida.finalize();
-    });
-    process.on("SIGINT", () => {
-        db.close((err) => {
-            if (err) {
-                return res.status(304).send(err.message);
+// 🟢 POST - Inserir nova saída
+router.post("/", (req, res) => {
+    const { id_produto, quantidade, valor_unitario, data_saida } = req.body;
+
+    db.run(
+        `INSERT INTO saida (id_produto, quantidade, valor_unitario, data_saida) 
+         VALUES (?, ?, ?, ?)`,
+        [id_produto, quantidade, valor_unitario, data_saida],
+        function (error) {
+            if (error) {
+                return res.status(500).send({ error: error.message });
             }
-        });
-    });
 
-    res.status(200)
-    .send({ mensagem: "Saida salva com sucesso!" });
-});
-
-// aqui podemos alterar dados da saida
-router.put("/",(req,res,next)=>{
- const {id,id_produto, quantidade, valor_unitario, data_saida} = req.body;
- db.run('UPDATE saida SET id_produto=?, quantidade=?, valor_unitario=?,  data_saida=?  WHERE id=?',[id_produto, quantidade, valor_unitario, data_saida ,id], (error, rows) => {
-    if (error) {
-        return res.status(500).send({
-            error: error.message
-        });
-    }res.status(200).send(
-        { mensagem: `Dados de ${id_produto} e de id: ${id} foi aterado com sucesso!!!` 
-        // { mensagem: "Dados de "+descricao+" e de id: "+id+" foi aterado com sucesso!!!" 
-    });
-})   
-});
- // Aqui podemos deletar o cadastro de uma saida por meio do id
-router.delete("/:id",(req,res,next)=>{
-    const {id} = req.params
-    db.run('DELETE FROM saida where id=?',[id], (error, rows) => {
-        if (error) {
-            return res.status(500).send({
-                error: error.message
+            res.status(201).send({
+                mensagem: "Saída registrada com sucesso!",
+                id: this.lastID
             });
-        }res.status(200).send(
-            { mensagem: `Saida de id: ${id} foi deletado com sucesso!!!` 
-        });
-    })        
-    
-
-
+        }
+    );
 });
+
+// 🟡 PUT - Atualizar uma saída específica
+router.put("/:id", (req, res) => {
+    const { id } = req.params;
+    const { id_produto, quantidade, valor_unitario, data_saida } = req.body;
+
+    db.run(
+        `UPDATE saida 
+         SET id_produto = ?, quantidade = ?, valor_unitario = ?, data_saida = ? 
+         WHERE id = ?`,
+        [id_produto, quantidade, valor_unitario, data_saida, id],
+        function (error) {
+            if (error) {
+                return res.status(500).send({ error: error.message });
+            }
+
+            if (this.changes === 0) {
+                return res.status(404).send({ mensagem: "Saída não encontrada." });
+            }
+
+            res.status(200).send({
+                mensagem: `Saída com ID ${id} atualizada com sucesso!`
+            });
+        }
+    );
+});
+
+// 🔴 DELETE - Remover uma saída
+router.delete("/:id", (req, res) => {
+    const { id } = req.params;
+
+    db.run("DELETE FROM saida WHERE id = ?", [id], function (error) {
+        if (error) {
+            return res.status(500).send({ error: error.message });
+        }
+
+        if (this.changes === 0) {
+            return res.status(404).send({ mensagem: "Saída não encontrada." });
+        }
+
+        res.status(200).send({
+            mensagem: `Saída com ID ${id} foi deletada com sucesso!`
+        });
+    });
+});
+
 module.exports = router;

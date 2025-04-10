@@ -27,13 +27,18 @@ const rotaProduto = require("./routes/rotaProduto");
 const rotaEstoque = require("./routes/rotaEstoque");
 const rotaEntrada = require("./routes/rotaEntrada");
 const rotaSaida = require("./routes/rotaSaida");
+const rotaMatricula = require('./routes/rotaMatricula');
+const rotaOfertas = require('./routes/rotaOfertas');
+const rotaTreino = require("./routes/rotaTreino");
 
 app.use("/usuario",rotaUsuario)
 app.use("/produto",rotaProduto)
 app.use("/estoque",rotaEstoque)
 app.use("/entrada",rotaEntrada)
 app.use("/saida",rotaSaida)
-
+app.use("/matricula", rotaMatricula);
+app.use("/oferta", rotaOfertas);
+app.use("/treino", rotaTreino);
 module.exports = app
 
 

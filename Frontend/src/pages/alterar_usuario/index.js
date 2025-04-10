@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { db, doc, getDoc, updateDoc } from '../../firebaseConfig';
-import "../alterar_usuario/alterar_usuario.css";
+import axios from 'axios';
+import './alterar_usuario.css';
 
 export default function AlterarUsuario() {
     const { id } = useParams();
@@ -10,33 +10,31 @@ export default function AlterarUsuario() {
     const [senha, setSenha] = useState('');
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchUsuario = async () => {
             try {
-                const docRef = doc(db, 'usuarios', id);
-                const docSnap = await getDoc(docRef);
+                const response = await axios.get(`http://localhost:3001/usuarios/${id}`);
+                const usuario = response.data;
 
-                if (docSnap.exists()) {
-                    const data = docSnap.data();
-                    setNome(data.nome);
-                    setEmail(data.email);
-                    setSenha(data.senha);
-                } else {
-                    console.log('Documento não encontrado!');
-                }
+                setNome(usuario.nome);
+                setEmail(usuario.email);
+                setSenha(usuario.senha);
             } catch (error) {
-                console.error('Erro ao buscar o documento:', error);
+                console.error('Erro ao buscar o usuário:', error);
+                alert('Erro ao carregar os dados do usuário.');
             }
         };
 
-        fetchData();
+        fetchUsuario();
     }, [id]);
 
     const handleAlterar = async (e) => {
         e.preventDefault();
-
         try {
-            const docRef = doc(db, 'usuarios', id);
-            await updateDoc(docRef, { nome, email, senha });
+            await axios.put(`http://localhost:3001/usuarios/${id}`, {
+                nome,
+                email,
+                senha
+            });
             alert('Usuário alterado com sucesso!');
         } catch (error) {
             console.error('Erro ao alterar o usuário:', error);
@@ -87,7 +85,6 @@ export default function AlterarUsuario() {
                 <button type="submit" className="alt_usuario-button-alterar">
                     Alterar
                 </button>
-                
             </form>
         </div>
     );

@@ -1,33 +1,50 @@
- import React, { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import '../../global.css'; // Importe o CSS correspondente
+import '../../global.css';
 
 export default function Logon() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(null); // Adicione um estado para erros
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const auth = getAuth(); // Inicialize o Auth
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setError(null); // Limpar erros antes de tentar autenticar
+    setError(null);
 
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      navigate('/'); // Redirecionar para a página inicial após login bem-sucedido
-    } catch (error) {
-      setError("E-mail ou senha incorretos."); // Mostrar mensagem de erro
+      const response = await fetch("http://localhost:3001/usuario/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email: email,
+          senha: password
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log("Usuário logado com sucesso:", data.usuario);
+        navigate('/'); // ou outra página principal
+      } else {
+        setError(data.error || "E-mail ou senha incorretos.");
+      }
+
+    } catch (err) {
+      console.error("Erro ao fazer login:", err);
+      setError("Erro ao conectar com o servidor.");
     }
   };
 
   const handleRegister = () => {
-    navigate('/CadastroUsuario'); // Redirecionar para a página de cadastro
+    navigate('/CadastroUsuario');
   };
 
   const handleExit = () => {
-    navigate('/'); // Redirecionar para a página inicial ou outra página
+    navigate('/');
   };
 
   return (
@@ -59,7 +76,7 @@ export default function Logon() {
               required
             />
           </div>
-          {error && <p className="logon-error">{error}</p>} {/* Exibir mensagens de erro */}
+          {error && <p className="logon-error">{error}</p>}
           <div className="logon-button-group">
             <button type="submit" className="logon-button logon-button-submit">Entrar</button> 
             <button type="button" onClick={handleRegister} className="logon-button logon-button-register">Cadastrar</button>

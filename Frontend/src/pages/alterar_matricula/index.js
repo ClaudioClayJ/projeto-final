@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { db, collection, addDoc } from '../../firebaseConfig';
 import '../../pages/alterar_matricula/alterar_matricula.css';
-import { Link } from 'react-router-dom';
-import Menu from "../componentes/menu";
+import Menu from '../componentes/menu/index'
 
 const planos = [
     { nome: "Plano Básico", valor: "R$50", descricao: "Plano básico com acesso limitado a recursos." },
@@ -51,142 +49,68 @@ export default function Alterar_matricula() {
 
         if (Object.keys(newErrors).length === 0) {
             try {
-                // Reference to the Firestore collection
-                const docRef = collection(db, "matriculas");
-
-                // Add form data to Firestore
-                await addDoc(docRef, { 
-                    ...formData,
-                    plano: selectedPlan.nome,
-                    valorPlano: selectedPlan.valor,
-                    descricaoPlano: selectedPlan.descricao,
+                const response = await fetch('http://localhost:3000/api/matriculas/alterar', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        ...formData,
+                        plano: selectedPlan.nome,
+                        valorPlano: selectedPlan.valor,
+                        descricaoPlano: selectedPlan.descricao,
+                    }),
                 });
 
-                // Navigate to the success page
-                navigate('/success'); // Replace with the actual success route
-            } catch (e) {
-                console.error("Não foi possivel alterar: ", e);
+                if (!response.ok) {
+                    throw new Error("Erro ao alterar a matrícula");
+                }
+
+                navigate('/success');
+            } catch (error) {
+                console.error("Erro na alteração da matrícula:", error);
             }
         }
     };
 
     return (
         <div className="Matri_cad-dashboard-container">
-            {/* <div className="Matri_cad-menu">
-                <Menu />
-            </div> */}
+            <Menu />
             <div className="Matri_cad-content">
                 <div className="Matri_cad-form-container">
-                    <h1 className="Matri_cad-h1">Alteraação de Matrícula</h1>
+                    <h1 className="Matri_cad-h1">Alteração de Matrícula</h1>
                     <form onSubmit={handleSubmit}>
-                        <div className="Matri_cad-form-group">
-                            <label className="Matri_cad-label">Nome Completo:</label>
-                            <input 
-                                type="text" 
-                                name="nome" 
-                                value={formData.nome} 
-                                onChange={handleChange} 
-                                placeholder="Nome Completo" 
-                                className="Matri_cad-input"
-                            />
-                            {errors.nome && <p className="Matri_cad-error">{errors.nome}</p>}
-                        </div>
-                        <div className="Matri_cad-form-group">
-                            <label className="Matri_cad-label">CPF:</label>
-                            <input 
-                                type="text" 
-                                name="cpf" 
-                                value={formData.cpf} 
-                                onChange={handleChange} 
-                                placeholder="CPF" 
-                                className="Matri_cad-input"
-                            />
-                            {errors.cpf && <p className="Matri_cad-error">{errors.cpf}</p>}
-                        </div>
-                        <div className="Matri_cad-form-group">
-                            <label className="Matri_cad-label">RG:</label>
-                            <input 
-                                type="text" 
-                                name="rg" 
-                                value={formData.rg} 
-                                onChange={handleChange} 
-                                placeholder="RG" 
-                                className="Matri_cad-input"
-                            />
-                            {errors.rg && <p className="Matri_cad-error">{errors.rg}</p>}
-                        </div>
-                        <div className="Matri_cad-form-group">
-                            <label className="Matri_cad-label">Data de Nascimento:</label>
-                            <input 
-                                type="date" 
-                                name="dataNascimento" 
-                                value={formData.dataNascimento} 
-                                onChange={handleChange} 
-                                className="Matri_cad-input"
-                            />
-                        </div>
-                        <div className="Matri_cad-form-group">
-                            <label className="Matri_cad-label">E-mail:</label>
-                            <input 
-                                type="email" 
-                                name="email" 
-                                value={formData.email} 
-                                onChange={handleChange} 
-                                placeholder="E-mail" 
-                                className="Matri_cad-input"
-                            />
-                        </div>
-                        <div className="Matri_cad-form-group">
-                            <label className="Matri_cad-label">Telefone:</label>
-                            <input 
-                                type="text" 
-                                name="telefone" 
-                                value={formData.telefone} 
-                                onChange={handleChange} 
-                                placeholder="Telefone" 
-                                className="Matri_cad-input"
-                            />
-                            {errors.telefone && <p className="Matri_cad-error">{errors.telefone}</p>}
-                        </div>
-                        <div className="Matri_cad-form-group">
-                            <label className="Matri_cad-label">CEP:</label>
-                            <input 
-                                type="text" 
-                                name="cep" 
-                                value={formData.cep} 
-                                onChange={handleChange} 
-                                placeholder="CEP" 
-                                className="Matri_cad-input"
-                            />
-                        </div>
-                        <div className="Matri_cad-form-group">
-                            <label className="Matri_cad-label">Endereço:</label>
-                            <input 
-                                type="text" 
-                                name="endereco" 
-                                value={formData.endereco} 
-                                onChange={handleChange} 
-                                placeholder="Endereço" 
-                                className="Matri_cad-input"
-                            />
-                        </div>
-                        <div className="Matri_cad-form-group">
-                            <label className="Matri_cad-label">Bairro:</label>
-                            <input 
-                                type="text" 
-                                name="bairro" 
-                                value={formData.bairro} 
-                                onChange={handleChange} 
-                                placeholder="Bairro" 
-                                className="Matri_cad-input"
-                            />
-                        </div>
+                        {[
+                            { label: "Nome Completo", name: "nome", type: "text" },
+                            { label: "CPF", name: "cpf", type: "text" },
+                            { label: "RG", name: "rg", type: "text" },
+                            { label: "Data de Nascimento", name: "dataNascimento", type: "date" },
+                            { label: "E-mail", name: "email", type: "email" },
+                            { label: "Telefone", name: "telefone", type: "text" },
+                            { label: "CEP", name: "cep", type: "text" },
+                            { label: "Endereço", name: "endereco", type: "text" },
+                            { label: "Bairro", name: "bairro", type: "text" },
+                        ].map(({ label, name, type }) => (
+                            <div className="Matri_cad-form-group" key={name}>
+                                <label className="Matri_cad-label">{label}:</label>
+                                <input
+                                    type={type}
+                                    name={name}
+                                    value={formData[name]}
+                                    onChange={handleChange}
+                                    placeholder={label}
+                                    className="Matri_cad-input"
+                                />
+                                {errors[name] && <p className="Matri_cad-error">{errors[name]}</p>}
+                            </div>
+                        ))}
+
                         <div className="Matri_cad-form-group">
                             <label className="Matri_cad-label">Gênero:</label>
-                            <select 
-                                name="genero" 
-                                value={formData.genero} 
-                                onChange={handleChange} 
+                            <select
+                                name="genero"
+                                value={formData.genero}
+                                onChange={handleChange}
                                 className="Matri_cad-select"
                             >
                                 <option value="">Selecione</option>
@@ -195,15 +119,16 @@ export default function Alterar_matricula() {
                                 <option value="outro">Outro</option>
                             </select>
                         </div>
-                        
-                        <Link to="/"className="alt-matricula-button-salvar">
+
+                        <button type="submit" className="alt-matricula-button-salvar">
                             Salvar
-                        </Link>
-                        <Link to="/" className="alt-matricula-button-voltar">
-                                  Voltar
-                         </Link> 
+                        </button>
+                        <button type="button" onClick={() => navigate('/')} className="alt-matricula-button-voltar">
+                            Voltar
+                        </button>
                     </form>
                 </div>
+
                 <div className="Matri_cad-plan-container">
                     <h2 className="Matri_cad-h2">Plano Selecionado</h2>
                     <div className="Matri_cad-plan-info">

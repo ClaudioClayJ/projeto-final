@@ -1,55 +1,58 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { db, doc, getDoc, updateDoc } from '../../firebaseConfig';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import "../alterar_ofertas/alterar_oferta.css";
 
 export default function AlterarOferta() {
     const [nome, setNome] = useState('');
-    const [oferta, setCategoriaOferta] = useState('');
-    const { id } = useParams(); // Obtém o ID da oferta da URL
+    const [oferta, setOferta] = useState('');
+    const { id } = useParams(); // Pega o ID da URL
+    const navigate = useNavigate();
 
-    // Função para buscar a oferta pelo ID
+    // Buscar a oferta via API
     useEffect(() => {
         const fetchOferta = async () => {
-            if (id) {
-                try {
-                    const ofertaDoc = doc(db, 'ofertas', id);
-                    const ofertaSnapshot = await getDoc(ofertaDoc);
-
-                    if (ofertaSnapshot.exists()) {
-                        const ofertaData = ofertaSnapshot.data();
-                        setNome(ofertaData.nome);
-                        setCategoriaOferta(ofertaData.oferta);
-                    } else {
-                        console.error('Oferta não encontrada!');
-                    }
-                } catch (error) {
-                    console.error('Erro ao buscar a oferta:', error);
+            try {
+                const response = await fetch(`http://localhost:5000/oferta/${id}`);
+                if (!response.ok) {
+                    throw new Error('Erro ao buscar a oferta');
                 }
+
+                const data = await response.json();
+                setNome(data.nome);
+                setOferta(data.oferta);
+            } catch (error) {
+                console.error('Erro ao buscar a oferta:', error);
+                alert('Erro ao buscar a oferta. Verifique se o ID está correto.');
             }
         };
 
         fetchOferta();
-    }, [id]); // Recarrega quando o ID da oferta muda
+    }, [id]);
 
+    // Atualizar a oferta
     const handleAlterar = async (e) => {
         e.preventDefault();
 
-        if (!id) {
-            alert('Oferta não encontrada!');
+        if (!nome.trim() || !oferta.trim()) {
+            alert('Preencha todos os campos.');
             return;
         }
 
         try {
-            // Atualiza a oferta no Firestore
-            const ofertaDoc = doc(db, 'ofertas', id);
-            await updateDoc(ofertaDoc, {
-                nome,
-                oferta
+            const response = await fetch(`http://localhost:3000/api/ofertas/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ nome, oferta })
             });
 
-            console.log('Dados da oferta:', { nome, oferta });
+            if (!response.ok) {
+                throw new Error('Erro ao atualizar a oferta');
+            }
+
             alert('Oferta alterada com sucesso!');
+            navigate('/ListaOfertas');
         } catch (error) {
             console.error('Erro ao alterar a oferta:', error);
             alert('Erro ao alterar. Tente novamente.');
@@ -78,7 +81,7 @@ export default function AlterarOferta() {
                         id="oferta"
                         className="alt_oferta-input"
                         value={oferta}
-                        onChange={(e) => setCategoriaOferta(e.target.value)}
+                        onChange={(e) => setOferta(e.target.value)}
                         required
                     />
                 </div>
@@ -88,7 +91,6 @@ export default function AlterarOferta() {
                 <button type="submit" className="alt_oferta-button-alterar">
                     Alterar
                 </button>
-               
             </form>
         </div>
     );

@@ -17,44 +17,33 @@ db.run(`CREATE TABLE IF NOT EXISTS
     }
 });
 
-function atualizarestoque(id_produto,quantidade,valor_unitario){
-
-    db.get('SELECT * FROM estoque where id_produto=?',[id_produto], (error, rows) => {
+function atualizarestoque(id_produto, quantidade, valor_unitario) {
+    db.get('SELECT * FROM estoque WHERE id_produto = ?', [id_produto], (error, row) => {
         if (error) {
-            return res.status(500).send({
-                error: error.message
-            });
+            console.error(error.message);
+            return;
         }
-        
-        if(rows.length>0){
-           // atualizar a quantidade no estoque 1
-           //acrescentando aquantidade inserida na entrada
-           const quantidaEstoque = rows[0].quantidade;
-           const quantidadeAtualizada = parseFloat(quantidade + quantidaEstoque)
-           const total = quantidade*valor_unitario
-           const updateEstoque = db.prepare(`
-           UPDATE estoque SET quantidade=?, valor_unitario=?, total=? WHERE quantidade= ?`);
-           updateEstoque.run(quantidadeAtualizada, quantidade, valor_unitario, total, id_produto);
-           updateEstoque.finalize();
-        }else{
-            //inserir a mesma quabtidade inserida na entrada
-            db.serialize(() => {
-                const total = quantidade*valor_unitario
-                const insertEstoque = db.prepare(`
-                INSERT INTO estoque(id_produto, quantidade, valor_unitario, total) VALUES(?,?,?,?)`);
-                insertEstoque.run(id_produto, quantidade, valor_unitario, total);
-                insertEstoque.finalize();
-        
-                // const idgerado = insertEntrada.LAST_INERT_ID()
-           
-            });
 
+        const total = quantidade * valor_unitario;
 
+        if (row) {
+            const quantidadeAtualizada = parseFloat(row.quantidade + quantidade);
+
+            const updateEstoque = db.prepare(`
+                UPDATE estoque SET quantidade = ?, valor_unitario = ?, total = ? WHERE id_produto = ?
+            `);
+            updateEstoque.run(quantidadeAtualizada, valor_unitario, total, id_produto);
+            updateEstoque.finalize();
+        } else {
+            const insertEstoque = db.prepare(`
+                INSERT INTO estoque(id_produto, quantidade, valor_unitario, total) VALUES(?, ?, ?, ?)
+            `);
+            insertEstoque.run(id_produto, quantidade, valor_unitario, total);
+            insertEstoque.finalize();
         }
-       
     });
-
 }
+
 
 //consultar todos os dados
 router.get("/",(req,res,next)=>{
@@ -73,21 +62,20 @@ router.get("/",(req,res,next)=>{
 })
 
 //consultar apenas uma entrada pelo id
-router.get("/:id",(req,res,next)=>{
-    const {id} = req.params;
-    db.get('SELECT * FROM entrada where id=?',[id], (error, rows) => {
+router.get("/:id", (req, res, next) => {
+    const { id } = req.params;
+    db.get('SELECT * FROM entrada WHERE id=?', [id], (error, row) => {
         if (error) {
-            return res.status(500).send({
-                error: error.message
-            });
+            return res.status(500).send({ error: error.message });
         }
 
         res.status(200).send({
             mensagem: "Aqui está o cadastro da entrada",
-            entrada: rows
+            entrada: row // <- Aqui o frontend espera por isso!
         });
     });
-})
+});
+
 
 // aqui salvamos dados da entrada
 router.post("/",(req,res,next)=>{
@@ -124,19 +112,26 @@ const total = parsetFloat(n1 + n2)
 console.log(total)
 })
 // aqui podemos alterar dados da entrada
-router.put("/",(req,res,next)=>{
- const {id,id_produto, quantidade, valor_unitario, data_entrada} = req.body;
- db.run('UPDATE entrada SET id_produto=?, quantidade=?, valor_unitario=?,  data_entrada=?  WHERE id=?',[id_produto, quantidade, valor_unitario, data_entrada ,id], (error, rows) => {
-    if (error) {
-        return res.status(500).send({
-            error: error.message
-        });
-    }res.status(200).send(
-        { mensagem: `Dados de ${id_produto} e de id: ${id} foi aterado com sucesso!!!` 
-        // { mensagem: "Dados de "+descricao+" e de id: "+id+" foi aterado com sucesso!!!" 
-    });
-})   
+// Aqui podemos alterar dados da entrada
+router.put("/:id", (req, res, next) => {
+    const { id } = req.params;
+    const { id_produto, quantidade, valor_unitario, data_entrada } = req.body;
+
+    db.run(
+        'UPDATE entrada SET id_produto=?, quantidade=?, valor_unitario=?, data_entrada=? WHERE id=?',
+        [id_produto, quantidade, valor_unitario, data_entrada, id],
+        (error) => {
+            if (error) {
+                return res.status(500).send({ error: error.message });
+            }
+
+            res.status(200).send({
+                mensagem: `Entrada com ID ${id} atualizada com sucesso!`,
+            });
+        }
+    );
 });
+
  // Aqui podemos deletar o cadastro de uma entrada por meio do id
 router.delete("/:id",(req,res,next)=>{
     const {id} = req.params

@@ -14,11 +14,13 @@ export default function CadastroUsuario() {
 
         try {
             // Adiciona os dados do usuário ao Firestore
-            await addDoc(collection(db, 'usuarios'), {
-                nome,
-                email,
-                senha
-            });
+           await fetch('http://localhost:3001/usuario',{
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ nome, email, senha}),
+           });
 
             console.log('Dados do usuário:', { nome, email, senha });
             alert('Cadastro realizado com sucesso!');

@@ -1,104 +1,34 @@
-const express = require("express");
-const router = express.Router();
-const sqlite3 = require("sqlite3").verbose();
-const db = new sqlite3.Database("database.db");
-db.run(`CREATE TABLE IF NOT EXISTS 
-         produto (
-            id INTEGER PRIMARY KEY AUTOINCREMENT, 
-            descricao TEXT, 
-            estoque_minimo INT, 
-            estoque_maximo INT)
-            `, (createTableError) => {
-    if (createTableError) {
-        return res.status(500).send({
-            error: createTableError.message
-        });
-    }
-});
+const handleSubmit = async (e) => {
+    e.preventDefault();
+    const newErrors = {};
 
+    if (formData.nome.length < 5) newErrors.nome = "O nome deve ter pelo menos 5 letras.";
+    if (formData.telefone.length < 9) newErrors.telefone = "O telefone deve ter pelo menos 9 caracteres.";
+    if (formData.cpf.length !== 11) newErrors.cpf = "O CPF deve ter 11 caracteres.";
+    if (formData.rg.length < 7) newErrors.rg = "O RG deve ter pelo menos 7 caracteres.";
 
-//consultar todos os dados
-router.get("/",(req,res,next)=>{
-    db.all('SELECT * FROM produto', (error, rows) => {
-        if (error) {
-            return res.status(500).send({
-                error: error.message
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length === 0) {
+        try {
+            const response = await fetch('http://localhost:3001/api/matriculas', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    ...formData,
+                    plano: selectedPlan.nome,
+                    valorPlano: selectedPlan.valor,
+                    descricaoPlano: selectedPlan.descricao,
+                }),
             });
-        }
 
-        res.status(200).send({
-            mensagem: "Aqui está a lista de todos os Produtos",
-            produtos: rows
-        });
-    });
-})
-
-//consultar apenas um usuario pelo id
-router.get("/:id",(req,res,next)=>{
-    const {id} = req.params;
-    db.get('SELECT * FROM produto where id=?',[id], (error, rows) => {
-        if (error) {
-            return res.status(500).send({
-                error: error.message
-            });
-        }
-
-        res.status(200).send({
-            mensagem: "Aqui está o cadastro do produto",
-            produto: rows
-        });
-    });
-})
-
-// aqui salvamos dados do produto
-router.post("/",(req,res,next)=>{
-    const { descricao, estoque_minimo, estoque_maximo } = req.body;
-   db.serialize(() => {
-        const insertProduto = db.prepare(`
-        INSERT INTO produto(descricao, estoque_minimo, estoque_maximo) VALUES(?,?,?)`);
-        insertProduto.run(descricao, estoque_minimo, estoque_maximo);
-        insertProduto.finalize();
-    });
-    process.on("SIGINT", () => {
-        db.close((err) => {
-            if (err) {
-                return res.status(304).send(err.message);
+            if (response.ok) {
+                navigate('/success');
+            } else {
+                console.error('Erro ao enviar os dados:', await response.json());
             }
-        });
-    });
-
-    res.status(200)
-    .send({ mensagem: "Produto salvo com sucesso!" });
-});
-
-// aqui podemos alterar dados do usuário
-router.put("/",(req,res,next)=>{
- const {id,descricao, estoque_minimo, estoque_maximo } = req.body;
- db.run('UPDATE produto SET descricao=?, estoque_minimo=?, estoque_maximo=?  WHERE id=?',[descricao, estoque_minimo, estoque_maximo ,id], (error, rows) => {
-    if (error) {
-        return res.status(500).send({
-            error: error.message
-        });
-    }res.status(200).send(
-        { mensagem: `Dados de ${descricao} e de id: ${id} foi aterado com sucesso!!!` 
-        // { mensagem: "Dados de "+descricao+" e de id: "+id+" foi aterado com sucesso!!!" 
-    });
-})   
-});
- // Aqui podemos deletar o cadastro de umproduto por meio do id
-router.delete("/:id",(req,res,next)=>{
-    const {id} = req.params
-    db.run('DELETE FROM produto where id=?',[id], (error, rows) => {
-        if (error) {
-            return res.status(500).send({
-                error: error.message
-            });
-        }res.status(200).send(
-            { mensagem: `Produto de id: ${id} foi deletado com sucesso!!!` 
-        });
-    })        
-    
-
-
-});
-module.exports = router;
+        } catch (error) {
+            console.error("Erro na requisição:", error);
+        }
+    }
+};
