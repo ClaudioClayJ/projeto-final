@@ -1,7 +1,31 @@
-
 const express = require('express');
 const router = express.Router();
 const db = require('../sqlite/sqlite'); 
+
+
+// ✅ POST nova oferta
+router.post('/', async (req, res) => {
+    const { nome, oferta } = req.body;
+
+    if (!nome || !oferta) {
+        return res.status(400).json({ error: 'Nome e oferta são obrigatórios' });
+    }
+
+    try {
+        const result = await db.run(
+            'INSERT INTO Ofertas (nome, oferta) VALUES (?, ?)',
+            [nome, oferta]
+        );
+
+        res.status(201).json({ 
+            message: 'Oferta cadastrada com sucesso',
+            oferta: { id: result.lastID, nome, oferta } 
+        });
+    } catch (err) {
+        console.error('Erro ao cadastrar oferta:', err);
+        res.status(500).json({ error: 'Erro interno ao cadastrar oferta' });
+    }
+});
 
 // 🔍 GET oferta por ID
 router.get('/:id', async (req, res) => {

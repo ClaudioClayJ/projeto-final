@@ -1,34 +1,104 @@
-const handleSubmit = async (e) => {
-    e.preventDefault();
-    const newErrors = {};
+const express = require("express");
+const router = express.Router();
+const sqlite3 = require("sqlite3").verbose();
+const db = new sqlite3.Database("database.db");
 
-    if (formData.nome.length < 5) newErrors.nome = "O nome deve ter pelo menos 5 letras.";
-    if (formData.telefone.length < 9) newErrors.telefone = "O telefone deve ter pelo menos 9 caracteres.";
-    if (formData.cpf.length !== 11) newErrors.cpf = "O CPF deve ter 11 caracteres.";
-    if (formData.rg.length < 7) newErrors.rg = "O RG deve ter pelo menos 7 caracteres.";
-
-    setErrors(newErrors);
-
-    if (Object.keys(newErrors).length === 0) {
-        try {
-            const response = await fetch('http://localhost:3001/api/matriculas', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    ...formData,
-                    plano: selectedPlan.nome,
-                    valorPlano: selectedPlan.valor,
-                    descricaoPlano: selectedPlan.descricao,
-                }),
-            });
-
-            if (response.ok) {
-                navigate('/success');
-            } else {
-                console.error('Erro ao enviar os dados:', await response.json());
-            }
-        } catch (error) {
-            console.error("Erro na requisição:", error);
-        }
+// Criação da tabela produtos
+db.run(`
+    CREATE TABLE IF NOT EXISTS produtos (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nome TEXT NOT NULL,
+        descricao TEXT,
+        preco FLOAT
+    )`, (error) => {
+    if (error) {
+        return console.error("Erro ao criar tabela produtos:", error.message);
     }
-};
+});
+
+// GET - Buscar todos os produtos
+router.get("/", (req, res) => {
+    db.all('SELECT * FROM produtos', (error, rows) => {
+        if (error) {
+            return res.status(500).send({ error: error.message });
+        }
+
+        res.status(200).send({
+            mensagem: "Lista de produtos cadastrados:",
+            produtos: rows
+        });
+    });
+});
+
+// GET - Buscar um produto por ID
+router.get("/:id", (req, res) => {
+    const { id } = req.params;
+
+    db.get('SELECT * FROM produtos WHERE id = ?', [id], (error, row) => {
+        if (error) {
+            return res.status(500).send({ error: error.message });
+        }
+
+        res.status(200).send({
+            mensagem: "Produto encontrado:",
+            produto: row
+        });
+    });
+});
+
+// POST - Cadastrar novo produto
+router.post("/", (req, res) => {
+    const { nome, descricao, preco } = req.body;
+
+    const insert = db.prepare(`
+        INSERT INTO produtos (nome, descricao, preco) VALUES (?, ?, ?)
+    `);
+    insert.run(nome, descricao, preco, function (err) {
+        if (err) {
+            return res.status(500).send({ error: err.message });
+        }
+
+        res.status(201).send({
+            mensagem: "Produto cadastrado com sucesso!",
+            id: this.lastID
+        });
+    });
+    insert.finalize();
+});
+
+// PUT - Atualizar produto
+router.put("/:id", (req, res) => {
+    const { id } = req.params;
+    const { nome, descricao, preco } = req.body;
+
+    db.run(
+        `UPDATE produtos SET nome = ?, descricao = ?, preco = ? WHERE id = ?`,
+        [nome, descricao, preco, id],
+        function (error) {
+            if (error) {
+                return res.status(500).send({ error: error.message });
+            }
+
+            res.status(200).send({
+                mensagem: `Produto com ID ${id} atualizado com sucesso!`
+            });
+        }
+    );
+});
+
+// DELETE - Deletar produto
+router.delete("/:id", (req, res) => {
+    const { id } = req.params;
+
+    db.run(`DELETE FROM produtos WHERE id = ?`, [id], function (error) {
+        if (error) {
+            return res.status(500).send({ error: error.message });
+        }
+
+        res.status(200).send({
+            mensagem: `Produto com ID ${id} foi deletado com sucesso!`
+        });
+    });
+});
+
+module.exports = router;

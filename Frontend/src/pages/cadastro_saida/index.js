@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { db, collection, addDoc, doc, updateDoc, getDoc, getDocs, query, where } from '../../firebaseConfig';
+import axios from 'axios';
 import "../cadastro_saida/cd_saida.css";
 
 export default function CadastroSaida() {

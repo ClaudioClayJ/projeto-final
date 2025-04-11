@@ -70,10 +70,12 @@
     background-color: #21a1f1;
 }
 
-.Matri_cad-error {
-    color: red;
-}
 
 .Matri_cad-plan-info p {
     margin: 0.5rem 0;
+}
+.error {
+    color: red;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
 }

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { db, collection, addDoc } from '../../firebaseConfig'; // Certifique-se de que o caminho está correto
 import "../cadastro_ofertas/cd_oferta.css";
 
 export default function CadastroOferta() {
@@ -11,16 +10,23 @@ export default function CadastroOferta() {
         e.preventDefault();
 
         try {
-            // Adiciona os dados da oferta ao Firestore
-            await addDoc(collection(db, 'ofertas'), {
-                nome,
-                oferta
+            const response = await fetch('http://localhost:5000/ofertas', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ nome, oferta }),
             });
 
-            console.log('Dados da oferta:', { nome, oferta });
+            if (!response.ok) {
+                throw new Error('Erro ao cadastrar.');
+            }
+
+            const data = await response.json();
+            console.log('Dados da oferta cadastrada:', data);
             alert('Cadastro realizado com sucesso!');
-            
-            // Limpar campos após o cadastro
+
+            // Limpar os campos
             setNome('');
             setCategoriaOferta('');
         } catch (error) {
@@ -47,7 +53,7 @@ export default function CadastroOferta() {
                 <div className="cd_oferta-input-group">
                     <label className="cd_oferta-label" htmlFor="oferta">Oferta:</label>
                     <input
-                        type="text"  
+                        type="text"
                         id="oferta"
                         className="cd_oferta-input"
                         value={oferta}

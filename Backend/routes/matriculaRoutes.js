@@ -10,7 +10,18 @@ router.post("/", async (req, res) => {
         plano, valorPlano, descricaoPlano
     } = req.body;
 
+    // Validação básica
+    if (!nome || !cpf || !plano) {
+        return res.status(400).json({ erro: "Campos obrigatórios (nome, cpf, plano) não foram preenchidos." });
+    }
+
     try {
+        // Verifica se o CPF já está cadastrado
+        const existente = await db.get("SELECT cpf FROM Matricula WHERE cpf = ?", [cpf]);
+        if (existente) {
+            return res.status(409).json({ erro: "Já existe uma matrícula com esse CPF." });
+        }
+
         await db.run(`
             INSERT INTO Matricula 
             (nome, cpf, rg, dataNascimento, email, telefone, cep, endereco, bairro, genero, plano, valorPlano, descricaoPlano) 
@@ -32,6 +43,10 @@ router.put("/alterar", async (req, res) => {
         cep, endereco, bairro, genero,
         plano, valorPlano, descricaoPlano
     } = req.body;
+
+    if (!nome || !cpf || !plano) {
+        return res.status(400).json({ erro: "Campos obrigatórios (nome, cpf, plano) não foram preenchidos." });
+    }
 
     try {
         const result = await db.run(`

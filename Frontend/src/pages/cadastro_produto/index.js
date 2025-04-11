@@ -1,28 +1,36 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import "../cadastro_produto/cd_produto.css";
-import { db, collection, addDoc } from '../../firebaseConfig'; // Certifique-se de que o caminho está correto
 
 export default function CadastroProduto() {
     const [nome, setNome] = useState('');
-    const [categoria, setCategoriaProduto] = useState('');
+    const [descricao, setDescricao] = useState('');
+    const [preco, setPreco] = useState('');
 
     const handleCadastro = async (e) => {
         e.preventDefault();
 
         try {
-            // Adiciona os dados do produto ao Firestore
-            await addDoc(collection(db, 'produtos'), {
-                nome,
-                categoria
+            const response = await fetch('http://localhost:5000/produtos', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ nome, descricao, preco: parseFloat(preco) }),
             });
 
-            console.log('Dados do produto:', { nome, categoria });
+            if (!response.ok) {
+                throw new Error('Erro ao cadastrar produto');
+            }
+
+            const data = await response.json();
+            console.log('Produto cadastrado:', data);
             alert('Cadastro realizado com sucesso!');
-            
-            // Limpar campos após o cadastro
+
+            // Limpar os campos
             setNome('');
-            setCategoriaProduto('');
+            setDescricao('');
+            setPreco('');
         } catch (error) {
             console.error('Erro ao cadastrar produto:', error);
             alert('Erro ao cadastrar. Tente novamente.');
@@ -45,13 +53,25 @@ export default function CadastroProduto() {
                     />
                 </div>
                 <div className="cd_produto-input-group">
-                    <label className="cd_produto-label" htmlFor="categoria">Categoria:</label>
+                    <label className="cd_produto-label" htmlFor="descricao">Descrição:</label>
                     <input
                         type="text"
-                        id="categoria"
+                        id="descricao"
                         className="cd_produto-input"
-                        value={categoria}
-                        onChange={(e) => setCategoriaProduto(e.target.value)}
+                        value={descricao}
+                        onChange={(e) => setDescricao(e.target.value)}
+                        required
+                    />
+                </div>
+                <div className="cd_produto-input-group">
+                    <label className="cd_produto-label" htmlFor="preco">Preço (R$):</label>
+                    <input
+                        type="number"
+                        step="0.01"
+                        id="preco"
+                        className="cd_produto-input"
+                        value={preco}
+                        onChange={(e) => setPreco(e.target.value)}
                         required
                     />
                 </div>

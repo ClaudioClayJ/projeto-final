@@ -14,7 +14,7 @@ function getRandomPlan() {
     return planos[Math.floor(Math.random() * planos.length)];
 }
 
-export default function Alterar_matricula() {
+export default function CadastroMatricula() {
     const [formData, setFormData] = useState({
         nome: "",
         cpf: "",
@@ -42,7 +42,11 @@ export default function Alterar_matricula() {
         const newErrors = {};
 
         if (formData.nome.length < 5) newErrors.nome = "O nome deve ter pelo menos 5 letras.";
-        if (formData.telefone.length < 9) newErrors.telefone = "O telefone deve ter pelo menos 9 caracteres.";
+        const telefoneRegex = /^\(?\d{2}\)?[\s-]?\d{4,5}-?\d{4}$/;
+        if (!telefoneRegex.test(formData.telefone)) {
+            newErrors.telefone = "Telefone inválido. Ex: (11) 91234-5678 ou 11912345678";
+        }
+
         if (formData.cpf.length !== 11) newErrors.cpf = "O CPF deve ter 11 caracteres.";
         if (formData.rg.length < 7) newErrors.rg = "O RG deve ter pelo menos 7 caracteres.";
 
@@ -50,7 +54,7 @@ export default function Alterar_matricula() {
 
         if (Object.keys(newErrors).length === 0) {
             try {
-                const response = await fetch("http://localhost:3001/matricula", {
+                const response = await fetch("http://localhost:5000/matricula", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
@@ -80,16 +84,102 @@ export default function Alterar_matricula() {
         <div className="Matri_cad-dashboard-container">
             <div className="Matri_cad-content">
                 <div className="Matri_cad-form-container">
-                    <h1 className="Matri_cad-h1">Alteração de Matrícula</h1>
+                    <h1 className="Matri_cad-h1">Cadastro de Matrícula</h1>
                     <form onSubmit={handleSubmit}>
-                        {/* Campos do formulário (mesmos do seu original) */}
+                        <input
+                            type="text"
+                            name="nome"
+                            placeholder="Nome completo"
+                            value={formData.nome}
+                            onChange={handleChange}
+                        />
+                        {errors.nome && <p className="error">{errors.nome}</p>}
+
+                        <input
+                            type="text"
+                            name="cpf"
+                            placeholder="CPF (somente números)"
+                            value={formData.cpf}
+                            onChange={handleChange}
+                        />
+                        {errors.cpf && <p className="error">{errors.cpf}</p>}
+
+                        <input
+                            type="text"
+                            name="rg"
+                            placeholder="RG"
+                            value={formData.rg}
+                            onChange={handleChange}
+                        />
+                        {errors.rg && <p className="error">{errors.rg}</p>}
+
+                        <input
+                            type="date"
+                            name="dataNascimento"
+                            value={formData.dataNascimento}
+                            onChange={handleChange}
+                        />
+
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Email"
+                            value={formData.email}
+                            onChange={handleChange}
+                        />
+
+                        <input
+                            type="text"
+                            name="telefone"
+                            placeholder="Telefone (com DDD)"
+                            value={formData.telefone}
+                            onChange={handleChange}
+                        />
+                        {errors.telefone && <p className="error">{errors.telefone}</p>}
+
+                        <input
+                            type="text"
+                            name="cep"
+                            placeholder="CEP"
+                            value={formData.cep}
+                            onChange={handleChange}
+                        />
+
+                        <input
+                            type="text"
+                            name="endereco"
+                            placeholder="Endereço"
+                            value={formData.endereco}
+                            onChange={handleChange}
+                        />
+
+                        <input
+                            type="text"
+                            name="bairro"
+                            placeholder="Bairro"
+                            value={formData.bairro}
+                            onChange={handleChange}
+                        />
+
+                        <select
+                            name="genero"
+                            value={formData.genero}
+                            onChange={handleChange}
+                        >
+                            <option value="">Selecione o gênero</option>
+                            <option value="Masculino">Masculino</option>
+                            <option value="Feminino">Feminino</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+
                         {/* ... */}
-                        <button type="submit" className="alt-matricula-button-salvar">
+                        <button type="submit" className="Matri_cad-button">
                             Salvar
                         </button>
-                        <Link to="/" className="alt-matricula-button-voltar">
+                        <Link to="/" className="Matri_cad-button">
                             Voltar
                         </Link>
+
                     </form>
                 </div>
                 <div className="Matri_cad-plan-container">
