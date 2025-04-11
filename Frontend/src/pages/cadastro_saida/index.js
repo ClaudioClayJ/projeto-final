@@ -29,10 +29,8 @@ export default function CadastroSaida() {
     useEffect(() => {
         const fetchProdutos = async () => {
             try {
-                const produtosCollection = collection(db, 'produtos');
-                const produtosSnapshot = await getDocs(produtosCollection);
-                const produtosList = produtosSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                setProdutos(produtosList);
+                const response = await axios.get('http://localhost:5000/produtos');
+                setProdutos(response.data);
             } catch (error) {
                 console.error('Erro ao buscar produtos:', error);
                 alert('Erro ao buscar produtos. Tente novamente.');
@@ -44,34 +42,23 @@ export default function CadastroSaida() {
 
     useEffect(() => {
         const fetchQuantidadeDisponivel = async () => {
-            if (idProduto) {
-                try {
-                    const entradasCollection = collection(db, 'entradas');
-                    const entradasQuery = query(entradasCollection, where('id_produto', '==', idProduto));
-                    const entradasSnapshot = await getDocs(entradasQuery);
-                    
-                    const quantidadeEntradas = entradasSnapshot.docs.reduce((acc, doc) => {
-                        const data = doc.data();
-                        return acc + (data.quantidade || 0);
-                    }, 0);
-
-                    const saidasCollection = collection(db, 'saidas');
-                    const saidasQuery = query(saidasCollection, where('id_produto', '==', idProduto));
-                    const saidasSnapshot = await getDocs(saidasQuery);
-
-                    const quantidadeSaidas = saidasSnapshot.docs.reduce((acc, doc) => {
-                        const data = doc.data();
-                        return acc + (data.quantidade || 0);
-                    }, 0);
-
-                    const quantidadeDisponivel = quantidadeEntradas - quantidadeSaidas;
-                    setQuantidadeDisponivel(quantidadeDisponivel >= 0 ? quantidadeDisponivel : 0);
-                } catch (error) {
-                    console.error('Erro ao buscar quantidade disponível:', error);
-                    setQuantidadeDisponivel(0);
-                }
-            } else {
+            if (!idProduto) {
                 setQuantidadeDisponivel('');
+                return;
+            }
+
+            try {
+                const entradasRes = await axios.get(`http://localhost:5000/entradas/${idProduto}`);
+                const saidasRes = await axios.get(`http://localhost:5000/saidas/${idProduto}`);
+
+                const quantidadeEntradas = entradasRes.data.reduce((acc, item) => acc + item.quantidade, 0);
+                const quantidadeSaidas = saidasRes.data.reduce((acc, item) => acc + item.quantidade, 0);
+
+                const disponivel = quantidadeEntradas - quantidadeSaidas;
+                setQuantidadeDisponivel(disponivel >= 0 ? disponivel : 0);
+            } catch (error) {
+                console.error('Erro ao buscar quantidade disponível:', error);
+                setQuantidadeDisponivel(0);
             }
         };
 
@@ -87,21 +74,23 @@ export default function CadastroSaida() {
         }
 
         try {
-            const saidaRef = collection(db, 'saidas');
-            await addDoc(saidaRef, {
+            const saidaData = {
                 id_produto: idProduto,
                 quantidade: parseFloat(quantidade),
                 valor_unitario: parseFloat(valorUnitario),
                 total: parseFloat(total),
-                data_saida: dataSaida,
-            });
+                data_saida: dataSaida
+            };
 
-            const produtoRef = doc(db, 'produtos', idProduto);
-            const produtoDoc = await getDoc(produtoRef);
-            if (produtoDoc.exists()) {
-                const produtoData = produtoDoc.data();
-                const novaQuantidade = (produtoData.quantidade || 0) - parseFloat(quantidade);
-                await updateDoc(produtoRef, { quantidade: novaQuantidade });
+            await axios.post('http://localhost:5000/saidas', saidaData);
+
+            // Atualiza quantidade do produto
+            const produto = produtos.find(p => p.id === parseInt(idProduto));
+            if (produto) {
+                const novaQuantidade = produto.quantidade - parseFloat(quantidade);
+                await axios.put(`http://localhost:5000/produtos/${idProduto}`, {
+                    quantidade: novaQuantidade
+                });
             }
 
             alert('Saída registrada com sucesso!');
@@ -183,7 +172,6 @@ export default function CadastroSaida() {
                         readOnly
                     />
                 </div>
-                
                 <div className="cd_saida-input-group">
                     <label className="cd_saida-label" htmlFor="dataSaida">Data da Saída:</label>
                     <input

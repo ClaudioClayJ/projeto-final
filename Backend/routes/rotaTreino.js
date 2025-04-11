@@ -40,4 +40,30 @@ router.put("/:id", (req, res) => {
     );
 });
 
+// 🟢 POST - Cadastrar um novo treino
+router.post("/", (req, res) => {
+    const { id_usuario, nome_treino, descricao, data_treino } = req.body;
+
+    if (!id_usuario || !nome_treino || !data_treino) {
+        return res.status(400).send({ erro: "Campos obrigatórios não preenchidos." });
+    }
+
+    db.run(
+        `INSERT INTO treino (id_usuario, nome_treino, descricao, data_treino)
+         VALUES (?, ?, ?, ?)`,
+        [id_usuario, nome_treino, descricao, data_treino],
+        function (error) {
+            if (error) {
+                return res.status(500).send({ error: error.message });
+            }
+
+            res.status(201).send({
+                mensagem: "✅ Treino cadastrado com sucesso!",
+                id: this.lastID
+            });
+        }
+    );
+});
+
+
 module.exports = router;
