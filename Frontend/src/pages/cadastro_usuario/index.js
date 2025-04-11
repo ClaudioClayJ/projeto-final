@@ -1,7 +1,6 @@
 // src/components/CadastroUsuario/index.js
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { db, collection, addDoc } from '../../firebaseConfig'; // Ajuste o caminho conforme necessário
 import "../cadastro_usuario/cd_usuario.css";
 
 export default function CadastroUsuario() {
@@ -13,8 +12,8 @@ export default function CadastroUsuario() {
         e.preventDefault();
 
         try {
-            // Adiciona os dados do usuário ao Firestore
-           await fetch('http://localhost:3001/usuario',{
+            await fetch('http://localhost:5000/usuario', {
+
             method: 'POST',
             headers:{
                 'Content-Type': 'application/json',
