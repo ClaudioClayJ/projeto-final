@@ -1,11 +1,10 @@
-// src/components/ListaUsuario/index.js
+// src/pages/lista_usuario/index.js
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaTrash } from "react-icons/fa";
 import { MdModeEditOutline } from "react-icons/md";
-import Menu from "../componentes/menu"; 
-import { db, collection, getDocs, deleteDoc, doc } from '../../firebaseConfig'; // Ajuste o caminho conforme necessário
-import "../lista_usuario/lista_usuario.css"
+import Menu from "../componentes/menu";
+import "../lista_usuario/lista_usuario.css";
 
 export default function ListaUsuario() {
     const [usuarios, setUsuarios] = useState([]);
@@ -13,19 +12,14 @@ export default function ListaUsuario() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        // Função para buscar usuários do Firestore
         const fetchUsuarios = async () => {
             try {
-                // Referência para a coleção 'usuarios'
-                const usuariosCollection = collection(db, 'usuarios');
-                // Obtém os documentos da coleção
-                const usuariosSnapshot = await getDocs(usuariosCollection);
-                // Extrai os dados dos documentos e configura o estado
-                const usuariosList = usuariosSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                setUsuarios(usuariosList);
+                const response = await fetch("http://localhost:5000/usuario");
+                const data = await response.json();
+                setUsuarios(data.usuarios);
             } catch (error) {
-                console.error('Erro ao buscar usuários:', error);
-                setError('Erro ao buscar usuários. Tente novamente.');
+                console.error("Erro ao buscar usuários:", error);
+                setError("Erro ao buscar usuários. Tente novamente.");
             } finally {
                 setLoading(false);
             }
@@ -35,19 +29,23 @@ export default function ListaUsuario() {
     }, []);
 
     const handleDelete = async (id) => {
-        const confirmDelete = window.confirm("Tem certeza de que deseja excluir este usuário?");
+        const confirmDelete = window.confirm("Tem certeza que deseja excluir este usuário?");
         if (confirmDelete) {
             try {
-                // Referência ao documento do usuário
-                const userDoc = doc(db, 'usuarios', id);
-                // Remove o documento do Firestore
-                await deleteDoc(userDoc);
-                // Atualiza a lista de usuários após a exclusão
-                setUsuarios(prevUsuarios => prevUsuarios.filter(usuario => usuario.id !== id));
-                alert('Usuário excluído com sucesso!');
+                const response = await fetch(`http://localhost:5000/usuario/${id}`, {
+                    method: "DELETE"
+                });
+
+                if (response.ok) {
+                    setUsuarios(prevUsuarios => prevUsuarios.filter(usuario => usuario.id !== id));
+                    alert("Usuário excluído com sucesso!");
+                } else {
+                    const errorData = await response.json();
+                    alert(`Erro ao excluir: ${errorData.error}`);
+                }
             } catch (error) {
-                console.error('Erro ao excluir usuário:', error);
-                alert('Erro ao excluir usuário. Tente novamente.');
+                console.error("Erro ao excluir usuário:", error);
+                alert("Erro ao excluir usuário. Tente novamente.");
             }
         }
     };
@@ -63,17 +61,16 @@ export default function ListaUsuario() {
     return (
         <div className="lista_usuario-container">
             <div className="menu">
-                <Menu/>
+                <Menu />
             </div>
             <h2 className="lista_usuario-title">Lista de Usuários</h2>
-            
-            {/* Botão de Cadastro */}
+
             <div className="lista_usuario-add-button">
                 <Link to="/CadastroUsuario">
                     <button className="cadastro-button">Cadastrar Novo Usuário</button>
                 </Link>
             </div>
-            
+
             <ul className="lista_usuario-list">
                 {usuarios.length > 0 ? (
                     usuarios.map(usuario => (
@@ -84,10 +81,10 @@ export default function ListaUsuario() {
                                 <Link to={`/AlterarUsuario/${usuario.id}`}>
                                     <MdModeEditOutline size={30} color='#1601F0' />
                                 </Link>
-                                <FaTrash 
-                                    size={25} 
-                                    color='#F01A00' 
-                                    onClick={() => handleDelete(usuario.id)} 
+                                <FaTrash
+                                    size={25}
+                                    color='#F01A00'
+                                    onClick={() => handleDelete(usuario.id)}
                                     style={{ cursor: 'pointer' }}
                                 />
                             </div>
