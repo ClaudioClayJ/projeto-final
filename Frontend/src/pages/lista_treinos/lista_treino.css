@@ -1,0 +1,86 @@
+.lista-treinos-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f1f1f1;
+}
+
+.lista-treinos-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.lista-treinos-add-button {
+    margin: 20px 0;
+    text-align: start;
+}
+
+.cadastro-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cadastro-button:hover {
+    background-color: #45a049;
+}
+
+.lista-treinos-list {
+    list-style-type: none;
+    padding: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.lista-treinos-item {
+    border: 2px solid #dcdcdc;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: #f9f9f9;
+    position: relative;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.lista-treinos-actions {
+    display: flex;
+    gap: 15px;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}
+
+.lista-treinos-actions a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.lista-treinos-item:hover {
+    background-color: #e9e9e9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.lista-treinos-item strong {
+    color: #333;
+}
+
+.lista-treinos-item p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.lista-treinos-item .treino-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.lista-treinos-item .treino-info span {
+    color: #444;
+}

@@ -1,10 +1,9 @@
-// src/components/Listaofertas/index.js
 import React, { useState, useEffect } from 'react';
 import { FaTrash } from "react-icons/fa";
 import { MdModeEditOutline } from "react-icons/md";
 import Menu from "../componentes/menu";  
-import { db, collection, getDocs, deleteDoc, doc } from '../../firebaseConfig'; // Ajuste o caminho conforme necessário
 import { Link } from 'react-router-dom'; // Importa Link para navegação
+import axios from 'axios'; // Importando axios para requisições HTTP
 import "../lista_ofertas/lista_oferta.css"
 
 export default function ListaOferta() {
@@ -13,16 +12,11 @@ export default function ListaOferta() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        // Função para buscar ofertas do Firestore
+        // Função para buscar ofertas do backend (SQLite)
         const fetchOfertas = async () => {
             try {
-                // Referência para a coleção 'ofertas'
-                const ofertasCollection = collection(db, 'ofertas');
-                // Obtém os documentos da coleção
-                const ofertasSnapshot = await getDocs(ofertasCollection);
-                // Extrai os dados dos documentos e configura o estado
-                const ofertasList = ofertasSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                setOfertas(ofertasList);
+                const response = await axios.get('http://localhost:5000/ofertas'); // Requisição ao backend
+                setOfertas(response.data);
             } catch (error) {
                 console.error('Erro ao buscar ofertas:', error);
                 setError('Erro ao buscar ofertas. Tente novamente.');
@@ -38,11 +32,7 @@ export default function ListaOferta() {
     const handleDelete = async (id) => {
         if (window.confirm('Você realmente deseja excluir esta oferta?')) {
             try {
-                // Referência para o documento da oferta a ser excluída
-                const ofertaDoc = doc(db, 'ofertas', id);
-                // Remove o documento
-                await deleteDoc(ofertaDoc);
-                // Atualiza a lista de ofertas após a exclusão
+                await axios.delete(`http://localhost:5000/ofertas/${id}`); // Requisição para excluir oferta
                 setOfertas(ofertas.filter(oferta => oferta.id !== id));
                 alert('Oferta excluída com sucesso!');
             } catch (error) {

@@ -31,12 +31,10 @@ router.get("/", (req, res) => {
             return res.status(500).send({ error: error.message });
         }
 
-        res.status(200).send({
-            mensagem: "Saídas encontradas:",
-            saidas: rows
-        });
+        res.status(200).send(rows);  // Retorna diretamente as saídas com o nome do produto
     });
 });
+
 
 // POST - Registrar nova saída
 router.post("/", (req, res) => {
@@ -75,5 +73,22 @@ router.post("/", (req, res) => {
         insert.finalize();
     });
 });
+
+// DELETE - Excluir uma saída
+router.delete("/:id", (req, res) => {
+    const { id } = req.params;
+
+    const deleteQuery = `DELETE FROM saidas WHERE id = ?`;
+    db.run(deleteQuery, [id], function (err) {
+        if (err) {
+            return res.status(500).send({ error: err.message });
+        }
+        if (this.changes === 0) {
+            return res.status(404).send({ mensagem: "Saída não encontrada." });
+        }
+        res.status(200).send({ mensagem: "Saída excluída com sucesso!" });
+    });
+});
+
 
 module.exports = router;

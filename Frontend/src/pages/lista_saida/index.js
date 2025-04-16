@@ -1,11 +1,10 @@
-// src/pages/lista_saida/index.js
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaTrash } from "react-icons/fa";
 import { MdModeEditOutline } from "react-icons/md";
-import { db, collection, getDocs, deleteDoc, doc, getDoc } from '../../firebaseConfig';
-import "./lista_saida.css";
+import axios from 'axios'; // Importando axios para requisições HTTP
 import Menu from "../componentes/menu";  
+import "./lista_saida.css";
 
 export default function ListaSaida() {
     const [saidas, setSaidas] = useState([]);
@@ -15,24 +14,22 @@ export default function ListaSaida() {
     useEffect(() => {
         const fetchSaidas = async () => {
             try {
-                const saidasCollection = collection(db, 'saidas');
-                const saidasSnapshot = await getDocs(saidasCollection);
-                const saidasList = await Promise.all(saidasSnapshot.docs.map(async (saidaDoc) => {
-                    const saidaData = saidaDoc.data();
-
+                const response = await axios.get('http://localhost:5000/saidas'); // Endpoint do backend
+                // Supondo que a resposta do backend contenha os dados das saídas
+                const saídasComProduto = await Promise.all(response.data.map(async (saida) => {
                     let nomeProduto = 'Produto não encontrado';
                     try {
-                        const produtoDoc = await getDoc(doc(db, 'produtos', saidaData.id_produto));
-                        if (produtoDoc.exists()) {
-                            nomeProduto = produtoDoc.data().nome;
+                        const produtoResponse = await axios.get(`http://localhost:5000/produtos/${saida.id_produto}`);
+                        if (produtoResponse.data) {
+                            nomeProduto = produtoResponse.data.nome;
                         }
                     } catch (produtoError) {
                         console.error('Erro ao buscar o produto:', produtoError);
                     }
 
-                    return { id: saidaDoc.id, nomeProduto, ...saidaData };
+                    return { ...saida, nomeProduto };
                 }));
-                setSaidas(saidasList);
+                setSaidas(saídasComProduto);
             } catch (error) {
                 console.error('Erro ao buscar saídas:', error);
                 setError('Erro ao buscar saídas. Tente novamente.');
@@ -48,8 +45,7 @@ export default function ListaSaida() {
         const confirmDelete = window.confirm("Tem certeza de que deseja excluir esta saída?");
         if (confirmDelete) {
             try {
-                const saidaDoc = doc(db, 'saidas', id);
-                await deleteDoc(saidaDoc);
+                await axios.delete(`http://localhost:5000/saidas/${id}`); // Requisição para excluir a saída
                 setSaidas(prevSaidas => prevSaidas.filter(saida => saida.id !== id));
                 alert('Saída excluída com sucesso!');
             } catch (error) {
@@ -70,7 +66,7 @@ export default function ListaSaida() {
     return (
         <div className="lista-saidas-container">
             <div className="menu">
-                <Menu/>
+                <Menu />
             </div>
             <h2 className="lista-saidas-title">Lista de Saídas</h2>
 

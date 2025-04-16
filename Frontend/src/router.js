@@ -44,7 +44,7 @@ export default function Rotas() {
                 <Route path="/Treinos" element={<Treinos />} />
                 <Route path="/Matricula" element={<Matricula />} />
                 <Route path="/Login" element={<Login />} />
-                <Route path="/EStoque" element={<Estoque />} />
+                <Route path="/Estoque" element={<Estoque />} />
 
                 {/* Rotas de Cadastro */}
                 <Route path="/CadastroUsuario" element={<CadastroUsuario />} />

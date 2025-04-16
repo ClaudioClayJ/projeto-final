@@ -1,8 +1,6 @@
-// src/pages/estoque/index.js
 import React, { useState, useEffect } from 'react';
-import { db, collection, getDocs } from '../../firebaseConfig';
 import "../estoque/estoque.css";
-import Menu from "../componentes/menu";  
+import Menu from "../componentes/menu";
 
 export default function Estoque() {
     const [entradas, setEntradas] = useState([]);
@@ -14,31 +12,30 @@ export default function Estoque() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // Buscar entradas
-                const entradasCollection = collection(db, 'entradas');
-                const entradasSnapshot = await getDocs(entradasCollection);
-                const entradasList = entradasSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                setEntradas(entradasList);
+                // Fazer as requisições para o backend
+                const [entradasRes, saidasRes, produtosRes] = await Promise.all([
+                    fetch("http://localhost:5000/entradas"),
+                    fetch("http://localhost:5000/saidas"),
+                    fetch("http://localhost:5000/produtos"),
+                ]);
 
-                // Buscar saídas
-                const saidasCollection = collection(db, 'saidas');
-                const saidasSnapshot = await getDocs(saidasCollection);
-                const saidasList = saidasSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                setSaidas(saidasList);
+                // Converter as respostas para JSON
+                const entradasData = await entradasRes.json();
+                const saidasData = await saidasRes.json();
+                const produtosData = await produtosRes.json();
 
-                // Buscar produtos
-                const produtosCollection = collection(db, 'produtos');
-                const produtosSnapshot = await getDocs(produtosCollection);
-                const produtosList = produtosSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                setProdutos(produtosList);
+                // Atualizar os estados com os dados
+                setEntradas(entradasData.estoque || []);
+                setSaidas(saidasData.saidas || []);
+                setProdutos(produtosData.produtos || []);
 
                 // Calcular o total do estoque
-                const total = entradasList.reduce((acc, entrada) => {
+                const total = entradasData.estoque.reduce((acc, entrada) => {
                     const quantidadeEntrada = parseFloat(entrada.quantidade) || 0;
                     const valorUnitario = parseFloat(entrada.valor_unitario) || 0;
 
                     // Calcular as saídas correspondentes a esse produto
-                    const saidasProduto = saidasList.filter(saida => saida.id_produto === entrada.id_produto);
+                    const saidasProduto = saidasData.saidas.filter(saida => saida.id_produto === entrada.id_produto);
                     const quantidadeSaidas = saidasProduto.reduce((accSaida, saida) => {
                         return accSaida + (parseFloat(saida.quantidade) || 0);
                     }, 0);
