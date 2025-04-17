@@ -1,5 +1,3 @@
-Frontend/src/pages/cadastro_matricula/index.js
-
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from 'react-router-dom';
 import '../../pages/alterar_matricula/alterar_matricula.css';

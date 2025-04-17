@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaTrash } from 'react-icons/fa';
 import { MdModeEditOutline } from 'react-icons/md';
-import "../lista_matriculas/lista_matriculas.css";
+import "../lista_matriculas/lista_matricula.css";
 import Menu from "../componentes/menu";
 
 export default function ListaMatriculas() {

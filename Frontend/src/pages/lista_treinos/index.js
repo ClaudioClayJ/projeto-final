@@ -4,7 +4,7 @@ import axios from 'axios';
 import { FaTrash } from "react-icons/fa";
 import { MdModeEditOutline } from "react-icons/md";
 import Menu from "../componentes/menu";  
-import "./lista_treinos.css";
+import "./lista_treino.css";
 
 export default function ListaTreinos() {
     const [treinos, setTreinos] = useState([]);
