@@ -2,6 +2,30 @@ const express = require('express');
 const router = express.Router();
 const db = require('../sqlite/sqlite.js');
 
+// Criação da tabela Matricula, caso não exista
+db.run(`
+    CREATE TABLE IF NOT EXISTS Matricula (
+        id INTEGER PRIMARY KEY AUTOINCREMENT, 
+        nome TEXT,
+        cpf TEXT UNIQUE NOT NULL,
+        rg TEXT,
+        dataNascimento TEXT,
+        email TEXT,
+        telefone TEXT,
+        cep TEXT,
+        endereco TEXT,
+        bairro TEXT,
+        genero TEXT,
+        plano TEXT,
+        valorPlano REAL,
+        descricaoPlano TEXT
+    )
+`, (err) => {
+    if (err) {
+        console.error("Erro ao criar a tabela Matricula:", err.message);
+    }
+});
+
 // POST - Cadastrar nova matrícula
 router.post("/", async (req, res) => {
     const {

@@ -1,50 +1,47 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom'; 
-import { db, doc, getDoc, updateDoc } from '../../firebaseConfig';
+import { Link, useParams } from 'react-router-dom';
 import "../alterar-produto/alterar_produto.css";
 
 export default function AlterarProduto() {
     const [nome, setNome] = useState('');
     const [categoria, setCategoriaProduto] = useState('');
-    const { id } = useParams(); // Obtém o ID do produto da URL
+    const { id } = useParams();
 
-    // Função para buscar o produto pelo ID
     useEffect(() => {
         const fetchProduto = async () => {
-            if (id) {
-                try {
-                    const produtoDoc = doc(db, 'produtos', id);
-                    const produtoSnapshot = await getDoc(produtoDoc);
+            try {
+                const response = await fetch(`http://localhost:5000/produtos/${id}`);
+                if (!response.ok) throw new Error("Produto não encontrado");
+                const data = await response.json();
 
-                    if (produtoSnapshot.exists()) {
-                        const produtoData = produtoSnapshot.data();
-                        setNome(produtoData.nome);
-                        setCategoriaProduto(produtoData.categoria);
-                    } else {
-                        console.error('Produto não encontrado!');
-                    }
-                } catch (error) {
-                    console.error('Erro ao buscar o produto:', error);
-                }
+                setNome(data.nome);
+                setCategoriaProduto(data.categoria);
+            } catch (error) {
+                console.error('Erro ao buscar o produto:', error);
+                alert('Erro ao buscar o produto.');
             }
         };
 
         fetchProduto();
-    }, [id]); // Recarrega quando o ID do produto muda
+    }, [id]);
 
     const handleAlterar = async (e) => {
         e.preventDefault();
 
         try {
-            // Atualiza o produto no Firestore
-            const produtoDoc = doc(db, 'produtos', id);
-            await updateDoc(produtoDoc, {
-                nome,
-                categoria
+            const response = await fetch(`http://localhost:5000/produtos/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ nome, categoria })
             });
 
-            console.log('Dados do produto:', { nome, categoria });
-            alert('Produto alterado com sucesso!');
+            if (response.ok) {
+                alert('Produto alterado com sucesso!');
+            } else {
+                alert('Erro ao alterar o produto.');
+            }
         } catch (error) {
             console.error('Erro ao alterar o produto:', error);
             alert('Erro ao alterar. Tente novamente.');
@@ -83,7 +80,6 @@ export default function AlterarProduto() {
                 <button type="submit" className="alt_produto-button-alterar">
                     Alterar
                 </button>
-               
             </form>
         </div>
     );

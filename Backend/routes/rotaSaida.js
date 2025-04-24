@@ -1,9 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const sqlite3 = require("sqlite3").verbose();
-const db = new sqlite3.Database("database.db");
+const db = require("../sqlite/sqlite");
 
-// Criação da tabela saidas
+// Criação da tabela saídas caso não exista
 db.run(`
     CREATE TABLE IF NOT EXISTS saidas (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -16,7 +15,7 @@ db.run(`
     )
 `, (error) => {
     if (error) {
-        return console.error("Erro ao criar tabela saidas:", error.message);
+        console.error("Erro ao criar tabela saidas:", error.message);
     }
 });
 
@@ -31,18 +30,26 @@ router.get("/", (req, res) => {
             return res.status(500).send({ error: error.message });
         }
 
-        res.status(200).send(rows);  // Retorna diretamente as saídas com o nome do produto
+        res.status(200).send({
+            mensagem: "Lista de saídas:",
+            saídas: rows
+        });
     });
 });
-
 
 // POST - Registrar nova saída
 router.post("/", (req, res) => {
     const { id_produto, quantidade, valor_unitario, total, data_saida } = req.body;
 
+    if (!id_produto || !quantidade || !valor_unitario || !total || !data_saida) {
+        return res.status(400).send({ error: "Todos os campos são obrigatórios." });
+    }
+
     // Verificar se há estoque suficiente
     db.get(`SELECT quantidade FROM produtos WHERE id = ?`, [id_produto], (err, row) => {
-        if (err) return res.status(500).send({ error: err.message });
+        if (err) {
+            return res.status(500).send({ error: err.message });
+        }
 
         const quantidadeDisponivel = row?.quantidade || 0;
         if (quantidade > quantidadeDisponivel) {
@@ -58,16 +65,20 @@ router.post("/", (req, res) => {
                 return res.status(500).send({ error: err.message });
             }
 
-            // Atualizar estoque
+            // Atualizar estoque após registrar a saída
             db.run(`
                 UPDATE produtos
                 SET quantidade = quantidade - ?
                 WHERE id = ?
-            `, [quantidade, id_produto]);
+            `, [quantidade, id_produto], (err) => {
+                if (err) {
+                    return res.status(500).send({ error: "Erro ao atualizar o estoque." });
+                }
 
-            res.status(201).send({
-                mensagem: "Saída registrada com sucesso!",
-                id: this.lastID
+                res.status(201).send({
+                    mensagem: "Saída registrada com sucesso!",
+                    id: this.lastID
+                });
             });
         });
         insert.finalize();
@@ -89,6 +100,5 @@ router.delete("/:id", (req, res) => {
         res.status(200).send({ mensagem: "Saída excluída com sucesso!" });
     });
 });
-
 
 module.exports = router;

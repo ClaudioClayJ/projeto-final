@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const sqlite3 = require("sqlite3").verbose();
-const db = new sqlite3.Database("database.db");
+const db = require("../sqlite/sqlite");
 
 // Criação da tabela entradas
 db.run(`
@@ -21,38 +20,39 @@ db.run(`
 });
 
 // GET - Listar todas as entradas
-router.get("/", (req, res) => {
-    db.all(`
-        SELECT e.*, p.nome AS nome_produto
-        FROM entradas e
-        JOIN produtos p ON e.id_produto = p.id
-    `, (error, rows) => {
-        if (error) {
-            return res.status(500).send({ error: error.message });
-        }
+router.get("/", async (req, res) => {
+    try {
+        const rows = await db.all(`
+            SELECT e.*, p.nome AS nome_produto
+            FROM entradas e
+            JOIN produtos p ON e.id_produto = p.id
+        `);
 
         res.status(200).send({
             mensagem: "Entradas encontradas:",
             entradas: rows
         });
-    });
+    } catch (error) {
+        res.status(500).send({ error: error.message });
+    }
 });
 
 // POST - Cadastrar nova entrada
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
     const { id_produto, quantidade, valor_unitario, total, data_entrada } = req.body;
 
-    const insert = db.prepare(`
+    const insert = await db.run(`
         INSERT INTO entradas (id_produto, quantidade, valor_unitario, total, data_entrada)
         VALUES (?, ?, ?, ?, ?)
-    `);
-    insert.run(id_produto, quantidade, valor_unitario, total, data_entrada, function (err) {
-        if (err) {
-            return res.status(500).send({ error: err.message });
-        }
+    `, [id_produto, quantidade, valor_unitario, total, data_entrada]);
 
+    if (insert.error) {
+        return res.status(500).send({ error: insert.error.message });
+    }
+
+    try {
         // Atualizar a quantidade do produto no estoque
-        db.run(`
+        await db.run(`
             UPDATE produtos
             SET quantidade = quantidade + ?
             WHERE id = ?
@@ -60,10 +60,11 @@ router.post("/", (req, res) => {
 
         res.status(201).send({
             mensagem: "Entrada registrada com sucesso!",
-            id: this.lastID
+            id: insert.id
         });
-    });
-    insert.finalize();
+    } catch (error) {
+        res.status(500).send({ error: error.message });
+    }
 });
 
 module.exports = router;

@@ -1,9 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const sqlite3 = require("sqlite3").verbose();
-const db = new sqlite3.Database("database.db");
+const db = require("../sqlite/sqlite");
 
-// Criação da tabela treino (caso não exista ainda)
+// Criação da tabela treino caso não exista
 db.run(`
     CREATE TABLE IF NOT EXISTS treino (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -19,6 +18,12 @@ router.put("/:id", (req, res) => {
     const { id } = req.params; // ID do treino
     const { id_usuario, nome_treino, descricao, data_treino } = req.body;
 
+    // Verifica se os campos obrigatórios foram preenchidos
+    if (!id_usuario || !nome_treino || !data_treino) {
+        return res.status(400).send({ erro: "Campos obrigatórios não preenchidos." });
+    }
+
+    // Atualiza o treino
     db.run(
         `UPDATE treino 
          SET id_usuario = ?, nome_treino = ?, descricao = ?, data_treino = ? 
@@ -44,10 +49,18 @@ router.put("/:id", (req, res) => {
 router.post("/", (req, res) => {
     const { id_usuario, nome_treino, descricao, data_treino } = req.body;
 
+    // Validação dos campos obrigatórios
     if (!id_usuario || !nome_treino || !data_treino) {
         return res.status(400).send({ erro: "Campos obrigatórios não preenchidos." });
     }
 
+    // Verifica se a data de treino está no formato correto (yyyy-mm-dd)
+    const dataRegex = /^\d{4}-\d{2}-\d{2}$/;
+    if (!dataRegex.test(data_treino)) {
+        return res.status(400).send({ erro: "Formato de data inválido. Use o formato yyyy-mm-dd." });
+    }
+
+    // Cadastra o novo treino
     db.run(
         `INSERT INTO treino (id_usuario, nome_treino, descricao, data_treino)
          VALUES (?, ?, ?, ?)`,
@@ -64,6 +77,5 @@ router.post("/", (req, res) => {
         }
     );
 });
-
 
 module.exports = router;
