@@ -12,8 +12,8 @@ export default function AlterarUsuario() {
     useEffect(() => {
         const fetchUsuario = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/usuarios/${id}`);
-                const usuario = response.data;
+                const response = await axios.get(`http://localhost:5000/usuario/${id}`);
+                const usuario = response.data.usuario;
 
                 setNome(usuario.nome);
                 setEmail(usuario.email);
@@ -30,7 +30,7 @@ export default function AlterarUsuario() {
     const handleAlterar = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`http://localhost:3001/usuarios/${id}`, {
+            await axios.put(`http://localhost:5000/usuario/${id}`, {
                 nome,
                 email,
                 senha
