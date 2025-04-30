@@ -22,6 +22,7 @@ app.use((req,res,next)=>{
     }
     next();
 })
+
 const rotaUsuario = require("./routes/rotaUsuario");
 const rotaProduto = require("./routes/rotaProduto");
 const rotaEstoque = require("./routes/rotaEstoque");
@@ -40,5 +41,3 @@ app.use("/matricula", rotaMatricula);
 app.use("/oferta", rotaOfertas);
 app.use("/treino", rotaTreino);
 module.exports = app
-
-

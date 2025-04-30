@@ -10,7 +10,7 @@ export default function AlterarProduto() {
     useEffect(() => {
         const fetchProduto = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/produtos/${id}`);
+                const response = await fetch(`http://localhost:5000/produto/${id}`);
                 if (!response.ok) throw new Error("Produto não encontrado");
                 const data = await response.json();
 
@@ -29,7 +29,7 @@ export default function AlterarProduto() {
         e.preventDefault();
 
         try {
-            const response = await fetch(`http://localhost:5000/produtos/${id}`, {
+            const response = await fetch(`http://localhost:5000/produto/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'

@@ -20,3 +20,4 @@ process.on("SIGINT", () => {
     process.exit(0); // Encerra o processo
   });
 });
+

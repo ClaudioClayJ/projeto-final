@@ -15,8 +15,8 @@ export default function ListaProduto() {
         // Função para buscar produtos do backend (SQLite)
         const fetchProdutos = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/produtos'); // Endpoint do backend
-                setProdutos(response.data);
+                const response = await axios.get('http://localhost:5000/produto'); // Endpoint do backend
+                setProdutos(response.data.produtos);
             } catch (error) {
                 console.error('Erro ao buscar produtos:', error);
                 setError('Erro ao buscar produtos. Tente novamente.');
@@ -33,7 +33,7 @@ export default function ListaProduto() {
         const confirmDelete = window.confirm("Tem certeza de que deseja excluir este produto?");
         if (confirmDelete) {
             try {
-                await axios.delete(`http://localhost:5000/produtos/${id}`); // Requisição para excluir produto
+                await axios.delete(`http://localhost:5000/produto/${id}`); // Requisição para excluir produto
                 setProdutos(produtos.filter(produto => produto.id !== id));
                 alert('Produto excluído com sucesso!');
             } catch (error) {
